@@ -1,0 +1,40 @@
+.mat-card-avatar {
+  height: 60px;
+  width: 112px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.mat-card-avatar:hover {
+  
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform:scale(1.3);transform:scale(1.3);
+  transform-style: preserve-3d;
+  overflow:hidden;}
+ 
+
+.example-header-image-logo {
+  background-image: url('src/assets/icons/LogoMore.jpg');
+  background-size: cover;
+  margin-left: 40%;
+}
+
+ .grecaptcha-badge {
+  width: 70px !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+  left: -2px !important;
+  bottom: 20px !important;
+  }
+  .grecaptcha-badge:hover {
+  width: 256px !important;
+  }
+ mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-form-field {
+  display: block;
+}

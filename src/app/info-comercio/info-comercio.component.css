@@ -1,0 +1,20 @@
+.FONDO{
+    width: 50%;
+    height: 40%;
+    background-color: whitesmoke;
+    
+    /* box-sizing: border-box; */
+    margin: 0px;
+    padding: 0px;
+    margin-left: 25%;
+    margin-top: 5%;
+    text-align: justify;
+    }
+    
+    .UBUCACION {
+        margin: 0px;
+        padding: 0px;
+        margin-left: 25%;
+        margin-top: 5%;
+
+    }

@@ -1,0 +1,100 @@
+
+<nav  style="height: 10%;"  class="docs-navbar-header navbar  navbar-dark bg-dark" 
+>
+  <!-- <a  aria-label="Angular Material" class="docs-button mat-button"> -->
+<div class="box" *ngIf="showAdminBoard || showSuperAdminBoard" > 
+
+<button mat-mini-fab aria-label="Example icon button with a menu icon"  [matMenuTriggerFor]="Menu" >   <mat-icon *ngIf="showAdminBoard || showSuperAdminBoard"> list_alt</mat-icon> </button>
+</div>
+
+<div  class="nombre">
+ 
+<a href="#" style="font-size: medium;" class="navbar-brand">ADMIN-MORE-SOFTWARE</a>
+
+</div>
+
+
+
+
+
+
+
+
+<div  class="nombre">
+  
+<ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+  <li class="nav-item">
+
+    <a href="#" class="navbar-brand"  >  <mat-icon> person_pin</mat-icon> {{ username }}</a>
+  </li>
+</ul>
+</div>
+<!-- <div  class="salir"> -->
+<ul class="navbar-nav ml-auto " *ngIf="isLoggedIn">
+  <li class="nav-item salir">
+    <button mat-mini-fab class="nav-link" (click)="logout()"  >  <mat-icon style="color: black;">exit_to_app</mat-icon> </button>
+ 
+  </li>
+</ul>
+<!-- </div> -->
+
+
+<mat-menu #Menu="matMenu"> 
+  <button mat-menu-item [matMenuTriggerFor]="Configuraciones"><mat-icon style="color: black;">settings</mat-icon>Configuraciones</button>
+  <button mat-menu-item [matMenuTriggerFor]="Conversaciones"><mat-icon style="color: black;"> business</mat-icon>Call center</button>
+  <button mat-menu-item [matMenuTriggerFor]="Comercio"> <mat-icon style="color: black;">store_mall_directory</mat-icon>Comercio</button>
+  <button mat-menu-item [matMenuTriggerFor]="Eventos"> <mat-icon style="color: black;">casino</mat-icon>Eventos</button>
+</mat-menu>
+
+<mat-menu #Configuraciones="matMenu">
+  <a mat-button href="/register" routerLink="register"><mat-icon>supervised_user_circle</mat-icon> Registrar usuarios</a>
+  
+  <a *ngIf="showSuperAdminBoard" mat-button href="/activaModulo" routerLink="activaModulo"><mat-icon style="color: black;">view_module</mat-icon>Activar Modulos</a>
+  <!-- <button mat-menu-item [matMenuTriggerFor]="amphibians">Amphibians</button>
+  <button mat-menu-item [matMenuTriggerFor]="reptiles">Reptiles</button>
+  <button mat-menu-item>Birds</button>
+  <button mat-menu-item>Mammals</button> -->
+</mat-menu>
+<!-- href="/listAso"  routerLink="listAso"-->
+<mat-menu #Conversaciones="matMenu"   >
+  <button  mat-menu-item  (click)="services.ValidarModulo('/listAso','Call center')"  ><mat-icon style="color: black;">view_list</mat-icon> Solicitudes</button>
+  <button  mat-menu-item (click)="services.ValidarModulo('/Informes','Call center')"  ><mat-icon style="color: black;"> bar_chart</mat-icon>Informes</button> 
+</mat-menu>
+
+<mat-menu #Comercio="matMenu">
+  <button  mat-menu-item  (click)="services.ValidarModulo('/Archivos','Comercio')"  > <mat-icon style="color: black;">library_add</mat-icon>Cargue de Archivos</button>
+  <button  mat-menu-item (click)="services.ValidarModulo('/Infocomercio','Comercio')"  ><mat-icon style="color: black;"> bar_chart</mat-icon>Informes</button> 
+</mat-menu>
+
+<mat-menu #Eventos="matMenu">
+  <button  mat-menu-item  (click)="services.ValidarModulo('/lectorqr','Eventos')"  > <mat-icon style="color: black;">photo_camera</mat-icon>Validaciòn de QR</button>
+  <!-- <button  mat-menu-item (click)="services.ValidarModulo('/Infocomercio','lectorQR')"  ><mat-icon style="color: black;"> bar_chart</mat-icon>Informes</button>  -->
+</mat-menu>
+
+
+<!-- <mat-menu #Informes="matMenu">
+  <button mat-menu-item>Baikal oilfish</button>
+  <button mat-menu-item>Bala shark</button>
+  <button mat-menu-item>Ballan wrasse</button>
+  <button mat-menu-item>Bamboo shark</button>
+  <button mat-menu-item>Banded killifish</button>
+</mat-menu> -->
+<!-- 
+<mat-menu #amphibians="matMenu">
+  <button mat-menu-item>Sonoran desert toad</button>
+  <button mat-menu-item>Western toad</button>
+  <button mat-menu-item>Arroyo toad</button>
+  <button mat-menu-item>Yosemite toad</button>
+</mat-menu> -->
+
+<!-- <mat-menu #reptiles="matMenu">
+  <button mat-menu-item>Banded Day Gecko</button>
+  <button mat-menu-item>Banded Gila Monster</button>
+  <button mat-menu-item>Black Tree Monitor</button>
+  <button mat-menu-item>Blue Spiny Lizard</button>
+  <button mat-menu-item disabled>Velociraptor</button>
+</mat-menu> -->
+<!-- </a> -->
+</nav>
+
+<router-outlet></router-outlet>

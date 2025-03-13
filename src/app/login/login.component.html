@@ -1,0 +1,78 @@
+
+
+ <app-doughnut *ngIf="isLoggedIn"> </app-doughnut> 
+<!-- <app-lector-qr *ngIf="isLoggedIn"> </app-lector-qr> -->
+    
+  <mat-card *ngIf="!isLoggedIn">
+    <mat-card-content>
+
+
+
+      <div  class="nombre">
+  
+        <ul class="navbar-nav ml-auto" >
+          <div mat-card-avatar class="example-header-image-logo"></div>
+           <!-- /// <img  src="assets/icons/LogoMore.jpg" alt="Imagen" > -->
+           
+          
+        </ul>
+        </div>
+
+
+      <form    #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <h1>Bienvenido a MORE
+<p style=" font-size: small;">
+  Software para la administración de WhatsApp
+</p>
+</h1>
+        
+       
+        <!-- <mat-error *ngIf="!isLoggedIn">
+          The username and password were not recognized
+        </mat-error> -->
+        <mat-form-field>
+          <input matInput placeholder="Usuario" [(ngModel)]="form.username" name="username" required>
+          <mat-error>
+           Por favor valide su usuario...
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Clave" [(ngModel)]="form.password" name="password" required>
+          <mat-error>
+       Por favor valide su clave... 
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Nit" [(ngModel)]="form.Nit" name="Nit" required>
+          <mat-error>
+            Porfavor verifique su Nit...
+          </mat-error>
+        </mat-form-field>
+    
+        
+          <!-- <div class="row mt-3">
+            <div class="col-sm-12 mb-2">
+              <re-captcha id="recaptcha" name="recaptcha" [(ngModel)]="form.token" required [class.is-invalid]="loginForm.invalid && (loginForm.dirty || loginForm.touched)" ></re-captcha>
+              <div *ngIf="loginForm.invalid && (loginForm.dirty || loginForm.touched)" class="invalid-feedback" required>
+                <div *ngIf="loginForm.errors?.['required']">This field is required.</div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="row">
+            <div class="col-sm-12 mb-2">
+              <button type="button" class="btn btn-sm btn-primary" (click)="send(form)">Send</button>
+            </div>
+          </div> -->
+        
+          <div style="left: 50%; text-align: -webkit-center;">
+          <re-captcha  class="g-recaptcha" 
+          (resolved)="resolved($event)" name="recaptcha"  
+          siteKey="6Lc4kNgqAAAAAMIXmv8XD_Yze9SvNNlSFCerN15X"
+        ></re-captcha>
+      </div>
+        <button  mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Ingresar</button>
+      
+      </form>
+    </mat-card-content>
+  </mat-card>

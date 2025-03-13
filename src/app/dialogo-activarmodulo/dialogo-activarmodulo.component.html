@@ -1,0 +1,84 @@
+<h1 mat-dialog-title>Activación de Modulos</h1>
+
+<!-- <form class="custom-form "*ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate
+> -->
+<!-- style="display: none;" -->
+ 
+<button style="left: 83%;" mat-raised-button    (click)="Limpiar()" ><mat-icon>remove_from_queue</mat-icon>Limpiar</button>
+                   
+       
+<form class="example-form"  [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+    <!-- <input  type="number"  [(ngModel)]="form.idRegistro" matInput [formControl]="CodigoFormControl" [errorStateMatcher]="matcher"
+    > -->
+<mat-card appearance="outlined">
+<mat-card-content>
+
+   
+
+    <div   class=" col-md-4 aline" >
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Entidad </mat-label>
+      <input type="text"  id="Entidad" matInput  formControlName="Entidad" [errorStateMatcher]="matcher"
+             placeholder="JDM">
+      <mat-hint>
+Mensaje de validación</mat-hint>
+      <mat-error *ngIf="form.get('Entidad').hasError('required') && !form.get('Entidad').hasError('required')">
+       Por favor Verifique su Entidad <strong>Requerida</strong>
+      </mat-error>
+      <mat-error *ngIf="form.get('Entidad').hasError('required')">
+        Entidad es <strong>Requerido</strong>
+      </mat-error>
+    </mat-form-field>
+    </div>
+    <div   class=" col-md-4 aline" >
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Modulos:</mat-label>
+          <mat-select  id="Modulo" matInput  formControlName="Modulo"    [errorStateMatcher]="matcher">    
+            <mat-option value="Call Center">Call Center </mat-option>                       
+            <mat-option value="Comercio">Comercio</mat-option>
+            <mat-option value="Eventos">Eventos</mat-option>
+            
+          </mat-select>
+
+          <mat-hint>
+            Mensaje de validación</mat-hint>
+           <mat-error *ngIf="form.hasError('required')">Clase Atención es <strong>Requerida</strong>
+          </mat-error>
+        </mat-form-field>
+        </div>
+
+                    <div   class=" col-md-4 aline" >
+                        <mat-form-field class="example-full-width" appearance="fill">
+                          <mat-label>Estado</mat-label>
+                          <mat-select  id="Estado" matInput  formControlName="Estado"  [errorStateMatcher]="matcher">                           
+                            <mat-option value="A">Activo</mat-option>
+                            <mat-option value="I">Inactivo</mat-option>
+                          </mat-select>
+                          <mat-hint>Mensaje de validación</mat-hint>
+                           <mat-error *ngIf="form.hasError('required')">
+                            Estado es <strong>Requerido</strong>
+                          </mat-error>
+                        </mat-form-field>
+                        </div>
+
+
+                      
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card appearance="outlined" style="      height: 70px;  text-align: center;
+                    align-content: center">
+                        <mat-card-content>
+ <button class="btn btn-primary "> <mat-icon>{{icono}}</mat-icon> {{titulo}}</button>
+ 
+ <button class="btn btn-primary " (click)="onNoClick()" > 	<mat-icon>cancel</mat-icon> Cancelar</button>
+
+</mat-card-content>
+</mat-card>
+<!-- </div>
+</div> -->
+</form>
+
+
+<div class="alert alert-success" *ngIf="isSuccessful">
+    Your registration is successful!
+  </div>

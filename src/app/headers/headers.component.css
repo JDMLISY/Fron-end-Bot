@@ -1,0 +1,9 @@
+.salir {
+    float: right;
+    
+    margin-right: auto;
+  }
+  .mat-mini-fab {
+    color:black;
+    background-color:palegreen;
+      }

@@ -1,0 +1,82 @@
+
+<div   style=" width:80%;
+margin:auto;
+height: 600px;"
+>
+<mat-card  style="margin-top: -20px;" appearance="outlined">
+  <mat-card-header>
+    <!-- <mat-card-title>{{contacto}}</mat-card-title> -->
+  </mat-card-header>
+  <mat-card-content   >
+ 
+    <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()" >
+        <table class="table">
+            <tr><th style="float: left; font-size: 10px;">Instrucción: <p    style="width: 500px;"> 
+                Esta opción es para terminar cada radicado de las solicitudes ejecutadas  por el usuario 
+                por favor ingresa la descripción y deja registro de la gestion realizada.  
+           </p> </th></tr>
+          <tr>
+            <th style="float: left;">Radicado:</th>            
+          </tr>
+     
+            <td>
+              <mat-form-field appearance="outline">
+                <!-- 2. Asignar ese control con su respectivo correlativo -->
+                <mat-select formControlName="Lista" [errorStateMatcher]="matcher"  placeholder="Select" multiple>
+                  <mat-option *ngFor="let op of dataDescripciones1" [value]="op.Radicado" >
+                    {{op.Radicado}}  {{op.Tipo_atencion}}
+                  </mat-option>
+                </mat-select>
+
+                <mat-hint style="margin-top: 10px;">
+                    Mensaje de validación</mat-hint>
+                         
+                          <mat-error style="margin-top: 10px;" *ngIf="form.get('Lista').hasError('required')">
+                          El Campo radicado es <strong>Requerido</strong>
+                          </mat-error>
+                               
+              </mat-form-field>
+            </td>
+ <tr>
+    <th>
+        <mat-form-field class="example-full-width">
+            <mat-label>Descripción de la atención</mat-label>
+            <textarea formControlName="Descripcion" [errorStateMatcher]="matcher" matInput placeholder="Ingresa tu gestion..."></textarea>
+            <mat-hint style="margin-top: 10px;">
+                Mensaje de validación</mat-hint>
+                     
+                      <mat-error  style="margin-top: 10px;" *ngIf="form.get('Descripcion').hasError('required')">
+                        El Campo Descripción es <strong>Requerido</strong>
+                      </mat-error>
+          </mat-form-field>
+  
+    </th>
+ </tr>
+        </table><br>
+       
+
+        <div style="float: left; margin-top: 20px;
+      margin-left: 100px;">
+     <button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block"> <mat-icon>save</mat-icon>Guardar</button>
+    </div>
+  
+
+      </form>
+
+
+      <div style="float: left; margin-top: 20px;">
+        
+      <button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block" (click)="onNoClick()" ><mat-icon>cancel</mat-icon>volver</button>
+      </div>
+
+
+  
+
+
+
+</mat-card-content>
+<mat-card-footer class="example-card-footer">
+  </mat-card-footer>
+</mat-card>
+
+</div>

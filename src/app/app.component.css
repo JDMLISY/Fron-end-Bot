@@ -1,0 +1,29 @@
+
+
+.aline{
+    float: left;
+   
+}
+
+.box {
+    float: left;
+    display: flex;
+    flex-wrap: wrap;   
+    align-content: space-between;
+  }
+  .salir {
+    float: right;
+    
+    margin-right: auto;
+  }
+
+  .nombre {    
+    text-align: right;
+    display:inline-block;
+    margin-right: auto;
+  }
+
+  .mat-mini-fab {
+color:black;
+background-color:palegreen;
+  }

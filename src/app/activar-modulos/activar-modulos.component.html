@@ -1,0 +1,213 @@
+<!-- 
+<form class="example-form"  [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+ 
+<mat-card appearance="outlined" style="height: fit-content;">
+<mat-card-content style="float: center;  width: initial;"  >
+    <div   class=" col-md-2 aline"  >
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Entidad </mat-label>
+      <input type="text"  id="Entidad" matInput  formControlName="Entidad" [errorStateMatcher]="matcher"
+             placeholder="JDM">
+      <mat-hint>
+Mensaje de validación</mat-hint>
+      <mat-error *ngIf="form.get('Entidad').hasError('required') && !form.get('Entidad').hasError('required')">
+       Por favor Verifique su usuario <strong>Requerida</strong>
+      </mat-error>
+      <mat-error *ngIf="form.get('Entidad').hasError('required')">
+        Entidad es <strong>Requerido</strong>
+      </mat-error>
+    </mat-form-field>
+    </div>
+     <div   class=" col-md-2 aline" >
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <mat-label>Modulo</mat-label>
+                      <mat-select  id="Modulo" matInput  formControlName="Modulo"  [errorStateMatcher]="matcher">
+                        
+                        <mat-option value="CA">Callcenter</mat-option>
+                        <mat-option value="CO">Comercio</mat-option>
+                      </mat-select>
+                      <mat-hint>Mensaje de validación</mat-hint>
+                       <mat-error *ngIf="form.hasError('required')">
+                        Modulo es <strong>Requerido</strong>
+                      </mat-error>
+                    </mat-form-field>
+                    </div>
+    <div   class=" col-md-2 aline" >
+                        <mat-form-field class="example-full-width" appearance="fill">
+                          <mat-label>Estado</mat-label>
+                          <mat-select  id="Estado" matInput  formControlName="Estado"  [errorStateMatcher]="matcher">                           
+                            <mat-option value="A">Activo</mat-option>
+                            <mat-option value="I">Inactivo</mat-option>
+                          </mat-select>
+                          <mat-hint>Mensaje de validación</mat-hint>
+                           <mat-error *ngIf="form.hasError('required')">
+                            Estado es <strong>Requerido</strong>
+                          </mat-error>
+                        </mat-form-field>
+                        </div>
+    
+   
+               
+              <div class=" col-md-12 aline" style="   float: left;
+              left: 20%; " >
+
+                          <button class="btn btn-primary "> <mat-icon>save_alt</mat-icon> Registrar</button>
+                          <button class="btn btn-primary " (click)="onNoClick()" > 	<mat-icon>cancel</mat-icon> Cancelar</button>
+                        
+                        
+                        </div>
+  
+
+
+
+
+
+
+
+    
+<div style="float: center;  margin: 0 auto;   
+margin-right: auto; width: 60%;">
+    
+ 
+ 
+ 
+<mat-form-field appearance="standard">
+
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+
+    <ng-container matColumnDef="idRegistro">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.idRegistro}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Nombre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+      <td mat-cell *matCellDef="let row"> {{row.Nombre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Usuario">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </th>
+      <td mat-cell *matCellDef="let row"> {{row.Usuario}} </td>
+    </ng-container>
+
+     
+    <ng-container matColumnDef="Estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> estado </th>
+      <td mat-cell *matCellDef="let row"> {{row.nombreestado}} </td>
+      </ng-container>
+
+    <ng-container matColumnDef="Editar">
+      <th mat-header-cell *matHeaderCellDef> Editar </th>
+      <td mat-cell *matCellDef="let row; let i = index;">
+ 
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="5">No data matching the filter "{{input.value}}"</td>
+    </tr>
+    
+   
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+
+  
+</div>
+
+</div>
+
+</mat-card-content>
+</mat-card>
+
+</form> -->
+
+<div style="float: center;  margin: 0 auto;   
+margin-right: auto; width: 60%;">
+    <div style="float: right;    
+    margin-right: auto;">
+     <button mat-raised-button (click)="openDialog()">
+      <mat-icon>add_circle</mat-icon>
+               Activar Modulo
+      </button>
+    </div>
+ 
+ 
+ 
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+
+    <ng-container matColumnDef="idRegistro">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.idRegistro}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Entidad">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Entidad </th>
+      <td mat-cell *matCellDef="let row"> {{row.Entidad}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Modulo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Modulo </th>
+      <td mat-cell *matCellDef="let row"> {{row.Modulo}} </td>
+    </ng-container>
+
+     
+    <ng-container matColumnDef="Estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> estado </th>
+      <td mat-cell *matCellDef="let row"> {{row.Estado}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Fecha_Creacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha_Creacion </th>
+        <td mat-cell *matCellDef="let row"> {{row.Fecha_Creacion}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="ultima_Fecha_estado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ultima_Fecha_estado </th>
+          <td mat-cell *matCellDef="let row"> {{row.ultima_Fecha_estado}} </td>
+          </ng-container>
+        
+
+
+    <ng-container matColumnDef="Editar">
+      <th mat-header-cell *matHeaderCellDef> Editar </th>
+      <td mat-cell *matCellDef="let row; let i = index;">
+        <button mat-raised-button class="btn btn-primary btn-block" focusable="false" (click)="editar(row)">
+          <mat-icon> border_color</mat-icon> Editar
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="8">No data matching the filter "{{input.value}}"</td>
+    </tr>
+      
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+
+  <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100,10]" aria-label="Select page of users"></mat-paginator> -->
+</div>
+
+</div>

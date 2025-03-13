@@ -1,0 +1,46 @@
+
+<div class="FONDO">
+
+    
+    <app-headers valor="Informes de Comercio (Ferias)"></app-headers>
+ 
+
+<div class="UBUCACION">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- <h1 class="my-2">Cargar archivos</h1> -->
+            <form>
+                <div class="input-group mb-3">
+                    <mat-icon style="margin-top: 15px;">local_printshop</mat-icon>
+                    <!-- <mat-icon style="margin-top: 5px;">file_copy</mat-icon> -->
+                 
+                 
+                    <div  class=" col-md-4 aline" style="width: max-content;" >
+                        <mat-form-field class="example-full-width" appearance="fill">
+                          <mat-label>Informe</mat-label>
+              
+                   
+                          <mat-select  id="Estado" (selectionChange)="Consultarinfo($event)">                           
+                            <mat-option value="Proveedores">Proveedores</mat-option>
+                            <mat-option value="Asociados">Asociados</mat-option>
+                            <mat-option value="Compras">Compras</mat-option>
+                            <mat-option value="Ventas">Ventas</mat-option>
+                            <mat-option value="Ventasporoperador">Ventasporoperador</mat-option>
+                            <mat-option value="VentasporoperadorProveedor">VentasporoperadorProveedor</mat-option>
+                            <mat-option value="OperadoresProveedores">OperadoresProveedores</mat-option>
+                            <mat-option value="OperadoresProveedoresdesdeoperador">OperadoresProveedoresdesdeoperador</mat-option>
+                            <mat-option value="Operadores">Operadores</mat-option>
+                            
+                            
+                          </mat-select>
+                        
+                        </mat-form-field>
+                        </div>
+                </div>
+                
+                <!-- <button class="w-100 btn btn-primary btn-lg" type="button" (click)="save()"><mat-icon>cloud_upload</mat-icon> Subir Archivo</button> -->
+            </form>
+        </div>
+   
+    </div>
+</div>

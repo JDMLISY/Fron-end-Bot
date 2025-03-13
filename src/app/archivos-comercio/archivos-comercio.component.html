@@ -1,0 +1,23 @@
+
+
+<div class="FONDO">
+
+
+    <app-headers valor="Cargue de archivos para modulo de comercio (Ferias)"></app-headers>
+
+<div class="UBUCACION">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- <h1 class="my-2">Cargar archivos</h1> -->
+            <form>
+                <div class="input-group mb-3">
+                    <mat-icon style="margin-top: 5px;">file_copy</mat-icon>
+                    <input type="file" class="form-control" accept=".xlsx" id="photoUrl" (change)="onFileChange($event)">
+                </div>
+                
+                <button class="w-100 btn btn-primary btn-lg" type="button" (click)="save()"><mat-icon>cloud_upload</mat-icon> Subir Archivo</button>
+            </form>
+        </div>
+   
+    </div>
+</div>
