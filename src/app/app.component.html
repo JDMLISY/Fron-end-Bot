@@ -2,9 +2,9 @@
 <nav  style="height: 10%;"  class="docs-navbar-header navbar  navbar-dark bg-dark" 
 >
   <!-- <a  aria-label="Angular Material" class="docs-button mat-button"> -->
-<div class="box" *ngIf="showAdminBoard || showSuperAdminBoard" > 
+<div class="box" *ngIf="showAdminBoard || showSuperAdminBoard || showModeratorBoard" > 
 
-<button mat-mini-fab aria-label="Example icon button with a menu icon"  [matMenuTriggerFor]="Menu" >   <mat-icon *ngIf="showAdminBoard || showSuperAdminBoard"> list_alt</mat-icon> </button>
+<button mat-mini-fab aria-label="Example icon button with a menu icon"  [matMenuTriggerFor]="Menu" >   <mat-icon *ngIf="showAdminBoard || showSuperAdminBoard || showModeratorBoard"> list_alt</mat-icon> </button>
 </div>
 
 <div  class="nombre">
@@ -40,14 +40,14 @@
 
 
 <mat-menu #Menu="matMenu"> 
-  <button mat-menu-item [matMenuTriggerFor]="Configuraciones"><mat-icon style="color: black;">settings</mat-icon>Configuraciones</button>
+  <button mat-menu-item [matMenuTriggerFor]="Configuraciones" *ngIf="showSuperAdminBoard ||showAdminBoard"><mat-icon style="color: black;">settings</mat-icon>Configuraciones</button>
   <button mat-menu-item [matMenuTriggerFor]="Conversaciones"><mat-icon style="color: black;"> business</mat-icon>Call center</button>
   <button mat-menu-item [matMenuTriggerFor]="Comercio"> <mat-icon style="color: black;">store_mall_directory</mat-icon>Comercio</button>
   <button mat-menu-item [matMenuTriggerFor]="Eventos"> <mat-icon style="color: black;">casino</mat-icon>Eventos</button>
 </mat-menu>
 
 <mat-menu #Configuraciones="matMenu">
-  <a mat-button href="/register" routerLink="register"><mat-icon>supervised_user_circle</mat-icon> Registrar usuarios</a>
+  <a *ngIf="showSuperAdminBoard ||showAdminBoard" mat-button href="/register" routerLink="register"><mat-icon>supervised_user_circle</mat-icon> Registrar usuarios</a>
   
   <a *ngIf="showSuperAdminBoard" mat-button href="/activaModulo" routerLink="activaModulo"><mat-icon style="color: black;">view_module</mat-icon>Activar Modulos</a>
   <!-- <button mat-menu-item [matMenuTriggerFor]="amphibians">Amphibians</button>
@@ -59,6 +59,8 @@
 <mat-menu #Conversaciones="matMenu"   >
   <button  mat-menu-item  (click)="services.ValidarModulo('/listAso','Call center')"  ><mat-icon style="color: black;">view_list</mat-icon> Solicitudes</button>
   <button  mat-menu-item (click)="services.ValidarModulo('/Informes','Call center')"  ><mat-icon style="color: black;"> bar_chart</mat-icon>Informes</button> 
+  <button  mat-menu-item (click)="openDialog()" *ngIf="showSuperAdminBoard ||showAdminBoard"  ><mat-icon style="color: black;">list</mat-icon>Activar radicados</button> 
+  
 </mat-menu>
 
 <mat-menu #Comercio="matMenu">

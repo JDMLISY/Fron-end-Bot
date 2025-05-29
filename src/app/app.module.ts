@@ -65,6 +65,7 @@ import { ChatService } from './web-socket.service';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ActivarModulosComponent } from './activar-modulos/activar-modulos.component';
 import { DialogoActivarmoduloComponent } from './dialogo-activarmodulo/dialogo-activarmodulo.component';
+import { estadoradicadosComponent } from './estado-radicados/estado-radicados.component';
 import { ArchivosComercioComponent } from './archivos-comercio/archivos-comercio.component';
 import { HeadersComponent } from './headers/headers.component';
 import { InfoComercioComponent } from './info-comercio/info-comercio.component';
@@ -74,6 +75,16 @@ import {LectorQRComponent } from './lector-qr/lector-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { RecaptchaModule } from "ng-recaptcha";
 import { environment } from '../environments/environment';
+import {WebcamModule} from 'ngx-webcam';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { MatCheckboxModule } from '@angular/material/checkbox'; 
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -91,6 +102,7 @@ import { environment } from '../environments/environment';
     GestionSolicitudesComponent,
     ActivarModulosComponent,
     DialogoActivarmoduloComponent,
+    estadoradicadosComponent,
     ArchivosComercioComponent,
     HeadersComponent,
     InfoComercioComponent,
@@ -143,7 +155,16 @@ import { environment } from '../environments/environment';
   ScrollingModule,
   MatChipsModule,  
   ZXingScannerModule,
-  RecaptchaModule
+  RecaptchaModule,WebcamModule,
+  NgxDropzoneModule,
+  PickerModule,
+  MatCheckboxModule,
+  MatExpansionModule,
+  MatTooltipModule 
+
+  
+  
+  
  
   
 

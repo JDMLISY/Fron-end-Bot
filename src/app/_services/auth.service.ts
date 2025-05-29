@@ -7,14 +7,12 @@ import {Router} from '@angular/router';
 import { UserService } from '../_services/user.service';
 
 
-
 const AUTH_API = environment.AUTH_API;
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json',
     
    })
 };
-
 
 
 @Injectable({
@@ -27,8 +25,7 @@ export class AuthService {
   constructor(private userService :UserService,private http: HttpClient, private tokenStorage: TokenStorageService,private router:Router ) { 
 
   }
-
-  
+ 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json',
       'authorization': this.tokenStorage.getUser().accessToken,
@@ -45,6 +42,15 @@ export class AuthService {
   }
 
   RequestData(newData: string,NombreMetodo:string,numero: string): Observable<any> {
+    
+    return this.http.post(AUTH_API + NombreMetodo , {newData,
+      Nit: this.tokenStorage.getUser().Nit,
+      numero:numero
+      
+    }, httpOptions);
+  }
+
+  RequestDataobject(newData: any,NombreMetodo:string,numero: string): Observable<any> {
     
     return this.http.post(AUTH_API + NombreMetodo , {newData,
       Nit: this.tokenStorage.getUser().Nit,
@@ -130,17 +136,25 @@ if(  this.data1.Codigo == '401')
   
         
 
-   upload(file: File): Observable<any> {
+   upload(file: File,dedonde: string,numero:string): Observable<any> {
     const formData: FormData = new FormData();
 var nit = this.tokenStorage.getUser().Nit
     formData.append('file', file);
     formData.append("Nit",nit);
+    formData.append("numero",numero);
+    if (dedonde == "Chat")
+      {
+    return this.http.post(`${AUTH_API}/uploadChat`, formData ,  {
+      reportProgress: true,
+      responseType: 'json'
+    });
+  }else{
     return this.http.post(`${AUTH_API}/upload`, formData ,  {
       reportProgress: true,
       responseType: 'json'
-      
-      
     });
+  }
+
   
 
 

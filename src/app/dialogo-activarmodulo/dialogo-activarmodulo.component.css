@@ -9,6 +9,7 @@
     /* max-height: 65vh; */
     /* overflow: auto; */
     -webkit-overflow-scrolling: touch;
+    height: max-content;
 }
 
 .mat-card {
@@ -26,9 +27,12 @@
     width: 100%;
     /* outline-style: auto; */
     box-sizing: border-box;
-     margin-top: 1%; 
+     margin-top: -10%; 
+     margin-left: 80%
+     
     
 }
+
 .btn-block+.btn-block {
      margin-top: .1rem; 
 }

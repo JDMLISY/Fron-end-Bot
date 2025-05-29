@@ -36,20 +36,21 @@ export class UserService {
     return this.http.get(AUTH_API + 'admin', { responseType: 'text' });
   }
 
-  Solicitudes(NombreMetodo:string,data: string,tipoconsulta: string,numero:string,cedula: string ): Observable<any> {
-    return this.http.post(AUTH_API + NombreMetodo, {data,
+  Solicitudes(NombreMetodo:string,tipoAtencion: string,tipoconsulta: string,numero:string,cedula: string,listabot:string ): Observable<any> {
+    return this.http.post(AUTH_API + NombreMetodo, {tipoAtencion: tipoAtencion,
       Nit: this.tokenStorage.getUser().Nit, 
       tipoconsulta: tipoconsulta  ,
       numero:numero,
-      cedula  
+      cedula,
+      listabot: listabot  
       // Nombre,
       
     }, httpOptions);
     
   }
 
-  conversaciones(NombreMetodo:string,data: string, numero:string): Observable<any> {
-    return this.http.post(AUTH_API + NombreMetodo, {data,
+  conversaciones(NombreMetodo:string, numero:string): Observable<any> {
+    return this.http.post(AUTH_API + NombreMetodo, {
       Nit: this.tokenStorage.getUser().Nit,
       numero: numero
       // Nombre,
@@ -89,4 +90,13 @@ export class UserService {
           this.toastr.warning(mensaje, titulo);
           }
   }
+
+
+  // this.http.post('http://localhost:3000/upload', formData).subscribe(
+  //   response => console.log('Archivo subido con éxito:', response),
+  //   error => console.error('Error al subir el archivo:', error)
+  // );
+
+
+
 }

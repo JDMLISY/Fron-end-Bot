@@ -1,5 +1,5 @@
 
-<div class="FONDO">
+<!-- <div class="FONDO">
 
     
     <app-headers valor="Informes de Comercio (Ferias)"></app-headers>
@@ -8,11 +8,11 @@
 <div class="UBUCACION">
     <div class="row">
         <div class="col-lg-8">
-            <!-- <h1 class="my-2">Cargar archivos</h1> -->
+            
             <form>
                 <div class="input-group mb-3">
                     <mat-icon style="margin-top: 15px;">local_printshop</mat-icon>
-                    <!-- <mat-icon style="margin-top: 5px;">file_copy</mat-icon> -->
+            
                  
                  
                     <div  class=" col-md-4 aline" style="width: max-content;" >
@@ -38,9 +38,39 @@
                         </div>
                 </div>
                 
-                <!-- <button class="w-100 btn btn-primary btn-lg" type="button" (click)="save()"><mat-icon>cloud_upload</mat-icon> Subir Archivo</button> -->
+            
             </form>
-        </div>
-   
-    </div>
-</div>
+        </div> -->
+
+        <div class="FONDO">
+
+            <app-headers valor="Informes de Comercio (Ferias)"></app-headers>
+          
+            <div class="UBUCACION d-flex justify-content-center align-items-center" >
+              <form style="width: 100%; max-width: 500px;">
+                <mat-card class="mat-elevation-z4 p-4" style="border-radius: 20px; background-color: #f9f9f9; text-align: center;">
+                  
+                  <div class="mb-4">
+                    <mat-icon style="font-size: 40px; color: black;">local_printshop</mat-icon>
+                  </div>
+          
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Informe</mat-label>
+                    <mat-select id="Estado" (selectionChange)="Consultarinfo($event)">
+                      <mat-option value="Proveedores">Proveedores</mat-option>
+                      <mat-option value="Asociados">Asociados</mat-option>
+                      <mat-option value="Compras">Compras</mat-option>
+                      <mat-option value="Ventas">Ventas</mat-option>
+                      <mat-option value="Ventasporoperador">Ventas por operador</mat-option>
+                      <mat-option value="VentasporoperadorProveedor">Ventas por operador/proveedor</mat-option>
+                      <mat-option value="OperadoresProveedores">Operadores y proveedores</mat-option>
+                      <mat-option value="OperadoresProveedoresdesdeoperador">Desde operador</mat-option>
+                      <mat-option value="Operadores">Operadores</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+          
+                </mat-card>
+              </form>
+            </div>
+          </div>
+          

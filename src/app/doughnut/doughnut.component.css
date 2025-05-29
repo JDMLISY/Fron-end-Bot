@@ -1,0 +1,17 @@
+.chart-container {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin: 1rem auto;
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  canvas {
+    display: block;
+    max-width: 100%;
+    height: auto !important;
+  }
+  

@@ -1,0 +1,7 @@
+{
+"/api": {
+"target": "http://whatsapp.soari.co:50001",
+"secure": false
+ }
+    }
+    

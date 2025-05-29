@@ -6,12 +6,10 @@ margin-right: auto; width: 60%;">
 
     </div> -->
  
-
+<!-- 
 <div class="FONDO">
   <app-headers valor="Informes varios de gestión"></app-headers>
-<!--  
-    <div style="float: center;  ;   
-    margin-right: auto; width: 60%;"> -->
+
         <div style="margin-right: auto; ">
          <button mat-raised-button  (click)="traer_archivo('Solicitudes')" style="  width: 205px;  margin-top: 10%;
          margin-left: 10%;">
@@ -28,16 +26,29 @@ margin-right: auto; width: 60%;">
           Conversaciones (Excel)
            </button>
          </div>
-        <!-- <div style="margin-right: auto;">
-          <button mat-raised-button  (click)="traer_archivo()" style="    margin-top: 5%;
-          margin-left: 10%;">
-          <i class="material-icons">archive</i>
-                  Conversaciones(Excel)
-           </button>
-         </div> -->
+       
+</div> -->
+<div class="informes-container">
+  <app-headers valor="Informes varios de gestión"></app-headers>
 
-    <!-- </div> -->
-  <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100,10]" aria-label="Select page of users"></mat-paginator> -->
+  <div class="informes-botones">
+    <button mat-raised-button color="primary" (click)="traer_archivo('Solicitudes')" class="boton-informe">
+      <mat-icon>archive</mat-icon>
+      Solicitudes (Excel)
+      <mat-icon class="extra-icon">file_download</mat-icon>
+    </button>
+
+    <button mat-raised-button color="accent" (click)="traer_archivo('Conversacion')" class="boton-informe">
+      <mat-icon>chat</mat-icon>
+      Conversaciones (Excel)
+      <mat-icon class="extra-icon">file_download</mat-icon>
+    </button>
+
+    <!-- <button mat-raised-button color="warn" (click)="traer_archivo('Reportes')" class="boton-informe">
+      <mat-icon>assessment</mat-icon>
+      Reportes (PDF)
+      <mat-icon class="extra-icon">file_download</mat-icon>
+    </button> -->
+  </div>
 </div>
-
 

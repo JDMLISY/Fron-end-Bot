@@ -1,4 +1,7 @@
 {
+  
+
+  
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
     "analytics": false
@@ -17,6 +20,8 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+    
+
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -39,13 +44,18 @@
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/ngx-toastr/toastr.css",
+              
                            {
                 
                 "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
               },
+
               "src/custom-theme.scss",
               "node_modules/minireset.css/minireset.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/@ctrl/ngx-emoji-mart/picker.css"
+
+              
             ],
             "scripts": [
               "./node_modules/hammerjs/hammer.min.js"
@@ -85,6 +95,9 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+            },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {

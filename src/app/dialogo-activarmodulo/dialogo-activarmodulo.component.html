@@ -5,7 +5,10 @@
 <!-- style="display: none;" -->
  
 <button style="left: 83%;" mat-raised-button    (click)="Limpiar()" ><mat-icon>remove_from_queue</mat-icon>Limpiar</button>
-                   
+<div style="right: 83%;">
+<button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block" (click)="Limpiar()"><mat-icon>remove_from_queue</mat-icon>Limpiar</button>
+</div>
+      
        
 <form class="example-form"  [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
     <!-- <input  type="number"  [(ngModel)]="form.idRegistro" matInput [formControl]="CodigoFormControl" [errorStateMatcher]="matcher"
@@ -68,9 +71,19 @@ Mensaje de validación</mat-hint>
                     <mat-card appearance="outlined" style="      height: 70px;  text-align: center;
                     align-content: center">
                         <mat-card-content>
- <button class="btn btn-primary "> <mat-icon>{{icono}}</mat-icon> {{titulo}}</button>
+                          <div style="float: left; margin-top: 20px;
+                          margin-left: 100px;">
+                         <button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block"> <mat-icon>save</mat-icon>Guardar</button>
+                        </div>
+                      
+                        <div style="float: left; margin-top: 20px;">
+        
+                          <button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block" (click)="onNoClick()" ><mat-icon>cancel</mat-icon>volver</button>
+                          </div>
+                    
+ <!-- <button class="btn btn-primary "> <mat-icon>{{icono}}</mat-icon> {{titulo}}</button> -->
  
- <button class="btn btn-primary " (click)="onNoClick()" > 	<mat-icon>cancel</mat-icon> Cancelar</button>
+ <!-- <button class="btn btn-primary " (click)="onNoClick()" > 	<mat-icon>cancel</mat-icon> Cancelar</button> -->
 
 </mat-card-content>
 </mat-card>

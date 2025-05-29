@@ -53,7 +53,7 @@ export class ArchivosComercioComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-         this.authService.upload(this.currentFile).subscribe({
+         this.authService.upload(this.currentFile,"Archivo",'').subscribe({
           next: data => { 
   
          console.log(data)

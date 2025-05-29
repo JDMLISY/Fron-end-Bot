@@ -11,3 +11,97 @@ margin-left: 10%;
 margin-top: 5%;
 
 }
+/* .informes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--color-secondary);
+    min-height: 100vh;
+  }
+   */
+   .informes-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 4rem;
+    width: 100%;
+    max-width: 400px;
+    align-items: center;       /* centra horizontalmente */
+    justify-content: center;   /* centra verticalmente si hay espacio */
+    margin-left: auto;
+    margin-right: auto;        /* centra el contenedor de botones */
+  }
+  
+  .informes-botones button {
+    width: 100%;  /* ocupan todo el ancho del contenedor padre */
+    font-size: 1.1rem;
+    text-transform: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .informes-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .informes-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .boton-informe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+    text-transform: none;
+  }
+  
+  .boton-informe .extra-icon {
+    margin-left: auto;
+    opacity: 0.7;
+  }
+  app-headers {
+    display: block;          /* que ocupe todo el ancho disponible */
+    width: 100%;
+    padding: 1.5rem 0;
+    text-align: center;
+    font-size: 2.2rem;       /* fuente grande */
+    font-weight: 700;
+    color: var(--color-primary, #1976d2);  /* si usas variables, o pon un color fijo */
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    margin-bottom: 2rem;
+    background-color: #f5f9ff; /* un fondo claro para que destaque */
+    border-radius: 8px;
+  }
+
+  .informes-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem 3rem;
+    background: linear-gradient(135deg, #f0f4ff, #d9e4ff); /* azul muy suave degradado */
+    box-shadow: 0 8px 20px rgba(25, 118, 210, 0.3),  /* sombra azul suave */
+                0 0 15px rgba(25, 118, 210, 0.2) inset; /* sombra interna para relieve */
+    border-radius: 20px;
+    border: 1px solid #b0c4ff; /* borde azul claro */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .informes-container:hover {
+    box-shadow: 0 12px 30px rgba(25, 118, 210, 0.5), 
+                0 0 20px rgba(25, 118, 210, 0.35) inset;
+  }
+  

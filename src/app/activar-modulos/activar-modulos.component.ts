@@ -94,7 +94,7 @@ export class ActivarModulosComponent {
       
       openDialog(): void {
         const dialogRef = this.dialog.open(DialogoActivarmoduloComponent, {
-          height: '300px',
+         height: 'max-content',    
           width: '700px',
           data: {idRegistro: 0},
         });
@@ -111,8 +111,8 @@ export class ActivarModulosComponent {
         
         
         const dialogRef = this.dialog.open(DialogoActivarmoduloComponent, {
-          height: '500px',
-          width: '750px',
+          height: 'max-content',    
+          width: '700px',             
           data:  Codigo,
         });
     

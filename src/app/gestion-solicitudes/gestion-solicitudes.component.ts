@@ -91,7 +91,7 @@ Descripcion: ""
     this.authService.RequestData(this.form.value,'GuardarGestion',this.numero).subscribe({
       next: data => {
      
-        this.userService.showSuccess(data.message,"Datos Ingresados",'success')
+        this.userService.showSuccess(data[0].message,"Datos Ingresados",'success')
         // this.isSuccessful = true;
         // this.isSignUpFailed = false;
         // setTimeout(() => this.Limpiar(), 1000);

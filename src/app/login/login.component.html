@@ -1,8 +1,7 @@
 
 
- <app-doughnut *ngIf="isLoggedIn"> </app-doughnut> 
-<!-- <app-lector-qr *ngIf="isLoggedIn"> </app-lector-qr> -->
-    
+ <!-- <app-doughnut *ngIf="isLoggedIn"> </app-doughnut> 
+  
   <mat-card *ngIf="!isLoggedIn">
     <mat-card-content>
 
@@ -12,9 +11,6 @@
   
         <ul class="navbar-nav ml-auto" >
           <div mat-card-avatar class="example-header-image-logo"></div>
-           <!-- /// <img  src="assets/icons/LogoMore.jpg" alt="Imagen" > -->
-           
-          
         </ul>
         </div>
 
@@ -25,11 +21,6 @@
   Software para la administración de WhatsApp
 </p>
 </h1>
-        
-       
-        <!-- <mat-error *ngIf="!isLoggedIn">
-          The username and password were not recognized
-        </mat-error> -->
         <mat-form-field>
           <input matInput placeholder="Usuario" [(ngModel)]="form.username" name="username" required>
           <mat-error>
@@ -50,20 +41,7 @@
           </mat-error>
         </mat-form-field>
     
-        
-          <!-- <div class="row mt-3">
-            <div class="col-sm-12 mb-2">
-              <re-captcha id="recaptcha" name="recaptcha" [(ngModel)]="form.token" required [class.is-invalid]="loginForm.invalid && (loginForm.dirty || loginForm.touched)" ></re-captcha>
-              <div *ngIf="loginForm.invalid && (loginForm.dirty || loginForm.touched)" class="invalid-feedback" required>
-                <div *ngIf="loginForm.errors?.['required']">This field is required.</div>
-              </div>
-            </div>
-          </div> -->
-          <!-- <div class="row">
-            <div class="col-sm-12 mb-2">
-              <button type="button" class="btn btn-sm btn-primary" (click)="send(form)">Send</button>
-            </div>
-          </div> -->
+                
         
           <div style="left: 50%; text-align: -webkit-center;">
           <re-captcha  class="g-recaptcha" 
@@ -73,6 +51,51 @@
       </div>
         <button  mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Ingresar</button>
       
+      </form>
+    </mat-card-content>
+  </mat-card> -->
+  <app-doughnut *ngIf="isLoggedIn"></app-doughnut>
+
+  <mat-card *ngIf="!isLoggedIn" class="login-card">
+    <mat-card-header>
+      <div mat-card-avatar class="login-logo"></div>
+      <mat-card-title>Bienvenido a <strong>MORE</strong></mat-card-title>
+      <mat-card-subtitle>Software para la administración de WhatsApp</mat-card-subtitle>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-label>Usuario</mat-label>
+          <input matInput [(ngModel)]="form.username" name="username" required>
+          <mat-error *ngIf="!form.username">Por favor valide su usuario...</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-label>Clave</mat-label>
+          <input matInput type="password" [(ngModel)]="form.password" name="password" required>
+          <mat-error *ngIf="!form.password">Por favor valide su clave...</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-label>NIT</mat-label>
+          <input matInput [(ngModel)]="form.Nit" name="Nit" required>
+          <mat-error *ngIf="!form.Nit">Por favor verifique su NIT...</mat-error>
+        </mat-form-field>
+  
+        <div class="captcha-container">
+          <re-captcha class="g-recaptcha"
+                      (resolved)="resolved($event)"
+                      name="recaptcha"
+                      siteKey="6Lc4kNgqAAAAAMIXmv8XD_Yze9SvNNlSFCerN15X">
+          </re-captcha>
+        </div>
+  
+        <div class="btn-container">
+          <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">
+            Ingresar
+          </button>
+        </div>
       </form>
     </mat-card-content>
   </mat-card>

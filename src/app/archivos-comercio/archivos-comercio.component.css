@@ -3,7 +3,7 @@
     height: 40%;
     background-color: whitesmoke;
     
-    /* box-sizing: border-box; */
+    
     margin: 0px;
     padding: 0px;
     margin-left: 25%;
@@ -30,3 +30,54 @@
         color:black;
         background-color:palegreen;
           }
+
+          /* .fondo-carga {
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          
+          mat-card {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+          }
+          
+          mat-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+          }
+          
+          .input-file-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #cfd8dc;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            background-color: #fafafa;
+          }
+          
+          .input-file-wrapper input[type="file"] {
+            border: none;
+            background: transparent;
+            outline: none;
+            flex-grow: 1;
+          }
+          
+          .file-icon {
+            color: #1976d2;
+          }
+          
+          .upload-button {
+            width: 100%;
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+          }
+           */

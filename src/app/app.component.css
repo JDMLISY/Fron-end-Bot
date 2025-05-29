@@ -27,3 +27,73 @@
 color:black;
 background-color:palegreen;
   }
+
+  docs-navbar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    height: 64px;
+    background-color: #1e1e2f !important;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  }
+  
+  /* Espaciado interno para secciones */
+  .nombre {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Botones mini fab */
+  button[mat-mini-fab] {
+    background-color: #4caf50;
+    color: white;
+    margin-right: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[mat-mini-fab]:hover {
+    background-color: #45a049;
+  }
+  
+  /* Iconos en el menú */
+  mat-menu mat-icon {
+    margin-right: 8px;
+  }
+  
+  /* Estilo para los enlaces de usuario */
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff !important;
+    text-decoration: none;
+  }
+  
+  .navbar-brand:hover {
+    color: #a0e4ff !important;
+  }
+  
+  /* Salida (logout) */
+  .salir {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+  }
+  
+  /* Responsive layout (opcional) */
+  @media (max-width: 768px) {
+    .docs-navbar-header {
+      flex-direction: column;
+      height: auto;
+      padding: 0.5rem;
+      gap: 10px;
+    }
+  
+    .nombre, .salir {
+      justify-content: center;
+      width: 100%;
+    }
+  }

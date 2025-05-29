@@ -133,8 +133,8 @@ margin-right: auto; width: 60%;">
 
 </form> -->
 
-<div style="float: center;  margin: 0 auto;   
-margin-right: auto; width: 60%;">
+<div class="main-container">
+  <div class="top-actions">
     <div style="float: right;    
     margin-right: auto;">
      <button mat-raised-button (click)="openDialog()">
@@ -145,10 +145,12 @@ margin-right: auto; width: 60%;">
  
  
  
-<mat-form-field appearance="standard">
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-</mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+    
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>

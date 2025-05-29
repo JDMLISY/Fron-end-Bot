@@ -110,4 +110,132 @@ table {
 td, th {
   width: 25%;
 }
+.main-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
 
+/* Top section con botón y filtro */
+.top-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Botón */
+.top-actions button[mat-raised-button] {
+  background: linear-gradient(to right, #4caf50, #66bb6a);
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.top-actions button[mat-raised-button]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+/* Campo filtro */
+mat-form-field {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Tabla */
+.mat-elevation-z8 {
+  border-radius: 12px;
+  overflow: auto;
+  width: 100%;
+}
+
+/* Cabecera tabla */
+table.mat-table th.mat-header-cell {
+  background-color: #2e3a59;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 1rem;
+  text-transform: uppercase;
+}
+
+/* Celdas */
+table.mat-table td.mat-cell {
+  font-size: 14px;
+  padding: 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Botón editar */
+button.btn.btn-primary {
+  background: linear-gradient(to right, #2196f3, #42a5f5);
+  color: white;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.2s ease;
+}
+
+button.btn.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+/* Paginador */
+mat-paginator {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+mat-form-field mat-icon[matPrefix] {
+  margin-right: 0.5rem;
+  color: #555;
+}
+.compact-table .mat-header-cell,
+.compact-table .mat-cell {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* Reduce altura mínima de filas */
+.compact-table .mat-row,
+.compact-table .mat-header-row {
+  min-height: 36px;
+}
+
+/* Botones dentro de la tabla más pequeños */
+.compact-table button.mat-raised-button {
+  padding: 4px 10px;
+  font-size: 12px;
+  min-height: 32px;
+}
+
+/* Íconos más pequeños */
+.compact-table mat-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+/* Reducir espacio vertical general */
+.compact-table {
+  margin-top: 10px;
+}

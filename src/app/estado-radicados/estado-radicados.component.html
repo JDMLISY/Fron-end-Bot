@@ -1,0 +1,259 @@
+
+
+<div class="contenedor-formulario">
+  <mat-card appearance="outlined">
+    <mat-card-header></mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+        <table class="table">
+          <tr>
+            <td colspan="2">
+              <p class="titulo-seccion">Instrucción:</p>
+              <p style="font-size: 13px; width: 100%;">
+                Esta opción permite habilitar de nuevo los radicados de las solicitudes ejecutadas por el usuario.
+                Selecciona el asesor al cual le vas a habilitar de nuevo el radicado.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <p class="titulo-seccion">Asesor</p>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="Lista" [errorStateMatcher]="matcher" placeholder="Seleccionar asesor"
+                            (selectionChange)="gestionarestadosolicitudes($event.value)">
+                  <mat-option *ngFor="let op of dataDescripciones1" [value]="op.Nombre">
+                    {{ op.Nombre }}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>Mensaje de validación</mat-hint>
+                <mat-error *ngIf="form?.get('Lista')?.hasError('required')">
+                  El campo asesor es <strong>requerido</strong>.
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <p class="titulo-seccion">Radicados:</p>
+              <div class="tabla-radicados">
+                <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+                  <ng-container matColumnDef="seleccion">
+                    <mat-header-cell *matHeaderCellDef>
+                      <mat-checkbox (change)="toggleAllRows($event)"
+                                    [checked]="isAllSelected()"
+                                    [indeterminate]="isSomeSelected()"></mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="toggleRow(row)"
+                                    [checked]="selection.includes(row)">
+                      </mat-checkbox>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="idRegistro">
+                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.idRegistro }}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Tipo_atencion">
+                    <mat-header-cell *matHeaderCellDef>Atención</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.Tipo_atencion }}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Numero_asociado">
+                    <mat-header-cell *matHeaderCellDef>Número</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.Numero_asociado }}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="contacto">
+                    <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.contacto }}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Radicado">
+                    <mat-header-cell *matHeaderCellDef>Radicado</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.Radicado }}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="fecha_solicitud">
+                    <mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.fecha_solicitud | date:'short' }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+              </div>
+
+              <div *ngIf="selection.length === 0 && submitted" style="color: red; margin-top: 10px;">
+                Debes seleccionar al menos un radicado.
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="botonera">
+          <button mat-raised-button color="primary" style="width: 130px;">
+            <mat-icon>save</mat-icon>Guardar
+          </button>
+
+          <button mat-raised-button color="warn" style="width: 130px;" (click)="onNoClick()">
+            <mat-icon>cancel</mat-icon>Volver
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-footer class="example-card-footer"></mat-card-footer>
+  </mat-card>
+</div>
+
+
+<!-- <div class="contenedor-formulario">
+
+  <mat-card style="margin-top: -20px;" appearance="outlined">
+    <mat-card-header>
+      
+    </mat-card-header>
+    <mat-card-content>
+
+      <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+        <table class="table">
+          <tr>
+            <p class="titulo-seccion">Instrucción: </p>
+            <th style="float: left; font-size: 10px;">
+              <p style="width: 500px;">
+                Esta opción Permite habilitar de nuevo los radicados de las solicitudes ejecutadas por el usuario
+                selecciona el asesor al cual le vas habilitar de nuevo el radicado.
+
+              </p>
+            </th>
+          </tr>
+          <tr>
+            <p class="titulo-seccion">Asesor </p>
+          </tr>
+
+          <td>
+            <mat-form-field appearance="outline">
+              
+              <mat-select formControlName="Lista" [errorStateMatcher]="matcher" placeholder="seleccion"
+                (selectionChange)="gestionarestadosolicitudes($event.value)">
+                <mat-option *ngFor="let op of dataDescripciones1" [value]="op.Nombre">
+                  {{op.Nombre}}
+                </mat-option>
+              </mat-select>
+
+              <mat-hint style="margin-top: 10px;">
+                Mensaje de validación</mat-hint>
+
+              <mat-error style="margin-top: 10px;" *ngIf="form && form.get('Lista')?.hasError('required')">
+                El Campo asesor es <strong>Requerido</strong>
+              </mat-error>
+
+            </mat-form-field>
+          </td>
+
+
+
+          <tr>
+            <p class="titulo-seccion">Radicados:</p>
+          </tr>
+
+          <tr>
+
+
+
+            <div class="tabla-radicados">
+              <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+                
+                <ng-container matColumnDef="seleccion">
+                  <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="toggleAllRows($event)" [checked]="isAllSelected()"
+                      [indeterminate]="isSomeSelected()"></mat-checkbox>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="toggleRow(row)"
+                      [checked]="selection.includes(row)"></mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+
+                
+                <ng-container matColumnDef="idRegistro">
+                  <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{ element.idRegistro }}</mat-cell>
+                </ng-container>
+
+                
+                <ng-container matColumnDef="Tipo_atencion">
+                  <mat-header-cell *matHeaderCellDef>Atención</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{ element.Tipo_atencion }}</mat-cell>
+                </ng-container>
+
+                
+                <ng-container matColumnDef="Numero_asociado">
+                  <mat-header-cell *matHeaderCellDef>Número</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{ element.Numero_asociado }}</mat-cell>
+                </ng-container>
+
+                
+                <ng-container matColumnDef="contacto">
+                  <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{ element.contacto }}</mat-cell>
+                </ng-container>
+
+                
+                <ng-container matColumnDef="Radicado">
+                  <mat-header-cell *matHeaderCellDef>Radicado</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{ element.Radicado }}</mat-cell>
+                </ng-container>
+
+                
+                <ng-container matColumnDef="fecha_solicitud">
+                  <mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{ element.fecha_solicitud | date:'short' }}</mat-cell>
+                </ng-container>
+
+            
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+              </mat-table>
+
+
+            </div>
+
+            
+            <div *ngIf="selection.length === 0 && submitted" style="color: red; margin-top: 10px;">
+              Debes seleccionar al menos un radicado.
+            </div>
+
+
+
+          </tr>
+        </table><br>
+
+        <div class="botonera">
+          <button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block">
+            <mat-icon>save</mat-icon>Guardar</button>
+
+          <button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block"
+            (click)="onNoClick()"><mat-icon>cancel</mat-icon>volver</button>
+
+        </div>
+
+      </form>
+
+
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer">
+    </mat-card-footer>
+  </mat-card>
+</div> -->
