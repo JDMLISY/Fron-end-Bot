@@ -1,169 +1,112 @@
-<h1 mat-dialog-title>Matricula Usuarios</h1>
 
-<!-- <form class="custom-form "*ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate
-> -->
-<!-- style="display: none;" -->
- 
-<button style="left: 83%;" mat-raised-button    (click)="Limpiar()" ><mat-icon>remove_from_queue</mat-icon>Limpiar</button>
-                   
-       
-<form class="example-form"  [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
-    <!-- <input  type="number"  [(ngModel)]="form.idRegistro" matInput [formControl]="CodigoFormControl" [errorStateMatcher]="matcher"
-    > -->
-<mat-card appearance="outlined">
-<mat-card-content>
-
-   
-
-    <div   class=" col-md-4 aline" >
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Codigo </mat-label>
-      <input type="text"  id="Usuario" matInput  formControlName="Usuario" [errorStateMatcher]="matcher"
-             placeholder="JDM">
-      <mat-hint>
-Mensaje de validación</mat-hint>
-      <mat-error *ngIf="form.get('Usuario').hasError('required') && !form.get('Usuario').hasError('required')">
-       Por favor Verifique su usuario <strong>Requerida</strong>
-      </mat-error>
-      <mat-error *ngIf="form.get('Usuario').hasError('required')">
-        Usuario es <strong>Requerido</strong>
-      </mat-error>
-    </mat-form-field>
-    </div>
-
-    <div   class=" col-md-4 aline" >
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Nombre </mat-label>
-          <input type="text"  id="Nombre" matInput  formControlName="Nombre" [errorStateMatcher]="matcher"
-                 placeholder="Nombre">
-          <mat-hint>
-
-
-Mensaje de validación</mat-hint>
-          <mat-error *ngIf="form.get('Nombre').hasError('maxLength')  && !form.get('Nombre').hasError('required')">
-          por favor valide su Nombre
-          </mat-error>
-          <mat-error *ngIf="form.get('Nombre').hasError('required')">
-           Nombre es <strong> Requerido</strong>
-          </mat-error>
-        </mat-form-field>
-        </div>
-
-        <div   class=" col-md-4 aline" >
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Password </mat-label>
-              <input type="password"  id="Password" matInput  formControlName="Password" [errorStateMatcher]="matcher"
-                     placeholder="Contraseña">
-              <mat-hint>Mensaje de validación</mat-hint>
-              <mat-error *ngIf="form.hasError('pattern') && !form.hasError('required')">
-                La contraseña debe contener al menos un número, una letra mayúscula, una minúscula y al menos 8 caracteres.
-                <br>La contraseña no puede contener espacios en blanco.
-              </mat-error>
-              <mat-error *ngIf="form.hasError('required')">
-                Contraseña es <strong>Requerida</strong>
-              </mat-error>
-            </mat-form-field>
-            </div>
-        </mat-card-content>
-    </mat-card>
-    <mat-card appearance="outlined">
-        <mat-card-content>
-            <div   class=" col-md-4 aline" >
-                <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Correo</mat-label>
-                  <input type="email"  id="Email" matInput  formControlName="Email"  [errorStateMatcher]="matcher"
-                         placeholder="Email">
-                  <mat-hint>Mensaje de validación</mat-hint>
-                  <mat-error *ngIf="form.hasError('Email') && !form.hasError('required')">
-                    Por favor, introduce una dirección de correo electrónico válida                 
-                  </mat-error>
-                  <mat-error *ngIf="form.hasError('required')">
-                    Email is <strong>Requerido</strong>
-                  </mat-error>
-                </mat-form-field>
-                </div>
-     
-                <div   class=" col-md-4 aline" >
-                    <mat-form-field class="example-full-width" appearance="fill">
-                      <mat-label>Celular</mat-label>
-                      <input type="text"  id="Celular" matInput  formControlName="Celular" [errorStateMatcher]="matcher"
-                             placeholder="Celular">
-                   <mat-hint>Mensaje de validación</mat-hint>
-                      <mat-error *ngIf="form.hasError('required')">
-                        Celular es <strong>Requerido</strong>
-                      </mat-error>
-                    </mat-form-field>
-                    </div>
-         
-                <div   class=" col-md-4 aline" >
-                    <mat-form-field class="example-full-width" appearance="fill">
-                      <mat-label>Perfil</mat-label>
-                      <mat-select  id="Perfil" matInput  formControlName="Perfil"  [errorStateMatcher]="matcher">
-                        
-                        <mat-option value="A">Administrador</mat-option>
-                        <mat-option value="U">Usuario</mat-option>
-                      </mat-select>
-                      <mat-hint>Mensaje de validación</mat-hint>
-                       <mat-error *ngIf="form.hasError('required')">
-                        Perfil es <strong>Requerido</strong>
-                      </mat-error>
-                    </mat-form-field>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-            <mat-card appearance="outlined">
-                <mat-card-content>
-                    <div   class=" col-md-4 aline" >
-                        <mat-form-field class="example-full-width" appearance="fill">
-                          <mat-label>Estado</mat-label>
-                          <mat-select  id="Estado" matInput  formControlName="Estado"  [errorStateMatcher]="matcher">                           
-                            <mat-option value="A">Activo</mat-option>
-                            <mat-option value="I">Inactivo</mat-option>
-                          </mat-select>
-                          <mat-hint>Mensaje de validación</mat-hint>
-                           <mat-error *ngIf="form.hasError('required')">
-                            Estado es <strong>Requerido</strong>
-                          </mat-error>
-                        </mat-form-field>
-                        </div>
-
-
-                        <div   class=" col-md-4 aline" >
-                            <mat-form-field class="example-full-width" appearance="fill">
-                              <mat-label>Atencion de clientes:</mat-label>
-                              <mat-select  id="Tipo_atencion" matInput  formControlName="Tipo_atencion"    [errorStateMatcher]="matcher">    
-                                <mat-option value="T">Todos </mat-option>                       
-                                <mat-option value="A">Ahorro a la vista</mat-option>
-                                <mat-option value="C">Créditos</mat-option>
-                                <mat-option value="E">Estados de cuenta</mat-option>
-                                <mat-option value="CP">Cotización de pólizas</mat-option>
-                                <mat-option value="CE">Certificados</mat-option>                                
-                                <mat-option value="DN">Descuentos de nómina</mat-option>
-                                <mat-option value="EC">Envío de consignaciones</mat-option>
-                                <mat-option value="CB">Compra Boleteria de cine</mat-option>
-                                <mat-option value="CA">Comunicarse con asesor</mat-option>                                
-                                <mat-option value="N">Sin asignación</mat-option>
-                              </mat-select>
-
-                              <mat-hint>
-                                Mensaje de validación</mat-hint>
-                               <mat-error *ngIf="form.hasError('required')">Clase Atención es <strong>Requerida</strong>
-                              </mat-error>
-                            </mat-form-field>
-                            </div>
-                
-                        </mat-card-content>
-                    </mat-card>
-         
- <button class="btn btn-primary btn-block"> <mat-icon>save_alt</mat-icon> Registrar</button>
   
-<!-- </div>
-</div> -->
-</form>
-
-
-    <button class="btn btn-primary btn-block" (click)="onNoClick()" > 	<mat-icon>cancel</mat-icon> Cancelar</button>
-
-<div class="alert alert-success" *ngIf="isSuccessful">
-    Your registration is successful!
+  <mat-toolbar color="primary" class="cabecera">
+    <mat-icon>person_add</mat-icon>
+    <span>Matrícula de Usuarios</span>
+  
+    <span class="spacer"></span>
+    <button mat-raised-button color="accent" (click)="Limpiar()">
+      <mat-icon>remove_from_queue</mat-icon>&nbsp;Limpiar
+    </button>
+  </mat-toolbar>
+  
+  <form class="formulario" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+    <mat-card appearance="outlined">
+      <mat-card-content class="form-grid">
+  
+        <!-- Usuario -->
+        <mat-form-field appearance="fill">
+          <mat-label>Código</mat-label>
+          <input matInput id="Usuario" formControlName="Usuario" placeholder="JDM" />
+          <mat-error *ngIf="form.get('Usuario').hasError('required')">Usuario es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Nombre -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput id="Nombre" formControlName="Nombre" placeholder="Nombre" />
+          <mat-error *ngIf="form.get('Nombre').hasError('required')">Nombre es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Password -->
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput id="Password" type="password" formControlName="Password" placeholder="Contraseña" />
+          <mat-error *ngIf="form.hasError('pattern')">
+            La contraseña debe tener mayúscula, minúscula, número y mínimo 8 caracteres.
+          </mat-error>
+          <mat-error *ngIf="form.hasError('required')">Contraseña es <strong>Requerida</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Email -->
+        <mat-form-field appearance="fill">
+          <mat-label>Correo</mat-label>
+          <input matInput type="email" id="Email" formControlName="Email" placeholder="Email" />
+          <mat-error *ngIf="form.hasError('required')">Email es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Celular -->
+        <mat-form-field appearance="fill">
+          <mat-label>Celular</mat-label>
+          <input matInput id="Celular" formControlName="Celular" placeholder="Celular" />
+          <mat-error *ngIf="form.hasError('required')">Celular es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Perfil -->
+        <mat-form-field appearance="fill">
+          <mat-label>Perfil</mat-label>
+          <mat-select id="Perfil" formControlName="Perfil">
+            <mat-option value="A">Administrador</mat-option>
+            <mat-option value="U">Usuario</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.hasError('required')">Perfil es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Estado -->
+        <mat-form-field appearance="fill">
+          <mat-label>Estado</mat-label>
+          <mat-select id="Estado" formControlName="Estado">
+            <mat-option value="A">Activo</mat-option>
+            <mat-option value="I">Inactivo</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.hasError('required')">Estado es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Tipo de Atención -->
+        <mat-form-field appearance="fill">
+          <mat-label>Atención de Clientes</mat-label>
+          <mat-select id="Tipo_atencion" formControlName="Tipo_atencion">
+            <mat-option value="T">Todos</mat-option>
+            <mat-option value="A">Ahorro a la vista</mat-option>
+            <mat-option value="C">Créditos</mat-option>
+            <mat-option value="E">Estados de cuenta</mat-option>
+            <mat-option value="CP">Cotización de pólizas</mat-option>
+            <mat-option value="CE">Certificados</mat-option>
+            <mat-option value="DN">Descuentos de nómina</mat-option>
+            <mat-option value="EC">Envío de consignaciones</mat-option>
+            <mat-option value="CB">Compra Boletería de cine</mat-option>
+            <mat-option value="CA">Comunicarse con asesor</mat-option>
+            <mat-option value="N">Sin asignación</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.hasError('required')">Clase Atención es <strong>Requerida</strong></mat-error>
+        </mat-form-field>
+  
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="botones-card" appearance="outlined">
+      <mat-card-content class="botones-container">
+        <button mat-raised-button color="primary" type="submit">
+          <mat-icon>save_alt</mat-icon>&nbsp;Registrar
+        </button>
+        <button mat-raised-button color="warn" type="button" (click)="onNoClick()">
+          <mat-icon>cancel</mat-icon>&nbsp;Cancelar
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </form>
+  
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    ¡Tu registro fue exitoso!
   </div>
+  

@@ -1,13 +1,6 @@
 <div class="menu">
   <div class="example-ripple-container mat-elevation-z4 menusub" matRipple [matRippleCentered]="centered"
     [matRippleDisabled]="disabled" [matRippleUnbounded]="unbounded">
-
-
-
-
-
-
-
     <mat-selection-list #shoes>
 
 
@@ -16,80 +9,29 @@
         <mat-accordion multi>
           <mat-expansion-panel *ngFor="let item of typesOfShoes">
             <mat-expansion-panel-header>
-              <mat-panel-title
-                matTooltip="{{ item.cantidad }} solicitudes"
-                matTooltipPosition="above"
-              >
+              <mat-panel-title matTooltip="{{ item.cantidad }} solicitudes" matTooltipPosition="above">
                 <mat-icon>folder</mat-icon> {{ item.tipo_atencion }}
               </mat-panel-title>
-        
+
               <mat-panel-description>
-                <mat-icon    matTooltip="{{ item.cantidad }} solicitudes"
-                matTooltipPosition="above">chat</mat-icon>
-                <!-- <span class="badge"    matTooltip="{{ item.cantidad }} solicitudes"
-                matTooltipPosition="above">{{ item.cantidad }}</span> -->
+                <mat-icon matTooltip="{{ item.cantidad }} solicitudes" matTooltipPosition="above">chat</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-        
+
             <mat-list>
-              <mat-list-item
-                *ngFor="let contacto of item.contactos"
-                (click)="filtrar_solicitudes(contacto.contacto, contacto.numero,contacto.identificacion,contacto.Tipo_atencion)"
-              >
+              <mat-list-item *ngFor="let contacto of item.contactos"
+                (click)="filtrar_solicitudes(contacto.contacto, contacto.numero,contacto.identificacion,contacto.Tipo_atencion)">
                 <mat-icon matListIcon>person</mat-icon>
                 <div matLine class="contacto-info">
                   <span class="contacto-nombre">{{ contacto.contacto }}</span>
-                  <span class="badge" *ngIf="contacto.cantidad"    matTooltip="{{ item.cantidad }} solicitudes"
-                  matTooltipPosition="above">{{ contacto.cantidad }}</span>
+                  <span class="badge" *ngIf="contacto.cantidad" matTooltip="{{ item.cantidad }} solicitudes"
+                    matTooltipPosition="above">{{ contacto.cantidad }}</span>
                 </div>
               </mat-list-item>
             </mat-list>
           </mat-expansion-panel>
         </mat-accordion>
-        
-        <!-- <mat-accordion multi>
-          <mat-expansion-panel *ngFor="let item of typesOfShoes">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <mat-icon>folder</mat-icon> {{ item.tipo_atencion }}
-              </mat-panel-title>
-              <mat-panel-description>
-                <mat-icon>chat</mat-icon>
-                <span class="badge">{{ item.cantidad }}</span>
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-        
-            <mat-list>
-              <mat-list-item *ngFor="let contacto of item.contactos"
-                             (click)="filtrar_solicitudes(contacto.contacto, contacto.numero, 'S', contacto.identificacion)">
-                <mat-icon matListIcon>person</mat-icon>
-                <span matLine>{{ contacto.contacto }}</span>
-              </mat-list-item>
-            </mat-list>
-          </mat-expansion-panel>
-        </mat-accordion>
-         -->
 
-        <!-- <mat-list-item *cdkVirtualFor="let shoe of typesOfShoes" (click)="filtrar_solicitudes(shoe.contacto,shoe.Numero_asociado,'S',shoe.identificacion)">
-          <div class="item-container">
-            
-            <div class="avatar">
-              <mat-icon>person</mat-icon>
-            </div>
-        
-            <div class="contacto">
-              {{ shoe.contacto }}
-            </div>
-        
-            <div class="mensajes">
-              <span matBadge="{{ shoe.Numero_Conversaciones }}" matBadgeColor="accent" matBadgeOverlap="false">
-                <mat-icon>chat</mat-icon>
-              </span>
-            </div>
-        
-          </div>
-        </mat-list-item>
-         -->
 
       </cdk-virtual-scroll-viewport>
     </mat-selection-list>
@@ -98,16 +40,16 @@
   </div>
 
 
-  
 
-  
+
+
   <div *ngIf="Solicitudes" style=" width:74%;
 float:right;
 vertical-align:bottom;
   text-align:bottom;
 margin-right: 2px;
 ">
- <mat-card  appearance="outlined" >
+    <mat-card appearance="outlined">
       <mat-card-header>
         <mat-card-title>Solicitudes del contacto: {{contacto}}</mat-card-title>
       </mat-card-header>
@@ -145,7 +87,7 @@ margin-right: 2px;
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> fecha_solicitud </th>
                 <td mat-cell *matCellDef="let row"> {{row.fecha_solicitud}} </td>
               </ng-container>
-                   <ng-container matColumnDef="Contactar">
+              <ng-container matColumnDef="Contactar">
                 <th mat-header-cell *matHeaderCellDef> Contactar... </th>
                 <td mat-cell *matCellDef="let row; let i = index;">
                   <button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block" focusable="false"
@@ -158,7 +100,7 @@ margin-right: 2px;
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-              
+
               <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" colspan="5">No data matching the filter "{{input.value}}"</td>
               </tr>
@@ -167,7 +109,7 @@ margin-right: 2px;
             </table>
           </cdk-virtual-scroll-viewport>
 
-       </div>
+        </div>
 
       </mat-card-content>
       <mat-card-footer class="example-card-footer">
@@ -186,131 +128,122 @@ vertical-align:bottom;
 margin-right: 2px;
 height: 550px;">
 
-<div class="conversacion conversacion-layout">
-  <div class="contacto-header">
-    <mat-card-title> Contacto: {{contacto}}</mat-card-title>
-  </div>
-    <mat-card class=" conversacion" appearance="outlined">
+    <div class="conversacion conversacion-layout">
+      <div class="contacto-header">
+        <mat-card-title> Contacto: {{contacto}}</mat-card-title>
+      </div>
+      <mat-card class="conversacion" appearance="outlined">
 
-      <div class="conversacion-body">
-        <div class="botones-columna">
-      <div style="width: 45%;
+        <div class="conversacion-body">
+          <div class="botones-columna">
+            <div style="width: 45%;
     float: left;
     vertical-align: bottom;
     text-align: bottom;
     margin-right: auto;   
     height: 415px;
     margin-top: 31px;">
-        <div (click)="openDialog()" style="    margin: 10px;
+              <div (click)="openDialog()" style="    margin: 10px;
     border: groove; border-radius: 20px;  background-color: #82c7e6;     width: 200%; ">
-          <span><i class="material-icons">precision_manufacturing</i>Gestionar Solicitudes</span>
+                <span><i class="material-icons">precision_manufacturing</i>Gestionar Solicitudes</span>
 
-        </div>
-        <div (click)="traer_archivo('Solicitudes')" style="    margin: 10px;
+              </div>
+              <div (click)="traer_archivo('Solicitudes')" style="    margin: 10px;
     border: groove; border-radius: 20px;  background-color: #82c7e6;     width: 200%; ">
-          <i class="material-icons">view_list</i>
-          <span>Imprimir Solicitudes</span>
+                <i class="material-icons">view_list</i>
+                <span>Imprimir Solicitudes</span>
 
-        </div>
-        <div (click)="traer_archivo('Conversacion')" style="    margin: 10px;
+              </div>
+              <div (click)="traer_archivo('Conversacion')" style="    margin: 10px;
     border: groove; border-radius: 20px;  background-color: #82c7e6;     width: 200%; ">
-          <i class="material-icons">chat</i>
-          <span> Imprimir Conversaciòn</span>
+                <i class="material-icons">chat</i>
+                <span> Imprimir Conversaciòn</span>
 
-        </div>
-
-
-      </div>
-    </div>
+              </div>
 
 
-
-
-      <div class="chat-area">
-   
-      <mat-card-content class="mat-card-content1">
-        <mat-selection-list #Conver [(ngModel)]="Conversa">
-         
-          <div #container class="container">
-
-            <ul>
-
-              <li *ngFor="let Conver of Conversa" class="divconversa">
-
-                <div *ngIf="Conver.dedonde=='BOT'" style="border-radius: 10px 10px 30px 0px; margin: 10px;
-          border: groove;  background-color:#0f6446 ;width: fit-content; margin-left: 100px;">
-                  {{Conver.Mensaje}}
-                </div>
-
-                <div *ngIf="Conver.dedonde=='WEB' &&  Conver.Ruta_Archivo == 'N' " style=" margin: 10px;
-        border: groove; border-radius: 20px 10px; background-color:#777c7a ;width: fit-content; ">
-                  {{Conver.Mensaje}}
-                </div>
-                <div *ngIf="Conver.dedonde=='WEB'  &&  Conver.Ruta_Archivo == 'S'">
-                  
-                  
-                   <iframe *ngIf="Conver.tipoarchivo=='application/pdf'" [src]="Conver.Mensaje" height="200" width="30%"  (click)="downloadFile(Conver.Mensaje)"></iframe> 
-
-                  
-                  <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" style="height:200px" [src]="Conver.Mensaje" width="30%" alt="" (click)="downloadFile(Conver.Mensaje)">
-
-                  <iframe *ngIf="Conver.tipoarchivo=='otro'"[src]="Conver.Mensaje" width="100%" height="600px"></iframe>
-
-
-                </div>
-
-
-                <div *ngIf="Conver.dedonde=='ASO'  &&  Conver.Ruta_Archivo == 'N'" style=" margin: 10px;
-        border: groove; border-radius: 20px 10px; background-color:#7c9c48 ;width: fit-content; ">
-                  {{Conver.Mensaje}}
-                </div>
-                <div *ngIf="Conver.dedonde=='ASO'  &&  Conver.Ruta_Archivo == 'S'">
-                  <img style="height:200px" [src]="Conver.Mensaje" alt="" (click)="downloadFile(Conver.Mensaje)">
-
-
-
-                </div>
-
-              </li>
-
-            </ul>
-
-
+            </div>
           </div>
-        </mat-selection-list>
 
-        <div class="input-area">
-          <input matInput  (keyup.enter)="enviar(numero)" type='text' [(ngModel)]="texto" placeholder="Escribe tu mensaje..."  />
-      
-          
-          <button mat-icon-button (click)="fileInput.click()"  multiple aria-label="Adjuntar archivo">
-            <mat-icon>attach_file</mat-icon>
-          </button>
-          <input type="file" #fileInput   id="fileInput" (change)="selectFile($event)" />
-          <button (click)="toggleSelector()">😊</button>
+          <div class="chat-area">
+            <div class="phone-frame">
+              <mat-card-content class="mat-card-content1">
+                <mat-selection-list #Conver [(ngModel)]="Conversa">
+                  <div #container class="container">
+                    <ul>
+                      <li *ngFor="let Conver of Conversa" class="divconversa">
 
-    
-    <div *ngIf="mostrarSelector" #emojiPicker class="emoji-picker-container">
-      <emoji-mart (emojiSelect)="agregarEmoji($event)"></emoji-mart>
-    </div>
-          
-          <button mat-icon-button color="primary"  (click)="enviar(numero)" aria-label="Enviar mensaje">
-            <mat-icon>send</mat-icon>
-          </button>
+                        <div *ngIf="Conver.dedonde=='BOT'" class="message message-bot">
+                          {{Conver.Mensaje}}
+                        </div>
+
+                        <div *ngIf="Conver.dedonde=='WEB' && Conver.Ruta_Archivo == 'N'" class="message message-web">
+                          {{Conver.Mensaje}}
+                        </div>
+
+                        <div *ngIf="Conver.dedonde=='WEB' && Conver.Ruta_Archivo == 'S'" class="message message-web">
+                          <iframe *ngIf="Conver.tipoarchivo=='application/pdf'" [src]="Conver.Mensaje" height="200"
+                            width="100%" (click)="downloadFile(Conver.Mensaje)"></iframe>
+                          <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" style="height:200px"
+                            [src]="Conver.Mensaje" width="100%" alt="" (click)="downloadFile(Conver.Mensaje)">
+                          <iframe *ngIf="Conver.tipoarchivo=='otro'" [src]="Conver.Mensaje" width="100%"
+                            height="600px"></iframe>
+                        </div>
+
+                        <div *ngIf="Conver.dedonde=='ASO' && Conver.Ruta_Archivo == 'N'" class="message message-aso">
+                          {{Conver.Mensaje}}
+                        </div>
+
+                        <div *ngIf="Conver.dedonde=='ASO' && Conver.Ruta_Archivo == 'S'" class="message message-aso">
+                          <img style="height:200px" [src]="Conver.Mensaje" alt=""
+                            (click)="downloadFile(Conver.Mensaje)">
+                        </div>
+
+                      </li>
+                    </ul>
+                  </div>
+                </mat-selection-list>
+
+                <div class="input-area" style="position: relative; display: flex; align-items: center;">
+                  <input matInput (keyup.enter)="enviar(numero)" type="text" [(ngModel)]="texto"
+                    placeholder="Escribe tu mensaje..." style="flex: 1;" />
+
+                  <button mat-icon-button (click)="fileInput.click()" aria-label="Adjuntar archivo">
+                    <mat-icon>attach_file</mat-icon>
+                  </button>
+                  <input type="file" #fileInput id="fileInput" (change)="selectFile($event)" style="display: none;" />
+
+                  <button mat-icon-button (click)="toggleSelector()" aria-label="Mostrar emojis">
+                    <mat-icon>emoji_emotions</mat-icon>
+                  </button>
+
+                  <button mat-icon-button color="primary" (click)="enviar(numero)" aria-label="Enviar mensaje">
+                    <mat-icon>send</mat-icon>
+                  </button>
+
+                  <div *ngIf="mostrarSelector" #emojiPicker class="emoji-picker-container">
+                    <emoji-mart (emojiSelect)="agregarEmoji($event)"></emoji-mart>
+                  </div>
+                </div>
+
+
+              </mat-card-content>
+            </div>
+
+
+            <mat-card-footer class="example-card-footer">
+
+            </mat-card-footer>
+          </div>
+
+
+
+
         </div>
-      </mat-card-content>
+      </mat-card>
 
-      <mat-card-footer class="example-card-footer">
-       
-      </mat-card-footer>
     </div>
 
 
   </div>
-    </mat-card>
-
-  </div>
-
-  
-</div>
 </div>

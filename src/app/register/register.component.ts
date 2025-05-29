@@ -76,19 +76,12 @@ export class RegisterComponent  {
         }
       })
     
-
-  //  const users = Array.from({length:0}, (_, k) => createNewUser(k + 0));
-  //   debugger
-  //  this.dataSource = new MatTableDataSource(users);
-   
-
-    // Assign the data to the data source for the table to render
     
   }
   
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogoarticuloComponent, {
-      height: '500px',
+      height: '600px',
       width: '750px',
       data: {idRegistro: 0},
     });
@@ -105,7 +98,7 @@ export class RegisterComponent  {
     
     
     const dialogRef = this.dialog.open(DialogoarticuloComponent, {
-      height: '500px',
+      height: '600px',
       width: '750px',
       data:  Codigo,
     });
