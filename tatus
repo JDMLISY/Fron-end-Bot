@@ -1,0 +1,28 @@
+[33mcommit 937980d01201caddf037267abe5dc8a74393ece4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mFron-end-Bot[m[33m)[m
+Author: Nekkosoft_sas <Nekkosoft_sas@hotmail.com>
+Date:   Thu May 29 07:29:01 2025 -0500
+
+    Ignorar carpeta .angular
+
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex 374cad2..30328a1 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -7,6 +7,7 @@[m
+ /bazel-out[m
+ [m
+ # Node[m
+[32m+[m[32m.angular/[m
+ node_modules/[m
+ dist/[m
+ .env[m
+[36m@@ -15,6 +16,9 @@[m [mdist/[m
+ /node_modules[m
+ npm-debug.log[m
+ yarn-error.log[m
+[32m+[m[32m*.log[m
+[32m+[m
+[32m+[m
+ [m
+ # IDEs and editors[m
+ .idea/[m
