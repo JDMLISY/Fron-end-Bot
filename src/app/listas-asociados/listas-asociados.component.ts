@@ -102,6 +102,7 @@ export class ListasAsociadosComponent implements OnInit {
   
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.cargarSolicitudes();
   }
 
   ngOnInit() {
@@ -113,7 +114,7 @@ export class ListasAsociadosComponent implements OnInit {
    //  this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(message.Mensaje);
       this.cdRef.detectChanges();
      this.scrollToBottom(); 
-     this.cargarSolicitudes();
+     
     })
   }
 
@@ -156,6 +157,7 @@ export class ListasAsociadosComponent implements OnInit {
   timerId1 = ""
   objDiv=""
   hoveredTipo: string | null = null;
+  Tipoatencion = ""
 
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
@@ -188,24 +190,56 @@ export class ListasAsociadosComponent implements OnInit {
           }));
   
           // Llama a obtener asociados, como haces en tu flujo actual
-          this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "ConAso", "", "","").subscribe({
+          // this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "ConAso", "", "","").subscribe({
+          //   next: (asociados: any[]) => {
+          //     // Combinas contactos en typesOfShoes
+          //     this.typesOfShoes = this.typesOfShoes.map(tipo => ({
+          //       ...tipo,
+          //       contactos: asociados.filter(a => a.Tipo_atencion === tipo.tipo_atencion).map(c => ({
+                  
+          //         contacto: c.contacto,
+          //         numero: c.Numero_asociado,
+          //         identificacion: c.identificacion,
+          //         cantidad: c.Cantidad, 
+          //         Tipo_atencion: c.Tipo_atencion
+          //       }))
+          //     }));
+          //   },
+          //   error: err => {
+          //     this.userService.showSuccess("Error al obtener asociados", "Error", "error");
+          //   }
+          // });
+
+          this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "ConAso", "", "", "").subscribe({
             next: (asociados: any[]) => {
               // Combinas contactos en typesOfShoes
-              this.typesOfShoes = this.typesOfShoes.map(tipo => ({
-                ...tipo,
-                contactos: asociados.filter(a => a.Tipo_atencion === tipo.tipo_atencion).map(c => ({
-                  contacto: c.contacto,
-                  numero: c.Numero_asociado,
-                  identificacion: c.identificacion,
-                  cantidad: c.Cantidad, 
-                  Tipo_atencion: c.Tipo_atencion
-                }))
-              }));
+              this.typesOfShoes = this.typesOfShoes.map(tipo => {
+                const contactosFiltrados = asociados
+                  .filter(a => a.Tipo_atencion === tipo.tipo_atencion)
+                  .map(c => {
+                    // 🔴 Guarda el número en sessionStorage (último en la lista)
+                 
+          
+                    return {
+                      contacto: c.contacto,
+                      numero: c.Numero_asociado,
+                      identificacion: c.identificacion,
+                      cantidad: c.Cantidad,
+                      Tipo_atencion: c.Tipo_atencion
+                    };
+                  });
+          
+                return {
+                  ...tipo,
+                  contactos: contactosFiltrados
+                };
+              });
             },
             error: err => {
               this.userService.showSuccess("Error al obtener asociados", "Error", "error");
             }
           });
+          
   
         } else {
           // arreglo vacío
@@ -251,12 +285,20 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
   this.Solicitudes = true
   this.contacto = Nombre
   this.Cedula = Cedula
+  this.Tipoatencion = Tipo_atencion
   this.userService.Solicitudes("Solicitudes", user.tipo_atencion,"Todas",numero,Cedula,Tipo_atencion).subscribe({
     next: data => {
       if (data.length > 0) {
         this.dataSource = new MatTableDataSource(data);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
+
+            if (sessionStorage.getItem('numeroContacto')) {
+              sessionStorage.removeItem('numeroContacto');
+            }
+             // Luego lo guardas
+            
+            sessionStorage.setItem('numeroContacto',numero);
                 
         return
       } else {

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { io } from "socket.io-client";
 import { DomSanitizer,SafeResourceUrl  } from '@angular/platform-browser';
+import { TokenStorageService } from './_services/token-storage.service';
 const Socket = environment.Socket;
 
 @Injectable({
@@ -12,7 +13,7 @@ const Socket = environment.Socket;
 export class ChatService {
   
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer,private tokenStorage: TokenStorageService) {}
   
 
   socket = io(Socket, {   //desarrollo
@@ -30,9 +31,13 @@ export class ChatService {
   }
 
   public getNewMessage = () => {
+
     this.socket.on('message', (message) =>{
-      this.message$.next(message);
       
+      const numero = sessionStorage.getItem('numeroContacto');
+      if (numero==message.numero)
+        {
+          this.message$.next(message);
       if (message.Ruta_Archivo == 'S')
       {
       message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(message.Mensaje);
@@ -61,6 +66,8 @@ setTimeout(() => {
 }, 30000);
           }
         }
+      }
+
     });
 
     return this.message$.asObservable();

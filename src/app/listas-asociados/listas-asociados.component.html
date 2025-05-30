@@ -20,6 +20,21 @@
 
             <mat-list>
               <mat-list-item *ngFor="let contacto of item.contactos"
+  (click)="filtrar_solicitudes(contacto.contacto, contacto.numero, contacto.identificacion, contacto.Tipo_atencion)">
+
+  <!-- Avatar solo con inicial -->
+  <div matListAvatar class="avatar-inicial">
+    {{ contacto.contacto.charAt(0).toUpperCase() }}
+  </div>
+
+  <div matLine class="contacto-info">
+    <span class="contacto-nombre">{{ contacto.contacto }}</span>
+    <span class="badge" *ngIf="contacto.cantidad" matTooltip="{{ item.cantidad }} solicitudes"
+      matTooltipPosition="above">{{ contacto.cantidad }}</span>
+  </div>
+</mat-list-item>
+
+              <!-- <mat-list-item *ngFor="let contacto of item.contactos"
                 (click)="filtrar_solicitudes(contacto.contacto, contacto.numero,contacto.identificacion,contacto.Tipo_atencion)">
                 <mat-icon matListIcon>person</mat-icon>
                 <div matLine class="contacto-info">
@@ -27,7 +42,7 @@
                   <span class="badge" *ngIf="contacto.cantidad" matTooltip="{{ item.cantidad }} solicitudes"
                     matTooltipPosition="above">{{ contacto.cantidad }}</span>
                 </div>
-              </mat-list-item>
+              </mat-list-item> -->
             </mat-list>
           </mat-expansion-panel>
         </mat-accordion>
@@ -50,9 +65,20 @@ vertical-align:bottom;
 margin-right: 2px;
 ">
     <mat-card appearance="outlined">
-      <mat-card-header>
+      <!-- <mat-card-header>
         <mat-card-title>Solicitudes del contacto: {{contacto}}</mat-card-title>
+      </mat-card-header> -->
+      <mat-card-header class="custom-card-header">
+        <div class="avatar-inicial">
+          {{ contacto.charAt(0).toUpperCase() }}
+        </div>
+        <div class="header-title">
+          <div>Contacto: <strong>{{ contacto }}</strong></div>
+          <div>Tipo de atención: <strong>{{ Tipoatencion }}</strong></div>
+        </div>
       </mat-card-header>
+      
+
       <mat-card-content>
 
 
@@ -129,9 +155,16 @@ margin-right: 2px;
 height: 550px;">
 
     <div class="conversacion conversacion-layout">
-      <div class="contacto-header">
-        <mat-card-title> Contacto: {{contacto}}</mat-card-title>
-      </div>
+      <mat-card-header class="custom-card-header">
+        <div class="avatar-inicial">
+          {{ contacto.charAt(0).toUpperCase() }}
+        </div>
+        <div class="header-title">
+          <div>Contacto: <strong>{{ contacto }}</strong></div>
+          <div>Tipo de atención: <strong>{{ Tipoatencion }}</strong></div>
+        </div>
+      </mat-card-header>
+
       <mat-card class="conversacion" appearance="outlined">
 
         <div class="conversacion-body">
