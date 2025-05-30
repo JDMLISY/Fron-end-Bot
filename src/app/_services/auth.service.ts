@@ -163,7 +163,7 @@ var nit = this.tokenStorage.getUser().Nit
   conexiontoken(Mensaje:string): void {
   this.userService.showSuccess(Mensaje,'Tiempo de sesion','Error')
   this.tokenStorage.signOut();
-  window.location.reload();
+  //window.location.reload();
   this.router.navigate(['/login'])
 
 }

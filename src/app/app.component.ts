@@ -8,6 +8,7 @@ import {MatSort} from '@angular/material/sort';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { estadoradicadosComponent } from './estado-radicados/estado-radicados.component';
+import { IdleTimeoutService } from './_services/idle-timeout.service';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport, {static: true}) viewport !: CdkVirtualScrollViewport;
   mostrarSelector: boolean = false;
   ngOnInit(): void {
+
     this.isLoggedIn = !!this.tokenStorageService.getToken();
    
     if (this.isLoggedIn) {
@@ -40,11 +42,11 @@ export class AppComponent implements OnInit {
       this.showModeratorBoard = this.roles.includes('U');
 
       this.username = user.name;
-     
+      this.idleService.startWatching();
     }
    
   }
-  constructor(private tokenStorageService: TokenStorageService,public services :AuthService, private userService: UserService,public dialog: MatDialog ) { }
+  constructor(private idleService: IdleTimeoutService,private tokenStorageService: TokenStorageService,public services :AuthService, private userService: UserService,public dialog: MatDialog ) { }
 
  
 

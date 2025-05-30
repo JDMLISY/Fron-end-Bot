@@ -11,6 +11,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { ChatService } from '../web-socket.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import { formatDate } from '@angular/common';
 
 
 
@@ -42,6 +43,7 @@ interface TipoSolicitud {
   styleUrls: ['./listas-asociados.component.css']
 })
 export class ListasAsociadosComponent implements OnInit {
+  ultimaFechaInsertada: string = '';
   hoveredItem: any = null;
   // typesOfShoes = Array.from({length: 1000}).map((_, i) => `Item #${i}`);
   displayedColumns: string[] = ['idRegistro','Tipo_atencion','Radicado','fecha_solicitud','Contactar'];
@@ -105,18 +107,64 @@ export class ListasAsociadosComponent implements OnInit {
     this.cargarSolicitudes();
   }
 
-  ngOnInit() {
-    this.chatService.getNewMessage().subscribe((message: string) => {
+  // ngOnInit() {
+  //   this.chatService.getNewMessage().subscribe((message: string) => {
       
     
-      this.Conversa = [...this.Conversa, {message}];
-      this.Conversa.push(message)
-   //  this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(message.Mensaje);
-      this.cdRef.detectChanges();
-     this.scrollToBottom(); 
+  //     this.Conversa = [...this.Conversa, {message}];
+  //     this.Conversa.push(message)
+  //  //  this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(message.Mensaje);
+  //     this.cdRef.detectChanges();
+  //    this.scrollToBottom(); 
      
-    })
+  //   })
+  // }
+  
+
+  ngOnInit() {
+    this.chatService.getNewMessage().subscribe((message: any) => {
+      // Si no trae fecha, se usa la fecha actual
+      const fechaMensaje = new Date(message.fecha) //: new Date();
+      const fechaFormateada = this.obtenerFechaFormateada(fechaMensaje);
+  
+      // Insertar separador si cambia la fecha
+      if (fechaFormateada !== this.ultimaFechaInsertada) {
+        this.Conversa.push({ tipo: 'separador', fecha: fechaFormateada });
+        this.ultimaFechaInsertada = fechaFormateada;
+      }
+  
+      // Agregar el mensaje normalmente
+      this.Conversa.push(message);
+  
+      this.cdRef.detectChanges();
+      this.scrollToBottom();
+    });
   }
+  
+  // Función auxiliar para formatear fechas
+  obtenerFechaFormateada(fecha: Date): string {
+    const hoy = new Date();
+    const ayer = new Date();
+    ayer.setDate(hoy.getDate() - 1);
+  
+    const fechaSinHora = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+    const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+    const ayerSinHora = new Date(ayer.getFullYear(), ayer.getMonth(), ayer.getDate());
+  
+    if (fechaSinHora.getTime() === hoySinHora.getTime()) {
+      return 'Hoy';
+    } else if (fechaSinHora.getTime() === ayerSinHora.getTime()) {
+      return 'Ayer';
+    } else {
+      return fecha.toLocaleDateString('es-CO', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+    }
+  }
+  
+
 
   downloadFile(event: string){
     let link = document.createElement("a");
@@ -332,15 +380,107 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
     this.contacto = Nombre
     this.numero = numero    
   const user = this.tokenStorage.getUser();
-     this.userService.conversaciones("Conversaciones", numero).subscribe({
+    //  this.userService.conversaciones("Conversaciones", numero).subscribe({
+    //   next: data => {
+    //     if (data.length > 0) {
+
+    //       for (let message of data) {
+    //         if (message.Ruta_Archivo === 'S') {
+    //           const url = message.Mensaje;
+    //           const extension = url.split('.').pop()?.toLowerCase().replaceAll(" ",""); // obtiene 'pdf', 'mp4', etc.
+          
+    //           switch (extension) {
+    //             case 'pdf':
+    //               message.tipoarchivo = 'application/pdf';
+    //               message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    //               break;
+    //             case 'mp4':
+    //               message.tipoarchivo = 'video';
+    //               message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    //               break;
+    //             case 'jpg':
+    //             case 'jpeg':
+    //             case 'png':
+    //               message.tipoarchivo = 'image/jpeg';
+    //               message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    //               break;
+    //             default:
+    //               message.TipoArchivo = 'otro';
+                  
+    //           message.Mensaje = 'https://docs.google.com/gview?embedded=true&url=' + message.Mensaje
+    //               break;
+    //           }
+          
+              
+              
+    //         }
+    //       }
+            
+    //       this.Conversa = data
+
+
+    //       this.cdRef.detectChanges();
+    //       this.scrollToBottom()
+
+          
+    //       // let identificadorDeTemporizador =  setInterval(() => this.userService.conversaciones("Conversaciones", this.tokenStorage.getUser(),this.numero).subscribe({
+    //       //   next: data => {
+    //       //     if (data.length > 0) {
+      
+    //       //       this.Conversa = data
+      
+    //       //       this.cdRef.detectChanges();
+    //       //       this.scrollToBottom(); 
+            
+          
+    //       //       return
+    //       //     } else {
+    //       //       if (data.Codigo == "401") {
+    //       //         this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
+    //       //         setTimeout(() => this.tokenStorage.signOut(), 20);
+    //       //         return
+    //       //       }
+      
+    //       //       this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
+      
+    //       //     }
+    //       //   },
+    //       //   error: err => {
+    //       //     this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
+    //       //   }
+    //       // }), 9000);
+
+
+          
+    //       return
+    //     } else {
+    //       if (data.Codigo == "401") {
+    //         this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
+    //         setTimeout(() => this.tokenStorage.signOut(), 20);
+    //         return
+    //       }
+
+    //       this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
+
+    //     }
+    //   },
+    //   error: err => {
+    //     this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
+    //   }
+    // })
+
+    this.userService.conversaciones("Conversaciones", numero).subscribe({
       next: data => {
         if (data.length > 0) {
-
+          const resultado: any[] = [];
+          
+    
           for (let message of data) {
+            // Procesamiento de archivo
             if (message.Ruta_Archivo === 'S') {
               const url = message.Mensaje;
-              const extension = url.split('.').pop()?.toLowerCase().replaceAll(" ",""); // obtiene 'pdf', 'mp4', etc.
-          
+              const extension = url.split('.').pop()?.toLowerCase().replaceAll(" ", "");
+    
               switch (extension) {
                 case 'pdf':
                   message.tipoarchivo = 'application/pdf';
@@ -358,101 +498,49 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
                   break;
                 default:
                   message.TipoArchivo = 'otro';
-                  
-              message.Mensaje = 'https://docs.google.com/gview?embedded=true&url=' + message.Mensaje
+                  message.Mensaje = 'https://docs.google.com/gview?embedded=true&url=' + url;
                   break;
               }
-          
-              
-              
             }
+    
+            // Separación por fecha
+            let fechaMensaje = message.fecha ? new Date(message.fecha) : new Date();
+            
+            if (isNaN(fechaMensaje.getTime())) {
+              fechaMensaje = new Date();
+            }
+           
+            const fechaFormateada = this.obtenerFechaFormateada(fechaMensaje);
+            if (fechaFormateada !== this.ultimaFechaInsertada) {
+              resultado.push({ tipo: 'separador', fecha: fechaFormateada });
+              this.ultimaFechaInsertada = fechaFormateada;
+            }
+    
+            resultado.push(message);
           }
-            
-          this.Conversa = data
-
-
+    
+          this.Conversa = resultado;
           this.cdRef.detectChanges();
-          this.scrollToBottom()
-
-          
-          // let identificadorDeTemporizador =  setInterval(() => this.userService.conversaciones("Conversaciones", this.tokenStorage.getUser(),this.numero).subscribe({
-          //   next: data => {
-          //     if (data.length > 0) {
-      
-          //       this.Conversa = data
-      
-          //       this.cdRef.detectChanges();
-          //       this.scrollToBottom(); 
-            
-          
-          //       return
-          //     } else {
-          //       if (data.Codigo == "401") {
-          //         this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
-          //         setTimeout(() => this.tokenStorage.signOut(), 20);
-          //         return
-          //       }
-      
-          //       this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-      
-          //     }
-          //   },
-          //   error: err => {
-          //     this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-          //   }
-          // }), 9000);
-
-
-          
-          return
+          this.scrollToBottom();
+          return;
         } else {
           if (data.Codigo == "401") {
-            this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
+            this.userService.showSuccess(data.Mensaje, "Error de comunicación", 'Error');
             setTimeout(() => this.tokenStorage.signOut(), 20);
-            return
+            return;
           }
-
-          this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-
+    
+          this.userService.showSuccess("Error al consultar los datos, Comuníquese con el Administrador del sistema...", "Error de comunicación", 'Error');
         }
       },
       error: err => {
-        this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
+        this.userService.showSuccess("Error al consultar los datos, Comuníquese con el Administrador del sistema...", "Error de comunicación", 'Error');
       }
-    })
+    });
 
 
 
 
-
-//     this.userService.conversaciones("Conversaciones", this.tokenStorage.getUser(),numero).subscribe({
-//       next: data => {
-//         if (data.length > 0) {
-
-//           this.Conversa = data
-
-// //           if (dedonde== 'P')
-// // {
-// //             var obj2 = {Mensaje: "Prueba"};
-// //           this.Conversa.push(obj2); 
-// //           }
-          
-//           return
-//         } else {
-//           if (data.Codigo == "401") {
-//             this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
-//             setTimeout(() => this.tokenStorage.signOut(), 20);
-//             return
-//           }
-
-//           this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-
-//         }
-//       },
-//       error: err => {
-//         this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-//       }
-//     })
 
   }
 
