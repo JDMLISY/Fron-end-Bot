@@ -6,37 +6,7 @@
 
       <cdk-virtual-scroll-viewport appendOnly itemSize="10" class="example-viewport">
 
-        <!-- <mat-accordion multi>
-          <mat-expansion-panel *ngFor="let item of typesOfShoes">
-            <mat-expansion-panel-header>
-              <mat-panel-title matTooltip="{{ item.cantidad }} solicitudes" matTooltipPosition="above">
-                <mat-icon>folder</mat-icon> {{ item.tipo_atencion }}
-              </mat-panel-title>
-              <mat-panel-description style="display: flex; justify-content: flex-end; width: 100%;">
-                <mat-icon matTooltip="{{ item.cantidad }} solicitudes" matTooltipPosition="above">chat</mat-icon>
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <mat-list>
-              <mat-list-item *ngFor="let contacto of item.contactos"
-  (click)="filtrar_solicitudes(contacto.contacto, contacto.numero, contacto.identificacion, contacto.Tipo_atencion)">
-
-  
-  <div matListAvatar class="avatar-inicial">
-    {{ contacto.contacto.charAt(0).toUpperCase() }}
-  </div>
-
-  <div matLine class="contacto-info">
-    <span class="contacto-nombre">{{ contacto.contacto }}</span>
-    <span class="badge" *ngIf="contacto.cantidad" matTooltip="{{ item.cantidad }} solicitudes"
-      matTooltipPosition="above">{{ contacto.cantidad }}</span>
-  </div>
-</mat-list-item>
-
-             
-            </mat-list>
-          </mat-expansion-panel>
-        </mat-accordion> -->
+    
         <mat-accordion multi>
           <mat-expansion-panel *ngFor="let item of typesOfShoes">
             <mat-expansion-panel-header>
@@ -59,10 +29,11 @@
                   {{ contacto.contacto.charAt(0).toUpperCase() }}
                 </div>
                 <div matLine class="contacto-info">
-                  <span class="contacto-nombre">{{ contacto.contacto }}</span>
+                  <span class="contacto-nombre texto-responsive">{{ contacto.contacto }}</span>
                   <span class="badge" *ngIf="contacto.cantidad" matTooltip="{{ item.cantidad }} solicitudes"
-                    matTooltipPosition="above">{{ contacto.cantidad }}</span>
+                        matTooltipPosition="above">{{ contacto.cantidad }}</span>
                 </div>
+                
               </mat-list-item>
             </mat-list>
           </mat-expansion-panel>

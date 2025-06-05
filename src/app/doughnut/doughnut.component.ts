@@ -123,7 +123,7 @@
 // }
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
@@ -131,6 +131,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
 import { FormBuilder } from '@angular/forms';
+import { FlujoConversacionalComponent } from '../flujo-conversacional/flujo-conversacional.component';
 
 @Component({
   selector: 'app-doughnut',
@@ -138,6 +139,9 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./doughnut.component.css']
 })
 export class DoughnutComponent implements OnInit {
+
+
+  
   public chart: any;
   public numeric: number[] = [];
   public datalabel: string[] = [];

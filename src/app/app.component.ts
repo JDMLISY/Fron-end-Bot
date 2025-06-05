@@ -9,6 +9,9 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { estadoradicadosComponent } from './estado-radicados/estado-radicados.component';
 import { IdleTimeoutService } from './_services/idle-timeout.service';
+import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conversacional.component';
+
+
 
 @Component({
   selector: 'app-root',
@@ -18,6 +21,8 @@ import { IdleTimeoutService } from './_services/idle-timeout.service';
 
 
 export class AppComponent implements OnInit {
+
+
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
@@ -49,6 +54,13 @@ export class AppComponent implements OnInit {
   constructor(private idleService: IdleTimeoutService,private tokenStorageService: TokenStorageService,public services :AuthService, private userService: UserService,public dialog: MatDialog ) { }
 
  
+abrirFlujoConversacional() {
+  this.dialog.open(FlujoConversacionalComponent, {
+    width: '90%',
+    height: '90%',
+    panelClass: 'flujo-modal'
+  });
+}
 
   logout(): void {
     this.tokenStorageService.signOut();

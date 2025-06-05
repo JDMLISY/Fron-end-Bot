@@ -81,6 +81,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conversacional.component';
 
 
 
@@ -107,7 +108,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HeadersComponent,
     InfoComercioComponent,
     DoughnutComponent,
-    LectorQRComponent   
+    LectorQRComponent,
+    FlujoConversacionalComponent   
   ],
   imports: [
     BrowserModule,

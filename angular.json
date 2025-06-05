@@ -44,6 +44,8 @@
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/ngx-toastr/toastr.css",
+              "node_modules/drawflow/dist/drawflow.min.css",
+              "src/styles.scss",
               
                            {
                 

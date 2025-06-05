@@ -1,0 +1,16 @@
+<!-- <div #editorRef id="drawflow" style="height: 600px; width: 100%;"></div> -->
+<div class="container-flujo" style="height: 100%;">
+    <h2>Editor de Flujo Conversacional</h2>
+  
+    <button (click)="addWelcomeFlowNode()">Agregar bienvenida</button>
+    <button (click)="addListaEditableNode()">Agregar lista</button>
+    <button (click)="addTextNode()">Agregar mensaje</button>
+  
+    <button (click)="guardar()">Guardar</button>
+    <button (click)="cargar()">Cargar</button>
+    <button (click)="setModo('edit')">Editar</button>
+    <button (click)="setModo('view')">Visualizar</button>
+  
+    <div #editorRef style="height: 90%; border: 1px solid #ccc; margin-top: 10px;"></div>
+  </div>
+  

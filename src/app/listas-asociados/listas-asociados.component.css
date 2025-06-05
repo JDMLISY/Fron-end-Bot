@@ -1130,5 +1130,21 @@ ul {
   display: flex;
   align-items: center;
 }
+.texto-responsive {
+  display: inline-block;
+  max-width: 150px; /* Ajusta el tamaño según tu diseño */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .texto-responsive {
+    max-width: 100px;
+    font-size: 13px;
+  }
+}
+
 
 

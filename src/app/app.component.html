@@ -19,7 +19,6 @@
 
 
 
-
 <div  class="nombre">
   
 <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
@@ -60,6 +59,7 @@
   <button  mat-menu-item  (click)="services.ValidarModulo('/listAso','Call center')"  ><mat-icon style="color: black;">view_list</mat-icon> Solicitudes</button>
   <button  mat-menu-item (click)="services.ValidarModulo('/Informes','Call center')"  ><mat-icon style="color: black;"> bar_chart</mat-icon>Informes</button> 
   <button  mat-menu-item (click)="openDialog()" *ngIf="showSuperAdminBoard ||showAdminBoard"  ><mat-icon style="color: black;">list</mat-icon>Activar radicados</button> 
+  <button  mat-menu-item (click)="abrirFlujoConversacional()" *ngIf="showSuperAdminBoard ||showAdminBoard"  >  <mat-icon style="color: black;">chat</mat-icon>Flujo Conversacional</button> 
   
 </mat-menu>
 
