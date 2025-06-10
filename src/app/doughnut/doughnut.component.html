@@ -9,3 +9,47 @@
     <canvas  style="font-style: normal; color: black;" id="MyChart" >{{ chart }}</canvas>
 </div>
 
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="dashboard-wrapper">
+
+    <!-- Tarjetas KPI -->
+    <div class="kpi-row">
+      <mat-card class="kpi-card">
+        <mat-icon>assignment</mat-icon>
+        <div class="kpi-title">Solicitudes totales</div>
+        <div class="kpi-value">{{totalSolicitudes}}</div>
+      </mat-card>
+  
+      <mat-card class="kpi-card">
+        <mat-icon>today</mat-icon>
+        <div class="kpi-title">Hoy</div>
+        <div class="kpi-value">{{solicitudesHoy}}</div>
+      </mat-card>
+  
+      <mat-card class="kpi-card">
+        <mat-icon>schedule</mat-icon>
+        <div class="kpi-title">Prom. atención</div>
+        <div class="kpi-value">{{promedioAtencion}}</div>
+      </mat-card>
+  
+      <mat-card class="kpi-card">
+        <mat-icon>check_circle</mat-icon>
+        <div class="kpi-title">Resueltas</div>
+        <div class="kpi-value">{{resueltas}}</div>
+      </mat-card>
+    </div>
+  
+    <!-- Gráfico debajo -->
+    <div class="chart-container">
+        <div class="indicador-mensaje">
+            <mat-card class="mensaje-kpi">
+              <mat-icon color="primary">insights</mat-icon>
+              <span><strong>Optimiza el tiempo de respuesta</strong> para obtener mejores resultados en la atención.</span>
+            </mat-card>
+          </div>
+    </div>
+  
+  </div>
+  
+  
+  

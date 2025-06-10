@@ -75,9 +75,10 @@ margin-right: 2px;
 
 
         <mat-form-field appearance="standard">
-          <mat-icon matPrefix>search</mat-icon>
-          <mat-label>Buscar</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+          
+          <mat-icon matPrefix matTooltip="Buscar" matTooltipPosition="above">search</mat-icon>
+          <!-- <mat-label>Buscar</mat-label> -->
+          <input matInput (keyup)="applyFilter($event)" placeholder="ahorros" #input>
         </mat-form-field>
 
 

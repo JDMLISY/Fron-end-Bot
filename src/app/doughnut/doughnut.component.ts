@@ -140,7 +140,12 @@ import { FlujoConversacionalComponent } from '../flujo-conversacional/flujo-conv
 })
 export class DoughnutComponent implements OnInit {
 
+  kpis: { title: string; value: string | number; icon: string }[] = [];
 
+  totalSolicitudes: number = 0;
+solicitudesHoy: number = 0;
+promedioAtencion: string = '0 min';
+resueltas: string = '0%';
   
   public chart: any;
   public numeric: number[] = [];
@@ -157,6 +162,7 @@ export class DoughnutComponent implements OnInit {
     // Registrar componentes de Chart.js necesarios
     Chart.register(...registerables, ChartDataLabels);
     this.createChart();
+    this.createDashboardCards()
   }
 
   createChart() {
@@ -228,4 +234,67 @@ export class DoughnutComponent implements OnInit {
       }
     });
   }
+
+  createDashboardCards() {
+    this.authService.RequestData("", 'DashboardCards', "").subscribe({
+      next: data => {
+        if (data.Codigo === '401') {
+          this.authService.conexiontoken(data.Mensaje);
+          return;
+        }
+  
+        // Asignas a variables individuales (opcional)
+        this.totalSolicitudes = data.totalSolicitudes;
+        this.solicitudesHoy = data.solicitudesHoy;
+        this.resueltas = data.resueltas;
+        const valorString = "12733 min";
+
+// Extraer solo números (quita todo lo que no sea dígito)
+const soloNumeros = valorString.replace(/\D/g, ''); // "12733"
+
+// Convertir a número
+const totalSegundos = Number(soloNumeros) || 0;
+
+
+        
+
+const horas = Math.floor(totalSegundos / 3600);
+const minutos = Math.floor((totalSegundos % 3600) / 60);
+const segundos = totalSegundos % 60;
+
+let tiempoFormateado = '';
+
+if (horas > 0) {
+  tiempoFormateado = `${horas} h`;
+  if (minutos > 0) tiempoFormateado += ` ${minutos} min`;
+  if (segundos > 0) tiempoFormateado += ` ${segundos} seg`;
+} else if (minutos > 0) {
+  tiempoFormateado = `${minutos} min`;
+  if (segundos > 0) tiempoFormateado += ` ${segundos} seg`;
+} else {
+  tiempoFormateado = `${segundos} seg`;
+}
+
+this.promedioAtencion = tiempoFormateado;
+
+
+  
+        // Actualizas el arreglo kpis para que el HTML se refresque con nuevos valores
+        this.kpis = [
+          { title: 'Solicitudes totales', value: this.totalSolicitudes, icon: 'assignment' },
+          { title: 'Hoy', value: this.solicitudesHoy, icon: 'event' },
+          { title: 'Promedio atención', value: this.promedioAtencion, icon: 'schedule' },
+          { title: 'Resueltas', value: this.resueltas, icon: 'check_circle' },
+        ];
+      },
+      error: err => {
+        this.userService.showSuccess(
+          "Error al consultar el resumen del dashboard. Comuníquese con el administrador.",
+          "Error de comunicación",
+          "Error"
+        );
+      }
+    });
+  }
+  
 }

@@ -1,16 +1,14 @@
 <!-- <div #editorRef id="drawflow" style="height: 600px; width: 100%;"></div> -->
-<div class="container-flujo" style="height: 100%;">
-    <h2>Editor de Flujo Conversacional</h2>
-  
-    <button (click)="addWelcomeFlowNode()">Agregar bienvenida</button>
-    <button (click)="addListaEditableNode()">Agregar lista</button>
-    <button (click)="addTextNode()">Agregar mensaje</button>
-  
-    <button (click)="guardar()">Guardar</button>
-    <button (click)="cargar()">Cargar</button>
-    <button (click)="setModo('edit')">Editar</button>
-    <button (click)="setModo('view')">Visualizar</button>
-  
-    <div #editorRef style="height: 90%; border: 1px solid #ccc; margin-top: 10px;"></div>
-  </div>
-  
+<div #editorRef id="drawflow" style="height: 500px; border: 1px solid #ccc;"></div>
+<input id="inputArchivo" type="file" accept=".json" style="display: none;" (change)="onFileSelected($event)">
+<button (click)="seleccionarArchivo()">Cargar Flujo</button>
+
+
+
+<!-- <div style="height: 500px; border: 1px solid #ccc; margin: 10px;">
+  <div id="drawflow" style="height: 100%; background-color: #f0f0f0;"></div>
+</div>
+
+<button (click)="cargarFlujo()">Cargar Flujo</button>
+
+<input type="file" (change)="onFileSelected($event)"> -->
