@@ -75,6 +75,36 @@
         <!-- Tipo de Atención -->
         <mat-form-field appearance="fill">
           <mat-label>Atención de Clientes</mat-label>
+          <mat-select
+            id="Tipo_atencion"
+            formControlName="Tipo_atencion"
+            multiple
+            [compareWith]="compareObjects"
+          >
+            <mat-select-trigger>
+              {{ form.get('Tipo_atencion')?.value?.join(', ') }}
+            </mat-select-trigger>
+        
+            <mat-option value="T">Todos</mat-option>
+            <mat-option value="A">Ahorro a la vista</mat-option>
+            <mat-option value="C">Créditos</mat-option>
+            <mat-option value="E">Estados de cuenta</mat-option>
+            <mat-option value="CP">Cotización de pólizas</mat-option>
+            <mat-option value="CE">Certificados</mat-option>
+            <mat-option value="DN">Descuentos de nómina</mat-option>
+            <mat-option value="EC">Envío de consignaciones</mat-option>
+            <mat-option value="CB">Compra Boletería de cine</mat-option>
+            <mat-option value="CA">Comunicarse con asesor</mat-option>
+            <mat-option value="N">Sin asignación</mat-option>
+          </mat-select>
+        
+          <mat-error *ngIf="form.get('Tipo_atencion')?.hasError('required')">
+            Clase Atención es <strong>Requerida</strong>
+          </mat-error>
+        </mat-form-field>
+        
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Atención de Clientes</mat-label>
           <mat-select id="Tipo_atencion" formControlName="Tipo_atencion">
             <mat-option value="T">Todos</mat-option>
             <mat-option value="A">Ahorro a la vista</mat-option>
@@ -89,7 +119,7 @@
             <mat-option value="N">Sin asignación</mat-option>
           </mat-select>
           <mat-error *ngIf="form.hasError('required')">Clase Atención es <strong>Requerida</strong></mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
   
       </mat-card-content>
     </mat-card>

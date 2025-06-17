@@ -4,6 +4,7 @@ import { AuthService } from '../_services/auth.service';
 import {FormControl, FormGroupDirective, NgForm, Validators,FormGroup,FormBuilder} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { UserService } from '../_services/user.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 export const StrongPasswordRegx: RegExp =
   /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
@@ -41,7 +42,7 @@ export class DialogoarticuloComponent implements OnInit  {
 
       
       
-  constructor( private userService: UserService, public dialog: MatDialog, private authService: AuthService,private formBuilder: FormBuilder,
+  constructor( private userService: UserService, public dialog: MatDialog,private tokenStorage: TokenStorageService, private authService: AuthService,private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogoarticuloComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string[],
   ) {
@@ -61,14 +62,17 @@ export class DialogoarticuloComponent implements OnInit  {
       Celular: new FormControl(this.form.celular, [Validators.required]),
       Perfil: new FormControl(this.form.Perfil, [Validators.required]),
       Estado : new FormControl(this.form.estado, [Validators.required]),
-      Tipo_atencion : new FormControl(this.form.tipo_atencion, [Validators.required]),
+      Tipo_atencion: [[], Validators.required],
+      //Tipo_atencion : new FormControl(this.form.tipo_atencion, [Validators.required]),
       idRegistro : new FormControl(this.form.idRegistro,[])
 
   });
 
 
   }
-
+  compareObjects(o1: any, o2: any): boolean {
+    return o1 === o2;
+  }
   ngOnInit(): void {
 
     var variables = this.form
@@ -77,10 +81,11 @@ export class DialogoarticuloComponent implements OnInit  {
     
         this.authService.RequestData(this.form.value,'Registarse',"").subscribe({
           next: data => {
-         
+           
             this.userService.showSuccess(data.message,"Datos Ingresados",'success')
             this.isSuccessful = true;
             this.isSignUpFailed = false;
+            this.tokenStorage.saveUser(data);
             setTimeout(() => this.Limpiar(), 1000);
             setTimeout(() => this.onNoClick(), 1000);
           
