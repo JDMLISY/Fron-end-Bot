@@ -1,0 +1,52 @@
+.usuario-opcion {
+  padding: 16px 16px !important; /* más padding vertical */
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #fff !important;
+  border: 1px solid #e0e0e0;
+  min-height: 80px; /* más alto por defecto */
+}
+
+.usuario-opcion.mat-list-item {
+  align-items: flex-start !important;
+}
+
+.usuario-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.usuario-nombre {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  padding: 3px 8px;         /* más compacta */
+  border-radius: 12px;
+  font-size: 11px;          /* letra más pequeña */
+  line-height: 1.2;
+}
+.contenedor-lista {
+  background-color: #f9fbfc;
+  border: 1px solid #cfd8dc;
+  border-radius: 10px;
+  padding: 16px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+
+  

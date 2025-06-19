@@ -82,6 +82,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conversacional.component';
+import { TrasladoConversacionesComponent } from './traslado-conversaciones/traslado-conversaciones.component';
+
 
 
 
@@ -109,7 +111,9 @@ import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conve
     InfoComercioComponent,
     DoughnutComponent,
     LectorQRComponent,
-    FlujoConversacionalComponent   
+    FlujoConversacionalComponent,
+    TrasladoConversacionesComponent,
+    
   ],
   imports: [
     BrowserModule,

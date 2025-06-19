@@ -62,7 +62,11 @@ export class DialogoarticuloComponent implements OnInit  {
       Celular: new FormControl(this.form.celular, [Validators.required]),
       Perfil: new FormControl(this.form.Perfil, [Validators.required]),
       Estado : new FormControl(this.form.estado, [Validators.required]),
-      Tipo_atencion: [[], Validators.required],
+      Tipo_atencion: new FormControl(
+        Array.isArray(this.form.tipo_atencion)
+          ? this.form.tipo_atencion
+          : [this.form.tipo_atencion] // 👈 convierte 'T' en ['T']
+      ),
       //Tipo_atencion : new FormControl(this.form.tipo_atencion, [Validators.required]),
       idRegistro : new FormControl(this.form.idRegistro,[])
 

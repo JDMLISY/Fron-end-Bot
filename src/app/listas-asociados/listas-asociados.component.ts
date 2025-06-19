@@ -12,6 +12,8 @@ import { ChatService } from '../web-socket.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
+import { TrasladoConversacionesComponent } from '../traslado-conversaciones/traslado-conversaciones.component';
+
 
 
 
@@ -700,6 +702,57 @@ while (empieza >= 0 && empieza < cantidadArchivos )
   agregarEmoji(event: any) {
     this.texto += event.emoji.native;
   }
+
+
+  consultarusers(){
+    this.authService.ConsultarUsers().subscribe({
+      next: data => {
+        
+        if (data.length > 0)
+        {
+
+          this.contacto 
+          this.numero
+
+          const dialogRef = this.dialog.open(TrasladoConversacionesComponent, {
+            width: '750px',
+            height: '600px',
+            data: {
+              usuarios: data,
+              contacto: this.contacto,
+              numero: this.numero
+            }
+          });
+        
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('Diálogo cerrado');
+          });
+          return
+          
+        }else 
+        {
+          if (data.Codigo== "401")
+          {
+            
+            this.userService.showSuccess(data.Mensaje,"Error de comunicaciòn",'Error')
+            setTimeout(() => this.tokenStorage.signOut(), 20);
+               return    
+          }
+  
+          this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...","Error de comunicaciòn",'Error')  
+          //this.errorMessage = data.message;
+        }
+      },
+      error: err => {
+        this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...","Error de comunicaciòn",'Error')  
+       // this.errorMessage = err.error.message;
+        
+      }
+    })
+  
+  }
+
+
   @HostListener('document:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Escape' && this.mostrarSelector) {

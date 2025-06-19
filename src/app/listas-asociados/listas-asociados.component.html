@@ -162,7 +162,7 @@ height: 550px;">
 
         <div class="conversacion-body">
           <div class="botones-columna">
-            <div style="width: 45%;
+            <!-- <div style="width: 45%;
     float: left;
     vertical-align: bottom;
     text-align: bottom;
@@ -187,8 +187,45 @@ height: 550px;">
 
               </div>
 
+              <div (click)="traer_archivo('Conversacion')" style="    margin: 10px;
+              border: groove; border-radius: 20px;  background-color: #82c7e6;     width: 200%; ">
+                          <i class="material-icons">chat</i>
+                          <span>Trasladar Conversación</span>
+          
+                        </div>
 
+
+                        <div class="boton-opcion" (click)="traer_archivo('Conversacion')">
+                          <i class="material-icons">chat</i>
+                          <span>Trasladar Conversación</span>
+                        </div>
+
+
+            </div> -->
+
+            <div class="boton-container">
+              <div class="boton-opcion" (click)="openDialog()">
+                <i class="material-icons">build</i>
+                <span>Gestionar Solicitudes</span>
+              </div>
+            
+              <div class="boton-opcion" (click)="traer_archivo('Solicitudes')">
+                <i class="material-icons">description</i>
+                <span>Imprimir Solicitudes</span>
+              </div>
+            
+              <div class="boton-opcion" (click)="traer_archivo('Conversacion')">
+                <i class="material-icons">chat</i>
+                <span>Imprimir Conversación</span>
+              </div>
+            
+              <div class="boton-opcion" (click)="consultarusers()">
+                <i class="material-icons">sync_alt</i>
+                <span>Trasladar Conversación</span>
+              </div>
             </div>
+            
+
           </div>
 
            <!-- <div class="chat-area">
