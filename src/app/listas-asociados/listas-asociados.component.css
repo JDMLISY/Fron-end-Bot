@@ -774,6 +774,7 @@ td.mat-cell {
   border-bottom: 1px solid #ddd;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  height: 10%;
 }
 
 .avatar-inicial {
@@ -965,7 +966,7 @@ mat-list-item span[matLine] {
   width: 480px;
   /* height: 640px; */
   border: 16px solid #ccc;
-  border-top: 60px solid #ccc;
+  border-top: 40px solid #ccc;
   border-bottom: 60px solid #ccc;
   border-radius: 36px;
   margin: auto;
@@ -1227,6 +1228,7 @@ ul {
   border-top: 1px solid #ccc;
   display: flex;
   justify-content: center;
+  align-self: center;
 }
 
 .boton-cerrar-conversacion {
