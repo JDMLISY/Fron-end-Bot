@@ -1,33 +1,57 @@
 <h2 mat-dialog-title>Trasladar Conversación</h2>
 
 <mat-dialog-content style="padding: 0 10px;">
-
   <div style="background: #f0f4f8; border-radius: 8px; padding: 12px; margin-bottom: 15px;">
     <p><strong>Contacto:</strong> {{ data.contacto }}</p>
     <p><strong>Número:</strong> {{ data.numero }}</p>
+    <p><strong>Radicado:</strong> {{ data.Radicado }}</p>
   </div>
+
   <label style="font-weight: bold; margin-bottom: 10px; display: block;">Selecciona un usuario para trasladar:</label>
 
-  <div class="contenedor-lista">
-    <mat-selection-list [(ngModel)]="usuarioSeleccionado">
-      <mat-list-option *ngFor="let usuario of usuariosFiltrados" [value]="usuario" class="usuario-opcion">
-        <div class="usuario-contenedor">
-          <div class="usuario-nombre">
-            {{ usuario.Nombre }}
-          </div>
-          <div class="etiquetas">
-            <span *ngFor="let etiqueta of (usuario.tipo_atencion_desc?.split(',') || [])" class="chip">
-              {{ etiqueta.trim() }}
-            </span>
-          </div>
-        </div>
-      </mat-list-option>
-    </mat-selection-list>
+  <!-- <mat-selection-list [(ngModel)]="usuarioSeleccionado">
+    <mat-list-option *ngFor="let user of usuariosFiltrados" [value]="user" (click)="seleccionarUsuario(user)">
+      <div><strong>{{ user.Nombre }}</strong></div>
+    </mat-list-option>
+  </mat-selection-list> -->
+  <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
+    <mat-label>Selecciona un usuario para trasladar</mat-label>
+    <mat-select [(ngModel)]="usuarioSeleccionado" (selectionChange)="seleccionarUsuario($event.value)">
+      <mat-option *ngFor="let user of usuariosFiltrados" [value]="user">
+        {{ user.Nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <!-- Selector personalizado debajo de la lista -->
+  <div *ngIf="tiposDelUsuarioSeleccionado.length > 0" style="margin-top: 16px;">
+    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Tipos de atención del usuario</label>
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Tipo de atención</mat-label>
+      <mat-select [(ngModel)]="usuarioSeleccionado.tipo_atencion">
+        <mat-option *ngFor="let opcion of tiposDelUsuarioSeleccionado" [value]="opcion.codigo">
+          {{ opcion.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-  
+
+  <mat-form-field appearance="outline" style="margin-top: 20px; width: 100%;">
+    <mat-label>Observaciones</mat-label>
+    <textarea matInput [(ngModel)]="observaciones" placeholder="Escribe algún comentario adicional..." rows="3"
+      style="resize: vertical; min-height: 80px;"></textarea>
+  </mat-form-field>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end" style="padding: 10px 16px;">
-  <button mat-button (click)="cerrar()">Cancelar</button>
-  <button mat-raised-button color="primary" (click)="trasladar()">Trasladar</button>
+<mat-dialog-actions align="end" style="padding: 20px 16px; background-color: #f9f9f9; border-top: 1px solid #ddd;">
+  <button mat-stroked-button color="warn" (click)="cerrar()" style="margin-right: 12px;">
+    Cancelar
+  </button>
+
+  <button mat-flat-button color="primary" (click)="trasladar()" [disabled]="!usuarioSeleccionado?.tipo_atencion">
+    Trasladar
+  </button>
 </mat-dialog-actions>
+
+

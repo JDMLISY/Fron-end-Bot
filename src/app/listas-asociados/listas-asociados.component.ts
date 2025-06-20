@@ -201,6 +201,7 @@ export class ListasAsociadosComponent implements OnInit {
   hidden = false;
   Cantidad = 0
   contacto = ""
+  Radicado= ""
   texto = ""
   numero = ""
   Cedula = ""
@@ -342,6 +343,7 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
         this.dataSource = new MatTableDataSource(data);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
+            this.Radicado = data[0].Radicado
 
             if (sessionStorage.getItem('numeroContacto')) {
               sessionStorage.removeItem('numeroContacto');
@@ -376,100 +378,14 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
 }
 
 
-  ver_conversacion(Nombre: string,numero:string, dedonde: string) {
+  ver_conversacion(Nombre: string,numero:string, dedonde: string,Radicado: string) {
     this.verconversacion = true
     this.Solicitudes = false
     this.contacto = Nombre
-    this.numero = numero    
+    this.numero = numero   
+    this.Radicado = Radicado 
   const user = this.tokenStorage.getUser();
-    //  this.userService.conversaciones("Conversaciones", numero).subscribe({
-    //   next: data => {
-    //     if (data.length > 0) {
-
-    //       for (let message of data) {
-    //         if (message.Ruta_Archivo === 'S') {
-    //           const url = message.Mensaje;
-    //           const extension = url.split('.').pop()?.toLowerCase().replaceAll(" ",""); // obtiene 'pdf', 'mp4', etc.
-          
-    //           switch (extension) {
-    //             case 'pdf':
-    //               message.tipoarchivo = 'application/pdf';
-    //               message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    //               break;
-    //             case 'mp4':
-    //               message.tipoarchivo = 'video';
-    //               message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    //               break;
-    //             case 'jpg':
-    //             case 'jpeg':
-    //             case 'png':
-    //               message.tipoarchivo = 'image/jpeg';
-    //               message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    //               break;
-    //             default:
-    //               message.TipoArchivo = 'otro';
-                  
-    //           message.Mensaje = 'https://docs.google.com/gview?embedded=true&url=' + message.Mensaje
-    //               break;
-    //           }
-          
-              
-              
-    //         }
-    //       }
-            
-    //       this.Conversa = data
-
-
-    //       this.cdRef.detectChanges();
-    //       this.scrollToBottom()
-
-          
-    //       // let identificadorDeTemporizador =  setInterval(() => this.userService.conversaciones("Conversaciones", this.tokenStorage.getUser(),this.numero).subscribe({
-    //       //   next: data => {
-    //       //     if (data.length > 0) {
-      
-    //       //       this.Conversa = data
-      
-    //       //       this.cdRef.detectChanges();
-    //       //       this.scrollToBottom(); 
-            
-          
-    //       //       return
-    //       //     } else {
-    //       //       if (data.Codigo == "401") {
-    //       //         this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
-    //       //         setTimeout(() => this.tokenStorage.signOut(), 20);
-    //       //         return
-    //       //       }
-      
-    //       //       this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-      
-    //       //     }
-    //       //   },
-    //       //   error: err => {
-    //       //     this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-    //       //   }
-    //       // }), 9000);
-
-
-          
-    //       return
-    //     } else {
-    //       if (data.Codigo == "401") {
-    //         this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
-    //         setTimeout(() => this.tokenStorage.signOut(), 20);
-    //         return
-    //       }
-
-    //       this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-
-    //     }
-    //   },
-    //   error: err => {
-    //     this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
-    //   }
-    // })
+  
 
     this.userService.conversaciones("Conversaciones", numero).subscribe({
       next: data => {
@@ -711,21 +627,19 @@ while (empieza >= 0 && empieza < cantidadArchivos )
         if (data.length > 0)
         {
 
-          this.contacto 
-          this.numero
-
-          const dialogRef = this.dialog.open(TrasladoConversacionesComponent, {
+                 const dialogRef = this.dialog.open(TrasladoConversacionesComponent, {
             width: '750px',
-            height: '600px',
+            height: '700px',
             data: {
               usuarios: data,
               contacto: this.contacto,
-              numero: this.numero
+              numero: this.numero,
+              Radicado: this.Radicado
             }
           });
         
           dialogRef.afterClosed().subscribe(result => {
-            console.log('Diálogo cerrado');
+            this.cargarSolicitudes();
           });
           return
           
@@ -759,6 +673,21 @@ while (empieza >= 0 && empieza < cantidadArchivos )
       this.mostrarSelector = false;
     }
   }
+  cerrarconversacion() {
+    // Aquí colocas la lógica para cerrar la conversación
+    this.authService.RequestData("",'Cerrarconversacion',this.numero).subscribe({
+      next: data => {
+   
+        this.userService.showSuccess(data.message,"Cerrar conversación",'success')
+
+      },
+      error: err => {
+        this.errorMessage = err.message;        
+        this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...","Error de comunicaciòn",'Error')  
+      }
+    });
+  }
+  
 }
 
 

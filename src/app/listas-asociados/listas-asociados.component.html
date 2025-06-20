@@ -67,6 +67,7 @@ margin-right: 2px;
         <div class="header-title">
           <div>Contacto: <strong>{{ contacto }}</strong></div>
           <div>Tipo de atención: <strong>{{ Tipoatencion }}</strong></div>
+          <div>Radicado: <strong>{{ Radicado }}</strong></div>
         </div>
       </mat-card-header>
       
@@ -110,7 +111,7 @@ margin-right: 2px;
                 <th mat-header-cell *matHeaderCellDef> Contactar... </th>
                 <td mat-cell *matCellDef="let row; let i = index;">
                   <button mat-raised-button style="width: 130px;" class="btn btn-primary btn-block" focusable="false"
-                    (click)="ver_conversacion(row.contacto,row.Numero_asociado,'S')">
+                    (click)="ver_conversacion(row.contacto,row.Numero_asociado,'S',row.Radicado)">
                     <mat-icon style="    margin-left: -11px;">smartphone</mat-icon> Contactar...
                   </button>
                 </td>
@@ -155,6 +156,7 @@ height: 550px;">
         <div class="header-title">
           <div>Contacto: <strong>{{ contacto }}</strong></div>
           <div>Tipo de atención: <strong>{{ Tipoatencion }}</strong></div>
+          <div>Radicado: <strong>{{ Radicado }}</strong></div>
         </div>
       </mat-card-header>
 
@@ -301,6 +303,9 @@ height: 550px;">
 
           <div class="chat-area">
             <div class="phone-frame">
+              <!-- Botón en la parte superior del marco del celular -->
+
+
               <mat-card-content class="mat-card-content1">
                 <mat-selection-list #Conver [(ngModel)]="Conversa">
                   <div #container class="container">
@@ -371,9 +376,20 @@ height: 550px;">
                   </div>
                 </div>
               </mat-card-content>
+              <mat-card-footer class="footer-boton-cel">
+                <button mat-raised-button color="primary" class="boton-cerrar-conversacion" (click)="cerrarconversacion()">
+                  <mat-icon>close</mat-icon>
+                  <span>Cerrar conversación</span>
+                </button>
+                
+              </mat-card-footer>
+              
+              
+              
+              
             </div>
-          
-            <mat-card-footer class="example-card-footer">
+            <mat-card-footer class="footer-boton-cel">
+        
             </mat-card-footer>
           </div>
           
