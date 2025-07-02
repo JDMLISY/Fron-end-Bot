@@ -30,46 +30,94 @@ export class ChatService {
     this.socket.emit('message', message);
   }
 
-  public getNewMessage = () => {
+  public notificacionesActivas = true; // <- bandera global
 
-    this.socket.on('message', (message) =>{
-      
-      const numero = sessionStorage.getItem('numeroContacto');
+public getNewMessage = () => {
+  this.socket.on('message', (message) => {
+
+    // Detectar si está en atención con asesor y desactivar notificaciones
+    if (message.dedonde == 'WEB') {
+      this.notificacionesActivas = false;
+    }
+
+    // Detectar si es el mensaje final de cierre
+    const mensajeCierre =
+      'Fue un placer atenderte❤️, gracias por utilizar nuestros servicios. Síguenos en nuestro Instagram';
+
+    if (message.Mensaje && message.Mensaje.startsWith(mensajeCierre)) {
+      this.notificacionesActivas = true;
+    }
+
+    // Emitir el mensaje como siempre
+    const numero = sessionStorage.getItem('numeroContacto');
       if (numero==message.numero)
         {
-          this.message$.next(message);
-      if (message.Ruta_Archivo == 'S')
-      {
+    this.message$.next(message);
+  }
+    // Si es un archivo
+    if (message.Ruta_Archivo === 'S') {
       message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(message.Mensaje);
-    }else
-    {
+    } else {
+      // Si las notificaciones están activas, mostrar notificación
+      if (this.notificacionesActivas) {
+        Notification.requestPermission().then((result) => {
+          const notification = new Notification("Existen nuevos mensajes", {
+            body: `Existe un mensaje. El cliente con número: ${message.numero}, escribió: ${message.Mensaje}`,
+            icon: "../assets/icons/LogoMore.jpg"
+          });
+
+          setTimeout(() => {
+            notification.close();
+          }, 30000);
+        });
+      }
+    }
+  });
+
+  return this.message$.asObservable();
+};
+
+
+//   public getNewMessage = () => {
+
+//     this.socket.on('message', (message) =>{
       
-        var regex = /(\d+)/g;
-var mensaje = message.Mensaje
-var datoradicado = message.Mensaje.match(regex)
-
-      Notification.requestPermission().then((Result) => {
-
-
-      })
-      if (mensaje.indexOf("El número de radicado para tu solicitud es") > 0)
-        {
+//       // const numero = sessionStorage.getItem('numeroContacto');
+//       // if (numero==message.numero)
+//       //   {
+//           this.message$.next(message);
+//       if (message.Ruta_Archivo == 'S')
+//       {
+//       message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(message.Mensaje);
+//     }else
+//     {
       
-           const notification=   new Notification( "Existen nuevas solicitudes",{ 
-                body: "Existe una nueva solicitud, El número de radicado para tu solicitud es: " + datoradicado[0],
-                icon: "..src/assets/icons/LogoMore.jpg"
-           })
+//         var regex = /(\d+)/g;
+// var mensaje = message.Mensaje
+// var datoradicado = message.Mensaje.match(regex)
+
+//       Notification.requestPermission().then((Result) => {
+
+
+//       })
+//       // if (mensaje.indexOf("El número de radicado para tu solicitud es") > 0)
+//       //   {
+      
+//            const notification=   new Notification( "Existen nuevos mensajes",{ 
+//                 body: "Existe un mensaje, El cliente con número: " + message.numero + ", escribió:" + message.Mensaje,                
+//                 icon: "..src/assets/icons/LogoMore.jpg"
+//            })
 
            
-setTimeout(() => {
-  notification.close();
-}, 30000);
-          }
-        }
-      }
+// setTimeout(() => {
+//   notification.close();
+// }, 30000);
+//           // }
+//         }
+//       // }
 
-    });
+//     });
 
-    return this.message$.asObservable();
-  };
+//     return this.message$.asObservable();
+//   };
 }

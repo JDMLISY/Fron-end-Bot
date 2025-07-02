@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  AUTH_API : 'https://localhost:50000/api/',
+  AUTH_API : 'https://localhost:50001/api/',
   recaptcha: {
     siteKey: '6LcoidgqAAAAAE3eMWFmB3sZLNxJDCKm6cCiWGw7',
   },
-  Socket: 'https://localhost:50000'
+  Socket: 'https://localhost:50001'
 };
 
 /*

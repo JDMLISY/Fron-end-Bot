@@ -974,7 +974,7 @@ mat-list-item span[matLine] {
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 
@@ -1250,4 +1250,14 @@ ul {
 
 .boton-cerrar-conversacion:hover {
   background-color: #42a5f5;
+}
+
+
+
+.footer-boton-cel {
+  padding: 8px;
+  text-align: center;
+  background: #f0f0f0;
+  border-top: 1px solid #ccc;
+  border-radius: 20px;
 }

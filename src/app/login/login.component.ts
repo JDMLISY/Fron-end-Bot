@@ -5,6 +5,7 @@ import { Router, Routes } from '@angular/router';
 import { inject } from '@angular/core/testing';
 import { UserService } from '../_services/user.service';
 import { NgForm } from '@angular/forms';
+import { ChatService } from '../web-socket.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
   name: string[] = [];
   captchaResolved = false
 
-  constructor(private userService: UserService,  private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router ) {
+  constructor(private userService: UserService,private chatService: ChatService,  private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router ) {
     this.token = undefined;
 
 
@@ -50,12 +51,15 @@ export class LoginComponent implements OnInit {
 
     console.debug(`Token [${this.token}] generated`);
   }
-  ngOnInit(): void {
+  ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
       this.name = this.tokenStorage.getUser().name;
     }
+    // this.chatService.getNewMessage().subscribe((message: any) => {
+     
+    // });
    
   }
 

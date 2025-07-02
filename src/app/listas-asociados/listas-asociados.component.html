@@ -361,8 +361,15 @@ height: 550px;">
                   <button mat-icon-button (click)="fileInput.click()" aria-label="Adjuntar archivo">
                     <mat-icon>attach_file</mat-icon>
                   </button>
-                  <input type="file" #fileInput id="fileInput" (change)="selectFile($event)" style="display: none;" />
-          
+                  <input
+                  type="file"
+                  #fileInput
+                  id="fileInput"
+                  (change)="selectFile($event)"
+                  accept=".pdf,image/*"
+                  style="display: none;"
+                />
+                 
                   <button mat-icon-button (click)="toggleSelector()" aria-label="Mostrar emojis">
                     <mat-icon>emoji_emotions</mat-icon>
                   </button>
@@ -381,8 +388,8 @@ height: 550px;">
                   <mat-icon>close</mat-icon>
                   <span>Cerrar conversación</span>
                 </button>
-                
               </mat-card-footer>
+          
               
             </div>
           </div>
