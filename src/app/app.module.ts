@@ -83,6 +83,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conversacional.component';
 import { TrasladoConversacionesComponent } from './traslado-conversaciones/traslado-conversaciones.component';
+import { MatriculaAyudasComponent } from './matricula-ayudas/matricula-ayudas.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -113,6 +116,7 @@ import { TrasladoConversacionesComponent } from './traslado-conversaciones/trasl
     LectorQRComponent,
     FlujoConversacionalComponent,
     TrasladoConversacionesComponent,
+    MatriculaAyudasComponent,
     
   ],
   imports: [
@@ -166,7 +170,8 @@ import { TrasladoConversacionesComponent } from './traslado-conversaciones/trasl
   PickerModule,
   MatCheckboxModule,
   MatExpansionModule,
-  MatTooltipModule 
+  MatTooltipModule,
+  MatSnackBarModule 
 
   
   

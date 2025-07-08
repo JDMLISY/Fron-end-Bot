@@ -1,0 +1,46 @@
+<div class="container">
+    <mat-card class="form-card">
+      <h2>{{ ayuda.idregistro ? 'Editar ayuda rápida' : 'Crear nueva ayuda' }}</h2>
+      
+       
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Contenido</mat-label>
+        <textarea matInput rows="3" [(ngModel)]="ayuda.Contenido"></textarea>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tipo</mat-label>
+        <mat-select [(ngModel)]="ayuda.Tipo">
+          <mat-option *ngFor="let tipo of tiposAyuda" [value]="tipo.valor">
+            {{ tipo.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+  
+      <div class="actions">
+        <button mat-raised-button color="primary" (click)="guardarAyuda()">
+          {{ ayuda.idregistro ? 'Actualizar' : 'Guardar' }}
+        </button>
+        <button mat-button color="warn" (click)="cancelar()" *ngIf="ayuda.idregistro">Cancelar</button>
+      </div>
+    </mat-card>
+  
+    <div class="listado-ayudas">
+      <mat-card *ngFor="let item of ayudas" class="ayuda-item">
+        <h3>{{ item.Titulo }}</h3>
+        <p>{{ item.Contenido }}</p>
+        <span class="tipo">{{ item.Tipo }}</span>
+        <div class="item-actions">
+          <button mat-icon-button color="primary" (click)="editarAyuda(item)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="eliminarAyuda(item.idregistro)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  
+  

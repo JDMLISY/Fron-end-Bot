@@ -71,19 +71,5 @@ abrirFlujoConversacional() {
 
 
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(estadoradicadosComponent, {
-      height: '800px',
-      width: '950px',
-      data:  "",
-    });
 
-  }
-
-  // ValidarModulo(): void {
-    
-
-  //   this.router.navigate(["/listAso"]);
-  // }
- 
 }

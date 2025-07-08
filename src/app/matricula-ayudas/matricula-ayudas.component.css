@@ -1,0 +1,58 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .form-card {
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  
+  .listado-ayudas {
+    display: grid;
+    gap: 16px;
+  }
+  
+  .ayuda-item {
+    padding: 16px;
+    border-radius: 10px;
+    position: relative;
+    background-color: #f3f7fb;
+  }
+  
+  .ayuda-item h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .ayuda-item p {
+    margin: 8px 0;
+    font-size: 15px;
+  }
+  
+  .tipo {
+    font-size: 13px;
+    color: #666;
+  }
+  
+  .item-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  

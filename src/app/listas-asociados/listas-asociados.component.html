@@ -149,18 +149,21 @@ margin-right: 2px;
 height: 550px;">
 
     <div class="conversacion conversacion-layout">
-      <mat-card-header class="custom-card-header">
-        <div class="avatar-inicial">
-          {{ contacto.charAt(0).toUpperCase() }}
-        </div>
-        <div class="header-title">
-          <div>Contacto: <strong>{{ contacto }}</strong></div>
-          <div>Tipo de atención: <strong>{{ Tipoatencion }}</strong></div>
-          <div>Radicado: <strong>{{ Radicado }}</strong></div>
-        </div>
-      </mat-card-header>
+      
+     
 
       <mat-card class="conversacion" appearance="outlined">
+
+        <mat-card-header class="custom-card-header">
+          <div class="avatar-inicial">
+            {{ contacto.charAt(0).toUpperCase() }}
+          </div>
+          <div class="header-title">
+            <div>Contacto: <strong>{{ contacto }}</strong></div>
+            <div>Tipo de atención: <strong>{{ Tipoatencion }}</strong></div>
+            <div>Radicado: <strong>{{ Radicado }}</strong></div>
+          </div>
+        </mat-card-header>
 
         <div class="conversacion-body">
           <div class="botones-columna">
@@ -227,79 +230,35 @@ height: 550px;">
               </div>
             </div>
             
-
+            <div class="ayudas-card">
+              <h3 class="titulo-ayudas">🗂 Ayudas rápidas</h3>
+              <input type="text" [(ngModel)]="busquedaFrase" placeholder="Buscar ayuda..." class="buscador-frases" />
+              
+              <!-- <div class="frases-rapidas">
+                <div *ngFor="let frase of frasesFiltradas()" 
+                     class="frase"
+                     (dragstart)="onDragStart($event, frase)"
+                     (click)="inputMensaje = frase">
+                  {{ frase }}
+                </div>
+              </div> -->
+              <div class="frases-rapidas">
+                <div *ngFor="let frase of frasesFiltradas()" 
+                     class="frase"
+                     draggable="true"
+                     (dragstart)="onDragStart($event, frase)"
+                     (dblclick)="enviar(numero,frase)">
+                  {{ frase }}
+                </div>
+              </div>
+              
+            </div>
+            
+            
           </div>
 
-           <!-- <div class="chat-area">
-            <div class="phone-frame">
-              <mat-card-content class="mat-card-content1">
-                <mat-selection-list #Conver [(ngModel)]="Conversa">
-                  <div #container class="container">
-                    <ul>
-                      <li *ngFor="let Conver of Conversa" class="divconversa">
 
-                        <div *ngIf="Conver.dedonde=='BOT'" class="message message-bot">
-                          {{Conver.Mensaje}}
-                        </div>
-
-                        <div *ngIf="Conver.dedonde=='WEB' && Conver.Ruta_Archivo == 'N'" class="message message-web">
-                          {{Conver.Mensaje}}
-                        </div>
-
-                        <div *ngIf="Conver.dedonde=='WEB' && Conver.Ruta_Archivo == 'S'" class="message message-web">
-                          <iframe *ngIf="Conver.tipoarchivo=='application/pdf'" [src]="Conver.Mensaje" height="200"
-                            width="100%" (click)="downloadFile(Conver.Mensaje)"></iframe>
-                          <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" style="height:200px"
-                            [src]="Conver.Mensaje" width="100%" alt="" (click)="downloadFile(Conver.Mensaje)">
-                          <iframe *ngIf="Conver.tipoarchivo=='otro'" [src]="Conver.Mensaje" width="100%"
-                            height="600px"></iframe>
-                        </div>
-
-                        <div *ngIf="Conver.dedonde=='ASO' && Conver.Ruta_Archivo == 'N'" class="message message-aso">
-                          {{Conver.Mensaje}}
-                        </div>
-
-                        <div *ngIf="Conver.dedonde=='ASO' && Conver.Ruta_Archivo == 'S'" class="message message-aso">
-                          <img style="height:200px" [src]="Conver.Mensaje" alt=""
-                            (click)="downloadFile(Conver.Mensaje)">
-                        </div>
-
-                      </li>
-                    </ul>
-                  </div>
-                </mat-selection-list>
-
-                <div class="input-area" style="position: relative; display: flex; align-items: center;">
-                  <input matInput (keyup.enter)="enviar(numero)" type="text" [(ngModel)]="texto"
-                    placeholder="Escribe tu mensaje..." style="flex: 1;" />
-
-                  <button mat-icon-button (click)="fileInput.click()" aria-label="Adjuntar archivo">
-                    <mat-icon>attach_file</mat-icon>
-                  </button>
-                  <input type="file" #fileInput id="fileInput" (change)="selectFile($event)" style="display: none;" />
-
-                  <button mat-icon-button (click)="toggleSelector()" aria-label="Mostrar emojis">
-                    <mat-icon>emoji_emotions</mat-icon>
-                  </button>
-
-                  <button mat-icon-button color="primary" (click)="enviar(numero)" aria-label="Enviar mensaje">
-                    <mat-icon>send</mat-icon>
-                  </button>
-
-                  <div *ngIf="mostrarSelector" #emojiPicker class="emoji-picker-container">
-                    <emoji-mart (emojiSelect)="agregarEmoji($event)"></emoji-mart>
-                  </div>
-                </div>
-
-
-              </mat-card-content>
-            </div>
-
-
-            <mat-card-footer class="example-card-footer">
-
-            </mat-card-footer>
-          </div>  -->
+     
 
           <div class="chat-area">
             <div class="phone-frame">
@@ -307,6 +266,10 @@ height: 550px;">
 
 
               <mat-card-content class="mat-card-content1">
+
+
+
+                
                 <mat-selection-list #Conver [(ngModel)]="Conversa">
                   <div #container class="container">
                     <ul>
@@ -324,6 +287,7 @@ height: 550px;">
           
                         <!-- Mensaje de WEB sin archivo -->
                         <div *ngIf="Conver.dedonde=='WEB' && Conver.Ruta_Archivo == 'N'" class="message message-web">
+                          <!-- <div class="autor-nombre" *ngIf="Conver.autor">{{ Conver.autor }}</div> -->
                           {{Conver.Mensaje}}
                         </div>
           
@@ -355,13 +319,25 @@ height: 550px;">
           
                 <!-- Área de entrada -->
                 <div class="input-area" style="position: relative; display: flex; align-items: center;">
-                  <input matInput (keyup.enter)="enviar(numero)" type="text" [(ngModel)]="texto"
+                  <input matInput (keyup.enter)="enviar(numero,'')" type="text" [(ngModel)]="texto"
                          placeholder="Escribe tu mensaje..." style="flex: 1;" />
           
                   <button mat-icon-button (click)="fileInput.click()" aria-label="Adjuntar archivo">
                     <mat-icon>attach_file</mat-icon>
                   </button>
+                  
+                  <!-- <textarea #inputArea
+                  [(ngModel)]="inputMensaje"
+                  (drop)="onDrop($event)"
+                  (dragover)="onDragOver($event)"
+                  placeholder="Escribe un mensaje..."></textarea> -->
+                  
+                  
                   <input
+                  [(ngModel)]="inputMensaje"
+                  (drop)="onDrop($event)"
+                  (dragover)="onDragOver($event)"
+                  placeholder="Escribe un mensaje..."
                   type="file"
                   #fileInput
                   id="fileInput"
@@ -374,7 +350,7 @@ height: 550px;">
                     <mat-icon>emoji_emotions</mat-icon>
                   </button>
           
-                  <button mat-icon-button color="primary" (click)="enviar(numero)" aria-label="Enviar mensaje">
+                  <button mat-icon-button color="primary" (click)="enviar(numero,'')" aria-label="Enviar mensaje">
                     <mat-icon>send</mat-icon>
                   </button>
           
@@ -384,12 +360,25 @@ height: 550px;">
                 </div>
               </mat-card-content>
               <mat-card-footer class="footer-boton-cel">
-                <button mat-raised-button color="primary" class="boton-cerrar-conversacion" (click)="cerrarconversacion()">
-                  <mat-icon>close</mat-icon>
-                  <span>Cerrar conversación</span>
-                </button>
-              </mat-card-footer>
+                <div class="botones-conversacion">
+                  <button mat-raised-button color="accent"
+                  [class.boton-vibrando]="mostrarParpadeo"
+                  (click)="abrirConversacion()">
+            <mat-icon>chat</mat-icon>
+            <span>Abrir conversación</span>
+          </button>
           
+          
+          
+              
+                  <button mat-raised-button color="primary" class="boton-cerrar-conversacion" (click)="cerrarconversacion()">
+                    <mat-icon>close</mat-icon>
+                    <span>Cerrar conversación</span>
+                  </button>
+                </div>
+              </mat-card-footer>
+              
+              
               
             </div>
           </div>

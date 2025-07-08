@@ -13,6 +13,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
 import { TrasladoConversacionesComponent } from '../traslado-conversaciones/traslado-conversaciones.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -101,6 +102,45 @@ export class ListasAsociadosComponent implements OnInit {
   imagePreview : any 
   selectedFiles?: FileList;
   currentFile?: File;
+  inputMensaje: string = '';
+  frasesPredefinidas: string[] = [];
+
+  // frasesPredefinidas: string[] = [
+  //   "¡Hola! ¡Espero que te encuentres muy bien! ☀️",
+  //   "¿Cómo podemos ayudarte el día de hoy?",
+  //   "¿Cuéntanos qué dudas tienes de las deducciones de tu nómina del concepto de HOGAR FEG?",
+  //   "Es con mucho gusto, ¡Estamos para servirte siempre! ❤"
+  // ];
+  
+  busquedaFrase: string = '';
+  mostrarParpadeo = false;
+
+  
+  frasesFiltradas(): string[] {
+    if (!this.busquedaFrase) return this.frasesPredefinidas;
+    const filtro = this.busquedaFrase.toLowerCase();
+    return this.frasesPredefinidas.filter(f => f.toLowerCase().includes(filtro));
+  }
+  
+  onDragStart(event: DragEvent, texto: string) {
+    event.dataTransfer?.setData("text/plain", texto);
+  }
+  
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+  
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    const texto = event.dataTransfer?.getData("text/plain") || "";
+    this.inputMensaje += texto;
+  }
+  
+  
+
+
+
+
   ngAfterViewInit() {
 
   
@@ -141,8 +181,29 @@ export class ListasAsociadosComponent implements OnInit {
       this.cdRef.detectChanges();
       this.scrollToBottom();
     });
+
+    this.cargarFrasesPredefinidas();
   }
   
+
+
+
+  cargarFrasesPredefinidas(): void {
+    const payload = {
+      accion: 'listar',      
+    };
+  
+    this.authService.RequestDataobject(payload, 'ayudasrapidas', '').subscribe({
+      next: (data: any[]) => {
+        this.frasesPredefinidas = data.map(item => item.Contenido);
+      },
+      error: err => {
+        console.error('Error cargando frases:', err);
+        this.frasesPredefinidas = []; // opcional
+      }
+    });
+  }
+
   // Función auxiliar para formatear fechas
   obtenerFechaFormateada(fecha: Date): string {
     const hoy = new Date();
@@ -214,7 +275,7 @@ export class ListasAsociadosComponent implements OnInit {
     this.hidden = !this.hidden;
   }
  
-  constructor( private http: HttpClient,private sanitizer: DomSanitizer,private chatService: ChatService, private authService: AuthService, private cdRef: ChangeDetectorRef,   private userService: UserService, private tokenStorage: TokenStorageService, public dialog: MatDialog) {
+  constructor( private snackBar: MatSnackBar ,private http: HttpClient,private sanitizer: DomSanitizer,private chatService: ChatService, private authService: AuthService, private cdRef: ChangeDetectorRef,   private userService: UserService, private tokenStorage: TokenStorageService, public dialog: MatDialog) {
 
     for(var i=0; i<100; i++){
 
@@ -240,26 +301,7 @@ export class ListasAsociadosComponent implements OnInit {
             contactos: []                   // cargarás en otra llamada
           }));
   
-          // Llama a obtener asociados, como haces en tu flujo actual
-          // this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "ConAso", "", "","").subscribe({
-          //   next: (asociados: any[]) => {
-          //     // Combinas contactos en typesOfShoes
-          //     this.typesOfShoes = this.typesOfShoes.map(tipo => ({
-          //       ...tipo,
-          //       contactos: asociados.filter(a => a.Tipo_atencion === tipo.tipo_atencion).map(c => ({
-                  
-          //         contacto: c.contacto,
-          //         numero: c.Numero_asociado,
-          //         identificacion: c.identificacion,
-          //         cantidad: c.Cantidad, 
-          //         Tipo_atencion: c.Tipo_atencion
-          //       }))
-          //     }));
-          //   },
-          //   error: err => {
-          //     this.userService.showSuccess("Error al obtener asociados", "Error", "error");
-          //   }
-          // });
+
 
           this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "ConAso", "", "", "").subscribe({
             next: (asociados: any[]) => {
@@ -462,17 +504,19 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
 
   }
 
-  async enviar(numero: string){
+  async enviar(numero: string,frase: string){
 
     
-    var obj2 = {Mensaje: this.texto};
+    //var obj2 = {Mensaje: this.texto};
 
    // this.Conversa.push(obj2); 
-   this.Conversa = [...this.Conversa, {"Mensaje": this.texto,"dedonde": "WEB"}];
+   //this.Conversa = [...this.Conversa, {"Mensaje": this.texto,"dedonde": "WEB"}];
     
    this.cdRef.detectChanges();
    this.scrollToBottom(); 
-     var mensaje =  this.texto
+
+     var mensaje = this.texto && this.texto.trim() !== "" ? this.texto : frase;
+
      this.texto = ""
 
     // this.Conversa.concat(obj2)
@@ -494,19 +538,13 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
         // this.scrollToBottom(); 
         
          
-     
-
-
+     if (data[0].HorasTranscurridas >= 24)
+      {
+        
+        this.userService.showSuccess(data[0].Mensaje, "Mensaje informativo", 'warning')
+        this.mostrarParpadeo = true;
+      }
          
-
-
-
-//           if (dedonde== 'P')
-// {
-//             var obj2 = {Mensaje: "Prueba"};
-//           this.Conversa.push(obj2); 
-//           }
-          
           return
         } else {
           if (data.Codigo == "401") {
@@ -515,12 +553,12 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
             return
           }
 
-          this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
+    //      this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
 
         }
       },
       error: err => {
-        this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
+   //     this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
       }
     })
 
@@ -686,6 +724,38 @@ while (empieza >= 0 && empieza < cantidadArchivos )
         this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...","Error de comunicaciòn",'Error')  
       }
     });
+  }
+
+  abrirConversacion (){
+
+    this.mostrarParpadeo = false
+
+
+
+    this.userService.Mensajeswhatplantilla(this.numero,this.contacto).subscribe({
+      next: data => {
+        if (data.length > 0) {
+         
+          return
+        } else {
+          if (data.Codigo == "401") {
+            this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
+            setTimeout(() => this.tokenStorage.signOut(), 20);
+            return
+          }
+
+
+        }
+      },
+      error: err => {
+   
+      }
+    })
+
+
+
+
+
   }
   
 }

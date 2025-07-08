@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { TokenStorageService } from '../_services/token-storage.service';
 
+
+
 const AUTH_API = environment.AUTH_API;
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json',
@@ -67,8 +69,23 @@ export class UserService {
       Nit: this.tokenStorage.getUser().Nit,
       numero: numero,
       mensaje: mensaje,
-      typomensaje:typomensaje
-      // Nombre,
+      typomensaje:typomensaje,
+       Nombreasesor: this.tokenStorage.getUser().name,
+      
+    }, httpOptions);
+    
+  }
+  
+
+  
+  Mensajeswhatplantilla(numero:string,contacto:string): Observable<any> {
+     
+    return this.http.post(AUTH_API + "enviarPlantilla", {
+      Nit: this.tokenStorage.getUser().Nit,
+      numero: numero,
+      nombreAsesor: this.tokenStorage.getUser().name,
+      nombreCliente: contacto,            
+       
       
     }, httpOptions);
     
