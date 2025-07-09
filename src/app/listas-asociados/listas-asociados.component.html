@@ -363,10 +363,12 @@ height: 550px;">
                 <div class="botones-conversacion">
                   <button mat-raised-button color="accent"
                   [class.boton-vibrando]="mostrarParpadeo"
+                  [disabled]="desactivarBoton"
                   (click)="abrirConversacion()">
             <mat-icon>chat</mat-icon>
             <span>Abrir conversación</span>
           </button>
+          
           
           
           

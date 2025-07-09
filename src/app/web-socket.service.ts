@@ -15,10 +15,19 @@ export class ChatService {
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
   constructor(private sanitizer: DomSanitizer,private tokenStorage: TokenStorageService) {}
   
-
-  socket = io(Socket, {   //desarrollo
-    withCredentials: false
+  socket = io(environment.Socket, {
+    query: {
+      nit: this.tokenStorage.getUser().Nit, // ⚠️ Asegúrate que `this.nit` esté definido correctamente
+    },
+    transports: ['websocket']
   });
+  
+  // socket = io(Socket, {   //desarrollo
+  //   withCredentials: false,
+  // query: {
+  //   nit: this.tokenStorage.getUser().Nit
+  // }
+  // });
 
 //  socket = io('https://whatsapp.soari.co:50000', {   //produccion
 //     withCredentials: false

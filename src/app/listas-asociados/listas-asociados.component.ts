@@ -104,6 +104,7 @@ export class ListasAsociadosComponent implements OnInit {
   currentFile?: File;
   inputMensaje: string = '';
   frasesPredefinidas: string[] = [];
+  desactivarBoton: boolean = true;
 
   // frasesPredefinidas: string[] = [
   //   "¡Hola! ¡Espero que te encuentres muy bien! ☀️",
@@ -542,14 +543,18 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
       {
         
         this.userService.showSuccess(data[0].Mensaje, "Mensaje informativo", 'warning')
+        this.desactivarBoton = false;
         this.mostrarParpadeo = true;
+
       }
          
           return
-        } else {
+        } else {          
           if (data.Codigo == "401") {
+            this.desactivarBoton = true;
             this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
             setTimeout(() => this.tokenStorage.signOut(), 20);
+
             return
           }
 
@@ -727,18 +732,21 @@ while (empieza >= 0 && empieza < cantidadArchivos )
   }
 
   abrirConversacion (){
-
+    
+    this.desactivarBoton = true;
     this.mostrarParpadeo = false
 
-
-
     this.userService.Mensajeswhatplantilla(this.numero,this.contacto).subscribe({
-      next: data => {
+      next: data => {        
         if (data.length > 0) {
-         
+          this.desactivarBoton = true;
+          this.mostrarParpadeo = false
           return
         } else {
           if (data.Codigo == "401") {
+            this.desactivarBoton = true;
+                this.mostrarParpadeo = false
+
             this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
             setTimeout(() => this.tokenStorage.signOut(), 20);
             return
