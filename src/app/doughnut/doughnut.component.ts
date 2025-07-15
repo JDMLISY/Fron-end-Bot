@@ -247,7 +247,7 @@ resueltas: string = '0%';
         this.totalSolicitudes = data.totalSolicitudes;
         this.solicitudesHoy = data.solicitudesHoy;
         this.resueltas = data.resueltas;
-        const valorString = "12733 min";
+        const valorString = data.promedioAtencion;
 
 // Extraer solo números (quita todo lo que no sea dígito)
 const soloNumeros = valorString.replace(/\D/g, ''); // "12733"

@@ -1,0 +1,78 @@
+<div class="main-container">
+    <div class="top-actions">
+      <div style="float: right; margin-right: auto;">
+        <button mat-raised-button (click)="abrirModal()">
+          <mat-icon>add_circle</mat-icon>
+          Nueva Entidad
+        </button>
+      </div>
+  
+      <mat-form-field appearance="standard">
+        <mat-icon matPrefix>search</mat-icon>
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar entidad..." #input>
+      </mat-form-field>
+    </div>
+  
+    <div class="mat-elevation-z8 compact-table">
+      <table mat-table [dataSource]="dataSource" matSort>
+  
+        <!-- ID -->
+        <ng-container matColumnDef="idEntidad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let row"> {{ row.idEntidad }} </td>
+        </ng-container>
+  
+        <!-- NIT -->
+        <ng-container matColumnDef="Nitentidades">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> NIT </th>
+          <td mat-cell *matCellDef="let row"> {{ row.Nitentidades }} </td>
+        </ng-container>
+  
+        <!-- Nombre Entidad -->
+        <ng-container matColumnDef="NombreEntidad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Entidad </th>
+          <td mat-cell *matCellDef="let row"> {{ row.NombreEntidad }} </td>
+        </ng-container>
+  
+        <!-- Fecha Matrícula -->
+        <ng-container matColumnDef="FechaMatricula">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Matrícula </th>
+          <td mat-cell *matCellDef="let row"> {{ row.FechaMatricula | date:'shortDate' }} </td>
+        </ng-container>
+  
+        <!-- Nombre BD -->
+        <ng-container matColumnDef="nombrebd">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre BD </th>
+          <td mat-cell *matCellDef="let row"> {{ row.nombrebd }} </td>
+        </ng-container>
+  
+        <!-- Origen Datos -->
+        <ng-container matColumnDef="Origendatos">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Origen Datos </th>
+          <td mat-cell *matCellDef="let row"> {{ row.Origendatos }} </td>
+        </ng-container>
+  
+        <!-- Editar -->
+        <ng-container matColumnDef="Editar">
+          <th mat-header-cell *matHeaderCellDef> Editar </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-raised-button class="btn btn-primary btn-block" (click)="editar(row)">
+              <mat-icon>border_color</mat-icon> Editar
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+        <!-- Mensaje sin datos -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="7">No hay datos que coincidan con "{{ input.value }}"</td>
+        </tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  

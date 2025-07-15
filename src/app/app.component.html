@@ -46,6 +46,7 @@
 </mat-menu>
 
 <mat-menu #Configuraciones="matMenu">
+  <a *ngIf="showSuperAdminBoard" mat-button href="/matricula-entidades" routerLink="matricula-entidades"><mat-icon>supervised_user_circle</mat-icon> Registrar usuarios</a>
   <a *ngIf="showSuperAdminBoard ||showAdminBoard" mat-button href="/register" routerLink="register"><mat-icon>supervised_user_circle</mat-icon> Registrar usuarios</a>
   
   <a *ngIf="showSuperAdminBoard" mat-button href="/activaModulo" routerLink="activaModulo"><mat-icon style="color: black;">view_module</mat-icon>Activar Modulos</a>

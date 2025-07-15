@@ -85,6 +85,8 @@ import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conve
 import { TrasladoConversacionesComponent } from './traslado-conversaciones/traslado-conversaciones.component';
 import { MatriculaAyudasComponent } from './matricula-ayudas/matricula-ayudas.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatriculaEntidadesComponent } from './matricula-entidades/matricula-entidades.component';
+import { DialogEntidadComponent } from './dialog-entidad/dialog-entidad.component';
 
 
 
@@ -117,6 +119,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FlujoConversacionalComponent,
     TrasladoConversacionesComponent,
     MatriculaAyudasComponent,
+    MatriculaEntidadesComponent,
+    DialogEntidadComponent,
     
   ],
   imports: [

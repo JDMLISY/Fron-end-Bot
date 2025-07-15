@@ -1,0 +1,90 @@
+<mat-toolbar color="primary" class="cabecera">
+    <mat-icon>business</mat-icon>
+    <span>Matrícula de Entidades</span>
+  
+    <span class="spacer"></span>
+    <button mat-raised-button color="accent" (click)="Limpiar()">
+      <mat-icon>remove_from_queue</mat-icon>&nbsp;Limpiar
+    </button>
+  </mat-toolbar>
+  
+  <form class="formulario" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+    <mat-card appearance="outlined">
+      <mat-card-content class="form-grid">
+        
+        <!-- Nit de la entidad -->
+        <mat-form-field appearance="fill">
+          <mat-label>NIT</mat-label>
+          <input matInput formControlName="Nitentidades" placeholder="123456789-0" />
+          <mat-error *ngIf="form.get('Nitentidades')?.hasError('required')">NIT es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Nombre entidad -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre Entidad</mat-label>
+          <input matInput formControlName="NombreEntidad" placeholder="Cooperativa Ejemplo" />
+          <mat-error *ngIf="form.get('NombreEntidad')?.hasError('required')">Nombre es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Fecha matrícula -->
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha Matrícula</mat-label>
+          <input matInput type="date" formControlName="FechaMatricula" />
+          <mat-error *ngIf="form.get('FechaMatricula')?.hasError('required')">Fecha es <strong>Requerida</strong></mat-error>
+        </mat-form-field>
+  
+        <!-- Nombre BD -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre Base de Datos</mat-label>
+          <input matInput formControlName="nombrebd" placeholder="ejemplo_bd" />
+          <mat-error *ngIf="form.get('nombrebd')?.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+  
+        <!-- Origen datos -->
+ <!-- Origen de Datos -->
+<mat-form-field appearance="fill">
+    <mat-label>Origen de Datos</mat-label>
+    <mat-select id="Origendatos" formControlName="Origendatos" required>
+      <mat-option value="Sabana">Sabana</mat-option>
+      <mat-option value="Soari">Soari</mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('Origendatos')?.hasError('required')">
+      Origen de datos es <strong>Requerido</strong>
+    </mat-error>
+  </mat-form-field>
+  
+  
+        <!-- Logo (opcional) -->
+  <!-- Logo de la Entidad -->
+<!-- Logo de la entidad (selector de archivo) -->
+<div class="file-upload-wrapper">
+    <label for="logoInput">Logo de la Entidad</label>
+    <input id="logoInput" type="file" accept="image/*" (change)="onFileSelected($event)">
+  </div>
+  
+  <!-- Previsualización de la imagen -->
+  <div *ngIf="form.get('LogoEntidad')?.value">
+    <img [src]="form.get('LogoEntidad')?.value" alt="Logo" style="max-height: 100px; margin-top: 10px;" />
+  </div>
+  
+  
+  
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="botones-card" appearance="outlined">
+      <mat-card-content class="botones-container">
+        <button mat-raised-button color="primary" type="submit">
+          <mat-icon>save_alt</mat-icon>&nbsp;Registrar
+        </button>
+        <button mat-raised-button color="warn" type="button" (click)="onNoClick()">
+          <mat-icon>cancel</mat-icon>&nbsp;Cancelar
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </form>
+  
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    ¡Entidad registrada exitosamente!
+  </div>
+  
