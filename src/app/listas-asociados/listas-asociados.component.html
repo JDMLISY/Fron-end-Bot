@@ -1,5 +1,5 @@
 <div class="menu">
-  <div class="example-ripple-container mat-elevation-z4 menusub" matRipple [matRippleCentered]="centered"
+  <!-- <div class="example-ripple-container mat-elevation-z4 menusub" matRipple [matRippleCentered]="centered"
     [matRippleDisabled]="disabled" [matRippleUnbounded]="unbounded">
     <mat-selection-list #shoes>
 
@@ -44,11 +44,89 @@
     </mat-selection-list>
 
 
+  </div> -->
+
+  <div class="example-ripple-container mat-elevation-z4 menusub" 
+  matRipple 
+  [matRippleCentered]="centered"
+  [matRippleDisabled]="disabled" 
+  [matRippleUnbounded]="unbounded">
+
+<!-- CABECERA CLIENTES EN ESPERA -->
+<div class="cabecera-clientes">
+  <mat-icon class="icono-saltarin">group</mat-icon>
+  <span>Clientes en espera</span>
+  
+</div>
+
+<mat-selection-list #shoes>
+
+ <cdk-virtual-scroll-viewport appendOnly itemSize="10" class="example-viewport">
+
+   <mat-accordion multi>
+     <mat-expansion-panel *ngFor="let item of typesOfShoes">
+       <mat-expansion-panel-header>
+         <mat-panel-title>
+           <div style="display: flex; align-items: center; gap: 8px;">
+             <mat-icon>folder</mat-icon> {{ item.tipo_atencion }}
+           </div>
+         </mat-panel-title>
+         <mat-panel-description>
+           <div style="width: 100%; display: flex; justify-content: flex-end;">
+             <mat-icon matTooltip="{{ item.cantidad }} solicitudes" matTooltipPosition="above">chat</mat-icon>
+           </div>
+         </mat-panel-description>
+       </mat-expansion-panel-header>
+
+       <mat-list>
+         <mat-list-item *ngFor="let contacto of item.contactos"
+           (click)="filtrar_solicitudes(contacto.contacto, contacto.numero, contacto.identificacion, contacto.Tipo_atencion)">
+           <div matListAvatar class="avatar-inicial">
+             {{ contacto.contacto.charAt(0).toUpperCase() }}
+           </div>
+           <div matLine class="contacto-info">
+             <span class="contacto-nombre texto-responsive">{{ contacto.contacto }}</span>
+             <span class="badge" *ngIf="contacto.cantidad" 
+                   matTooltip="{{ item.cantidad }} solicitudes"
+                   matTooltipPosition="above">{{ contacto.cantidad }}</span>
+           </div>
+         </mat-list-item>
+       </mat-list>
+     </mat-expansion-panel>
+   </mat-accordion>
+
+ </cdk-virtual-scroll-viewport>
+</mat-selection-list>
+</div>
+
+  
+  <div *ngIf="listaasociados" style=" width:74%;
+float:right;
+vertical-align:bottom;
+  text-align:bottom;
+margin-right: 2px;
+height: 550px;">
+  <div class="ayudas-card">
+    <h3 class="titulo-ayudas">🧾 Lista de clientes para contactar</h3>
+  
+    <input type="text" [(ngModel)]="busquedaNit" placeholder="Buscar asociado..." class="buscador-frases" />
+  
+    <div class="frases-rapidas">
+      <div *ngFor="let nit  of NitsFiltrados()" 
+           class="frase"
+           draggable="true"           
+           (click)="ver_conversacion(nit.strNombreIntegrado,nit.Celular,'S','Sin Radicado')">
+        <strong>{{ nit .strNombreIntegrado }}</strong><br />
+        <small>{{ nit .Celular }}</small>
+      </div>
+    </div>
   </div>
 
+</div>
+  
 
-
-
+ 
+  
 
   <div *ngIf="Solicitudes" style=" width:74%;
 float:right;
@@ -69,6 +147,23 @@ margin-right: 2px;
           <div>Tipo de atención: <strong>{{ Tipoatencion }}</strong></div>
           <div>Radicado: <strong>{{ Radicado }}</strong></div>
         </div>
+        <ul class="navbar-nav ml-auto ">
+          <li class="nav-item salir">
+            <button
+  mat-raised-button
+  style="width: 150px;"
+  class="btn btn-primary btn-block"
+  focusable="false"
+  (click)="buscarContacto()"
+>
+  <mat-icon style="margin-left: -11px;">search</mat-icon>
+  Buscar contacto...
+</button>
+
+         
+          </li>
+        </ul>
+        
       </mat-card-header>
       
 
@@ -163,7 +258,26 @@ height: 550px;">
             <div>Tipo de atención: <strong>{{ Tipoatencion }}</strong></div>
             <div>Radicado: <strong>{{ Radicado }}</strong></div>
           </div>
+          <ul class="navbar-nav ml-auto ">
+            <li class="nav-item salir">
+              <button
+    mat-raised-button
+    style="width: 150px;"
+    class="btn btn-primary btn-block"
+    focusable="false"
+    (click)="buscarContacto()"
+  >
+    <mat-icon style="margin-left: -11px;">search</mat-icon>
+    Buscar contacto...
+  </button>
+  
+           
+            </li>
+          </ul>
+          
         </mat-card-header>
+        
+        
 
         <div class="conversacion-body">
           <div class="botones-columna">

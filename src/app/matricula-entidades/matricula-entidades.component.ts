@@ -11,6 +11,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { DialogoarticuloComponent } from '../dialogoarticulo/dialogoarticulo.component'
 import { UserService } from '../_services/user.service';
 
+
 @Component({
   selector: 'app-matricula-entidades',
   templateUrl: './matricula-entidades.component.html',
@@ -36,13 +37,56 @@ export class MatriculaEntidadesComponent {
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
 
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog,  private authService: AuthService, private userService: UserService,private tokenStorage: TokenStorageService) {
+    const body = {
+      accion: 'listar', // Aquí defines la acción que quieras (crear, editar, eliminar, listar)
+      newData: ""
+    };
+
+  this.authService.RequestDataobject(body, 'entidades', '').subscribe({
+      next: data => {
+        
+        if (data.length > 0)
+        {
+
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          return
+          
+        }else 
+        {
+          if (data.Codigo== "401")
+          {
+            
+            this.userService.showSuccess(data.Mensaje,"Error de comunicaciòn",'Error')
+            setTimeout(() => this.tokenStorage.signOut(), 20);
+               return    
+          }
+
+          this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...","Error de comunicaciòn",'Error')  
+          //this.errorMessage = data.message;
+        }
+      },
+      error: err => {
+        this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...","Error de comunicaciòn",'Error')  
+        this.errorMessage = err.error.message;
+        
+      }
+    })
+  
+  }
 
   abrirModal(entidad?: any) {
     const dialogRef = this.dialog.open(DialogEntidadComponent, {
       width: '700px',
-      data: entidad || {} // si tiene entidad, es edición; si no, es nuevo
+      data: {
+        accion: 'crear',
+        entidad: entidad || {}
+      }
     });
+  
+  
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -75,10 +119,13 @@ export class MatriculaEntidadesComponent {
   editar(Codigo:string) {
     
     
-    const dialogRef = this.dialog.open(DialogoarticuloComponent, {
+    const dialogRef = this.dialog.open(DialogEntidadComponent, {
       height: '600px',
       width: '750px',
-      data:  Codigo,
+      data: {
+        Codigo: Codigo,
+        accion: 'editar'
+      }
     });
 
 
@@ -89,5 +136,9 @@ export class MatriculaEntidadesComponent {
     });
   } 
  
+  
+
+
+
 }
 

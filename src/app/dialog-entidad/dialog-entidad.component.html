@@ -8,7 +8,7 @@
     </button>
   </mat-toolbar>
   
-  <form class="formulario" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+  <form class="formulario" [formGroup]="form" (ngSubmit)=" onSubmit()">
     <mat-card appearance="outlined">
       <mat-card-content class="form-grid">
         
@@ -33,12 +33,7 @@
           <mat-error *ngIf="form.get('FechaMatricula')?.hasError('required')">Fecha es <strong>Requerida</strong></mat-error>
         </mat-form-field>
   
-        <!-- Nombre BD -->
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre Base de Datos</mat-label>
-          <input matInput formControlName="nombrebd" placeholder="ejemplo_bd" />
-          <mat-error *ngIf="form.get('nombrebd')?.hasError('required')">Campo requerido</mat-error>
-        </mat-form-field>
+     
   
         <!-- Origen datos -->
  <!-- Origen de Datos -->
@@ -54,19 +49,55 @@
   </mat-form-field>
   
   
-        <!-- Logo (opcional) -->
-  <!-- Logo de la Entidad -->
-<!-- Logo de la entidad (selector de archivo) -->
-<div class="file-upload-wrapper">
-    <label for="logoInput">Logo de la Entidad</label>
-    <input id="logoInput" type="file" accept="image/*" (change)="onFileSelected($event)">
-  </div>
+   <!-- Nombre BD -->
+   <mat-form-field appearance="fill" *ngIf="mostrarNombreBD">
+    <mat-label>Nombre Base de Datos para conexión</mat-label>
+    <mat-select formControlName="nombrebd" placeholder="Selecciona una base de datos">
+      <mat-option *ngFor="let bd of bdentidades" [value]="bd.NombreCatalogo">
+        {{ bd.NombreCatalogo }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('nombrebd')?.hasError('required')">
+      Campo requerido
+    </mat-error>
+  </mat-form-field>
   
-  <!-- Previsualización de la imagen -->
-  <div *ngIf="form.get('LogoEntidad')?.value">
-    <img [src]="form.get('LogoEntidad')?.value" alt="Logo" style="max-height: 100px; margin-top: 10px;" />
+<!-- CONTENEDOR FLEX PRINCIPAL -->
+<div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+
+  <!-- BLOQUE: LABEL + INPUT (EN COLUMNA) -->
+  <div style="display: flex; flex-direction: column; flex: 1;">
+    <label for="logoInput" style="font-weight: bold; margin-bottom: 4px;">Logo de la Entidad</label>
+    <input id="logoInput"
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    (mouseenter)="hovered = true"
+    (mouseleave)="hovered = false"
+    [ngStyle]="{
+      padding: '8px',
+      border: '2px dashed',
+      borderColor: hovered ? '#1976d2' : '#90caf9',
+      backgroundColor: '#f5faff',
+      borderRadius: '6px',
+      cursor: 'pointer',
+      color: '#333',
+      fontSize: '14px',
+      transition: 'border-color 0.3s'
+    }"
+/>
+
   </div>
-  
+
+  <!-- BLOQUE: IMAGEN -->
+  <div *ngIf="form.get('LogoEntidad')?.value" style="flex-shrink: 0;">
+    <img [src]="form.get('LogoEntidad')?.value"
+         alt="Logo"
+         style="max-height: 80px; max-width: 120px; border: 1px solid #ccc; border-radius: 6px; padding: 4px;" />
+  </div>
+
+</div>
+
   
   
       </mat-card-content>

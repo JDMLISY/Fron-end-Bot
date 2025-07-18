@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
   showSuperAdminBoard = false;
   showModeratorBoard = false;
   modulo = false
+  logoEntidad: string = '';
+
   username?: string;
   dataSource = new MatTableDataSource()
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -42,6 +44,7 @@ export class AppComponent implements OnInit {
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
+      this.logoEntidad = user.logo;
       this.showSuperAdminBoard = this.roles.includes('S');
       this.showAdminBoard = this.roles.includes('A');
       this.showModeratorBoard = this.roles.includes('U');

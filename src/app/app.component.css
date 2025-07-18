@@ -108,3 +108,82 @@ background-color:palegreen;
     display: inline-block;
   }
   
+
+  .navbar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-navbar {
+    height: 36px;
+    margin-right: 12px;
+    border-radius: 4px;
+    background: white;
+    padding: 2px;
+  }
+  
+  .titulo-navbar {
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .usuario-nombre {
+    margin-left: 6px;
+    font-weight: 500;
+    color: white;
+  }
+  
+
+  .navbar-custom {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    height: 64px;
+    background-color: black;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-img {
+    height: 40px;
+    border-radius: 4px;
+    margin-right: 12px;
+    background-color: white;
+    padding: 2px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .titulo-navbar {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .usuario-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .usuario-nombre {
+    margin-left: 6px;
+    margin-right: 8px;
+  }
+  
+  .menu-btn-container {
+    margin-right: 16px;
+  }
+  

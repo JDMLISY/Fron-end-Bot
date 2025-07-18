@@ -50,6 +50,7 @@ export class ListasAsociadosComponent implements OnInit {
   hoveredItem: any = null;
   // typesOfShoes = Array.from({length: 1000}).map((_, i) => `Item #${i}`);
   displayedColumns: string[] = ['idRegistro','Tipo_atencion','Radicado','fecha_solicitud','Contactar'];
+  
   dataSource = new MatTableDataSource()
   errorMessage = '';
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -94,7 +95,7 @@ export class ListasAsociadosComponent implements OnInit {
 
 
 
-  
+  listaasociados = true
   verconversacion = false
   Solicitudes =false 
   DatosUsuario: string[] = [];
@@ -104,6 +105,8 @@ export class ListasAsociadosComponent implements OnInit {
   currentFile?: File;
   inputMensaje: string = '';
   frasesPredefinidas: string[] = [];
+  NitsPredefinidas: { strNombreIntegrado: string, Celular: string }[] = [];
+  
   desactivarBoton: boolean = true;
 
   // frasesPredefinidas: string[] = [
@@ -115,6 +118,7 @@ export class ListasAsociadosComponent implements OnInit {
   
   busquedaFrase: string = '';
   mostrarParpadeo = false;
+  busquedaNit: string = '';
 
   
   frasesFiltradas(): string[] {
@@ -150,18 +154,7 @@ export class ListasAsociadosComponent implements OnInit {
     this.cargarSolicitudes();
   }
 
-  // ngOnInit() {
-  //   this.chatService.getNewMessage().subscribe((message: string) => {
-      
-    
-  //     this.Conversa = [...this.Conversa, {message}];
-  //     this.Conversa.push(message)
-  //  //  this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(message.Mensaje);
-  //     this.cdRef.detectChanges();
-  //    this.scrollToBottom(); 
-     
-  //   })
-  // }
+  
   
 
   ngOnInit() {
@@ -184,6 +177,7 @@ export class ListasAsociadosComponent implements OnInit {
     });
 
     this.cargarFrasesPredefinidas();
+    this.cargarnitsPredefinidas()
   }
   
 
@@ -375,6 +369,7 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
 
   const user = this.tokenStorage.getUser();
   // this.limpiartiempo()
+  this.listaasociados = false
   this.verconversacion = false
   this.Solicitudes = true
   this.contacto = Nombre
@@ -423,6 +418,7 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
 
   ver_conversacion(Nombre: string,numero:string, dedonde: string,Radicado: string) {
     this.verconversacion = true
+    this.listaasociados = false
     this.Solicitudes = false
     this.contacto = Nombre
     this.numero = numero   
@@ -766,6 +762,38 @@ while (empieza >= 0 && empieza < cantidadArchivos )
 
   }
   
+  
+
+  cargarnitsPredefinidas(): void {
+    this.authService.RequestData('', 'nits', '').subscribe({
+      next: (data: any[]) => {
+        console.log('✅ Nits recibidos:', data);
+        this.NitsPredefinidas = data[0];
+      },
+      error: err => {
+        console.error('❌ Error cargando NITs:', err);
+        this.NitsPredefinidas = [];
+      }
+    });
+  }
+  
+  NitsFiltrados(): { strNombreIntegrado: string, Celular: string }[] {
+    if (!this.busquedaNit) return this.NitsPredefinidas;
+  
+    const filtro = this.busquedaNit.toLowerCase();
+    return this.NitsPredefinidas.filter(nit =>
+      nit.strNombreIntegrado?.toLowerCase().includes(filtro) ||
+      nit.Celular?.toLowerCase().includes(filtro)
+    );
+  }
+  
+  buscarContacto(): void{
+    
+    this.listaasociados = true
+    this.verconversacion = false
+    this.Solicitudes =false
+  
+  }
 }
 
 

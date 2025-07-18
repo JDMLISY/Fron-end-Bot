@@ -1371,5 +1371,33 @@ ul {
     box-shadow: 0 0 10px #42a5f5;
   }
 }
+.cabecera-clientes {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* <-- Centra el contenido horizontalmente */
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 15px;
+  gap: 8px;
+  color: #1e88e5;
+  border-bottom: 1px solid #ccc;
+  background-color: #f3f6f9;
+}
+.icono-saltarin {
+  animation: saltar 1.2s infinite ease-in-out;
+  font-size: 22px;
+  color: #1e88e5;
+}
+
+/* Definición de la animación */
+@keyframes saltar {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 
 
