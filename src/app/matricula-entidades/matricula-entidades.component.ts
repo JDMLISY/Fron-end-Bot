@@ -25,6 +25,7 @@ export class MatriculaEntidadesComponent {
     'idEntidad',
     'Nitentidades',
     'NombreEntidad',
+    'AliasBD',
     'FechaMatricula',
     'nombrebd',
     'Origendatos',

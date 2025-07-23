@@ -105,7 +105,7 @@ export class ListasAsociadosComponent implements OnInit {
   currentFile?: File;
   inputMensaje: string = '';
   frasesPredefinidas: string[] = [];
-  NitsPredefinidas: { strNombreIntegrado: string, Celular: string }[] = [];
+  NitsPredefinidas: { strNombreIntegrado: string, Celular: string,SoloNombres: string }[] = [];
   
   desactivarBoton: boolean = true;
 
@@ -777,13 +777,15 @@ while (empieza >= 0 && empieza < cantidadArchivos )
     });
   }
   
-  NitsFiltrados(): { strNombreIntegrado: string, Celular: string }[] {
+  NitsFiltrados(): { strNombreIntegrado: string, Celular: string, SoloNombres:string }[] {
     if (!this.busquedaNit) return this.NitsPredefinidas;
   
     const filtro = this.busquedaNit.toLowerCase();
     return this.NitsPredefinidas.filter(nit =>
       nit.strNombreIntegrado?.toLowerCase().includes(filtro) ||
       nit.Celular?.toLowerCase().includes(filtro)
+      
+
     );
   }
   

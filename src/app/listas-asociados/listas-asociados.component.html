@@ -112,13 +112,13 @@ height: 550px;">
     <input type="text" [(ngModel)]="busquedaNit" placeholder="Buscar asociado..." class="buscador-frases" />
   
     <div class="frases-rapidas">
-      <div *ngFor="let nit  of NitsFiltrados()" 
-           class="frase"
-           draggable="true"           
-           (click)="ver_conversacion(nit.strNombreIntegrado,nit.Celular,'S','Sin Radicado')">
-        <strong>{{ nit .strNombreIntegrado }}</strong><br />
-        <small>{{ nit .Celular }}</small>
-      </div>
+      <div *ngFor="let nit of NitsFiltrados()" 
+      class="frase"
+      draggable="true"           
+      (click)="ver_conversacion(nit.SoloNombres, nit.Celular, 'S', 'Sin Radicado')">
+   <strong>{{ nit.strNombreIntegrado }}</strong><br />
+   <small>{{ nit.Celular }}</small>
+ </div>
     </div>
   </div>
 

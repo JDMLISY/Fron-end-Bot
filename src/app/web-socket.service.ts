@@ -41,56 +41,20 @@ export class ChatService {
 
   public notificacionesActivas = true; // <- bandera global
 
-// public getNewMessage = () => {
-//   this.socket.on('message', (message) => {
-
-//     // Detectar si está en atención con asesor y desactivar notificaciones
-//     if (message.dedonde == 'WEB') {
-//       this.notificacionesActivas = false;
-//     }
-
-//     // Detectar si es el mensaje final de cierre
-//     const mensajeCierre =
-//       'Fue un placer atenderte❤️, gracias por utilizar nuestros servicios. Síguenos en nuestro Instagram';
-
-//     if (message.Mensaje && message.Mensaje.startsWith(mensajeCierre)) {
-//       this.notificacionesActivas = true;
-//     }
-
-//     // Emitir el mensaje como siempre
-//     const numero = sessionStorage.getItem('numeroContacto');
-//       if (numero==message.numero)
-//         {
-//     this.message$.next(message);
-//   }
-//     // Si es un archivo
-//     if (message.Ruta_Archivo === 'S') {
-//       message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(message.Mensaje);
-//     } else {
-//       // Si las notificaciones están activas, mostrar notificación
-//       if (this.notificacionesActivas) {
-//         Notification.requestPermission().then((result) => {
-//           const notification = new Notification("Existen nuevos mensajes", {
-//             body: `Existe un mensaje. El cliente con número: ${message.numero}, escribió: ${message.Mensaje}`,
-//             icon: "../assets/icons/LogoMore.jpg"
-//           });
-
-//           setTimeout(() => {
-//             notification.close();
-//           }, 30000);
-//         });
-//       }
-//     }
-//   });
-
-//   return this.message$.asObservable();
-// };
-
 
   public getNewMessage = () => {
 
     this.socket.on('message', (message) =>{
-      
+   
+      console.log(`📩 [FRONT] Mensaje recibido en sala: ${message.nit}`, message);
+      const nitActual = this.tokenStorage.getUser().Nit;
+
+      // Mostrar el mensaje solo si pertenece a esta entidad
+      if (message.nit !== nitActual) {
+        return; // 🚫 Ignora mensajes de otras entidades
+      }
+
+
       const numero = sessionStorage.getItem('numeroContacto');
       if (numero==message.numero)
         {

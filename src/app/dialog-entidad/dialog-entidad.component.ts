@@ -49,6 +49,7 @@ export class DialogEntidadComponent implements OnInit {
       idEntidad: new FormControl(data.Codigo?.idEntidad),
       Nitentidades: new FormControl(data.Codigo?.Nitentidades || '', [Validators.required]),
       NombreEntidad: new FormControl(data.Codigo?.NombreEntidad || '', [Validators.required]),
+      AliasBD: new FormControl(data.Codigo?.AliasBD || '', [Validators.required]),
       FechaMatricula: new FormControl(data.Codigo?.FechaMatricula || '', [Validators.required]),
       nombrebd: new FormControl(data.Codigo?.nombrebd || '', [Validators.required]),
       Origendatos: new FormControl(data.Codigo?.Origendatos || '', [Validators.required]),      

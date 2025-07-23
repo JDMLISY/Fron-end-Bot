@@ -25,6 +25,12 @@
           <input matInput formControlName="NombreEntidad" placeholder="Cooperativa Ejemplo" />
           <mat-error *ngIf="form.get('NombreEntidad')?.hasError('required')">Nombre es <strong>Requerido</strong></mat-error>
         </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Alias BD</mat-label>
+          <input matInput formControlName="AliasBD" placeholder="Nombre bd Ejemplo" />
+          <mat-error *ngIf="form.get('AliasBD')?.hasError('required')">Nombre es <strong>Requerido</strong></mat-error>
+        </mat-form-field>
   
         <!-- Fecha matrícula -->
         <mat-form-field appearance="fill">

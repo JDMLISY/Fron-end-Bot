@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
   showModeratorBoard = false;
   modulo = false
   logoEntidad: string = '';
+  NombreEntidad: string = '';
 
   username?: string;
   dataSource = new MatTableDataSource()
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
       this.logoEntidad = user.logo;
+      this.NombreEntidad = user.NombreEntidad
       this.showSuperAdminBoard = this.roles.includes('S');
       this.showAdminBoard = this.roles.includes('A');
       this.showModeratorBoard = this.roles.includes('U');
