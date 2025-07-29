@@ -395,102 +395,36 @@ height: 550px;">
                         </div>
           
                         <!-- Mensaje de BOT -->
-                        <!-- <div *ngIf="Conver.dedonde=='BOT'" class="message message-bot">
+                        <div *ngIf="Conver.dedonde=='BOT'" class="message message-bot">
                           {{Conver.Mensaje}}
-                        </div> -->
-          <div *ngIf="Conver.dedonde === 'BOT'" class=" message  message-bot">
- <div class="message-bubble">
-  <div class="message-content">
-    {{ Conver.Mensaje }}
-  </div>
-  <div class="message-footer">
-    <span class="hora-msg">{{ Conver.hora }}</span>
-  </div>
-</div>
-</div>
-
+                        </div>
+          
                         <!-- Mensaje de WEB sin archivo -->
                         <div *ngIf="Conver.dedonde=='WEB' && Conver.Ruta_Archivo == 'N'" class="message message-web">
-                     <div class="message-bubble">
-  <div class="message-content">
-    {{ Conver.Mensaje }}
-  </div>
-  <div class="message-footer">
-    <span class="hora-msg">{{ Conver.hora }}</span>
-  </div>
-</div>
+                          <!-- <div class="autor-nombre" *ngIf="Conver.autor">{{ Conver.autor }}</div> -->
+                          {{Conver.Mensaje}}
                         </div>
           
                         <!-- Mensaje de WEB con archivo -->
                         <div *ngIf="Conver.dedonde=='WEB' && Conver.Ruta_Archivo == 'S'" class="message message-web">
-                          <div class="message-bubble">
-  <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" [src]="getSafeUrl(Conver.Mensaje)" height="150" width="80%" (click)="downloadFile(Conver.Mensaje)">
-  <iframe *ngIf="Conver.tipoarchivo === 'application/pdf'"  [src]="getSafeUrl(Conver.Mensaje)" height="200" width="100%" (click)="downloadFile(Conver.Mensaje)"></iframe>
-  <div class="message-footer">
-    <span class="hora-msg">{{ Conver.hora }}</span>
-  </div>
-</div>
-                          <!-- <iframe *ngIf="Conver.tipoarchivo=='application/pdf'" [src]="Conver.Mensaje" height="200"
+                          <iframe *ngIf="Conver.tipoarchivo=='application/pdf'" [src]="Conver.Mensaje" height="200"
                                   width="100%" (click)="downloadFile(Conver.Mensaje)"></iframe>
-                          <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" style="height:200"
-                               [src]="Conver.Mensaje" width="100%" (click)="downloadFile(Conver.Mensaje)">
+                          <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" style="height:200px"
+                               [src]="Conver.Mensaje" width="100%" alt="" (click)="downloadFile(Conver.Mensaje)">
                           <iframe *ngIf="Conver.tipoarchivo=='otro'" [src]="Conver.Mensaje" width="100%"
-                                  height="200px"></iframe> -->
+                                  height="600px"></iframe>
                         </div>
           
                         <!-- Mensaje de ASO sin archivo -->
-          
-                        
-
-
-
-                       
-<div *ngIf="Conver.dedonde === 'ASO' && Conver.Ruta_Archivo === 'S'" class="message message-aso">
-<!-- <a [href]="Conver.Mensaje" target="_blank" rel="noopener">
-  {{ getArchivoLabel(Conver.Mensaje) }} {{ getFileName(Conver.Mensaje) }}
-</a> -->
-
- <div *ngIf="Conver.tipoarchivo === 'application/pdf'"  class="message-bubble pdf-bubble">
-  <div class="iframe-container">
-    <iframe *ngIf="Conver.tipoarchivo === 'application/pdf'" [src]="getSafeUrl(Conver.Mensaje)" height="200" width="100%"></iframe>
-    <button class="download-btn" (click)="downloadFile(Conver.Mensaje)">⬇ Descargar</button>
-  </div>
-  <div class="message-footer">
-    <span class="hora-msg">{{ Conver.hora }}</span>
-  </div>
-</div>
-
-<div *ngIf="Conver.tipoarchivo?.startsWith('image/')" class="message-bubble image-bubble">
-  <div class="image-container">
-    <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" [src]="getSafeUrl(Conver.Mensaje)" alt="imagen"
-         (click)="downloadFile(Conver.Mensaje)" />
-    <button class="download-btn" (click)="downloadFile(Conver.Mensaje)">⬇ Descargar</button>
-  </div>
-  <div class="message-footer">
-    <span class="hora-msg">{{ Conver.hora }}</span>
-  </div>
-</div>
-
-</div>
-<div class="message message-aso" *ngIf="Conver.dedonde === 'ASO' && Conver.Ruta_Archivo === 'N'">
- <!-- Para mensajes de texto simples -->
-<div class="message-bubble">
-  <div class="message-content">
-    {{ Conver.Mensaje }}
-  </div>
-  <div class="message-footer">
-    <span class="hora-msg">{{ Conver.hora }}</span>
-  </div>
-</div>
-
-</div>
-
-
- <!-- <div *ngIf="Conver.dedonde=='ASO' && Conver.Ruta_Archivo == 'N'" class="message message-aso">
+                        <div *ngIf="Conver.dedonde=='ASO' && Conver.Ruta_Archivo == 'N'" class="message message-aso">
                           {{Conver.Mensaje}}
-                        </div>  -->
-
-
+                        </div>
+          
+                        <!-- Mensaje de ASO con archivo -->
+                        <div *ngIf="Conver.dedonde=='ASO' && Conver.Ruta_Archivo == 'S'" class="message message-aso">
+                          <img style="height:200px" [src]="Conver.Mensaje" alt=""
+                               (click)="downloadFile(Conver.Mensaje)">
+                        </div>
           
                       </li>
                     </ul>

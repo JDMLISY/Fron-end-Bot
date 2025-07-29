@@ -1399,59 +1399,5 @@ ul {
   }
 }
 
-.message-bubble {
-  background-color: #6a994e;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 10px;
-  margin: 8px 0;
-  max-width: 80%;
-  width: fit-content;
-   display: contents;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-}
 
-.message-content {
-  word-wrap: break-word;
-}
-
-.message-footer {
-  align-self: flex-end;
-  margin-top: 4px;
-}
-
-.hora-msg {
-  font-size: 8px;
-  color: #ddd;
-}
-.iframe-container {
-  position: relative;
-}
-
-.download-btn {
-  position: absolute;
-  bottom: 8px;
-  right: 10px;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 12px;
-  border-radius: 4px;
-}
-
-
-.image-container {
-  position: relative;
-  display: inline-block;
-}
-
-.image-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
 

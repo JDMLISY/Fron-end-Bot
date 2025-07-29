@@ -9,12 +9,11 @@ import { AuthService } from '../_services/auth.service';
 import { GestionSolicitudesComponent } from '../gestion-solicitudes/gestion-solicitudes.component'
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { ChatService } from '../web-socket.service';
-import { DomSanitizer, SafeUrl,SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
 import { TrasladoConversacionesComponent } from '../traslado-conversaciones/traslado-conversaciones.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 
 
 
@@ -144,9 +143,6 @@ export class ListasAsociadosComponent implements OnInit {
   
   
 
-isImage(url: any): boolean {
-  return typeof url === 'string' && /\.(jpg|jpeg|png|gif|pdf)$/i.test(url);
-}
 
 
 
@@ -226,28 +222,15 @@ isImage(url: any): boolean {
     }
   }
   
-downloadFile(url: any) {
-  const link = document.createElement('a');
 
-  // Asegura que sea string
-  const validUrl = typeof url === 'string' ? url : (url?.changingThisBreaksApplicationSecurity || '');
 
-  link.href = validUrl;
-  link.target = '_blank';
-  link.download = validUrl.split('/').pop() || 'archivo';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  downloadFile(event: string){
+    let link = document.createElement("a");
+    link.download = event;
+    link.target = "_blank";
+    link.href = event;
+    link.click();
 }
-
-
-//   downloadFile(event: string){
-//     let link = document.createElement("a");
-//     link.download = event;
-//     link.target = "_blank";
-//     link.href = event;
-//     link.click();
-// }
 
   scrollToBottom(): void {
     // this.viewport.scrollToIndex(this.typesOfShoes.length -1);
@@ -298,7 +281,6 @@ downloadFile(url: any) {
     
   
  }
-
 
  cargarSolicitudes() {
   const user = this.tokenStorage.getUser();
@@ -814,46 +796,6 @@ while (empieza >= 0 && empieza < cantidadArchivos )
     this.Solicitudes =false
   
   }
-  
-getFileName(url: any): string {
-  try {
-    // Convierte el SafeResourceUrl a string seguro
-    const safeUrl = url?.changingThisBreaksApplicationSecurity || url?.toString() || '';
-    return decodeURIComponent(safeUrl.split('/').pop() || '');
-  } catch (e) {
-    return '';
-  }
-}
-getArchivoLabel(url: any): string {
-  if (!url) return '';
-
-  const raw = typeof url === 'string' 
-    ? url 
-    : url.changingThisBreaksApplicationSecurity || url.toString();
-
-  const extension = raw.split('.').pop()?.toLowerCase() || '';
-
-  const extensionesImagen = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-  const extensionesDocumento = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
-
-  if (extensionesImagen.includes(extension)) {
-    return '📷 Ver imagen:';
-  }
-
-  if (extensionesDocumento.includes(extension)) {
-    return '📄 Ver documento:';
-  }
-
-  return '📎 Ver archivo:'; // por defecto si no es reconocida
-}
-getSafeUrl(url: any): SafeResourceUrl {
-  const validUrl: string =
-    typeof url === 'string'
-      ? url
-      : url?.changingThisBreaksApplicationSecurity || url?.toString() || '';
-
-  return this.sanitizer.bypassSecurityTrustResourceUrl(validUrl);
-}
 }
 
 
