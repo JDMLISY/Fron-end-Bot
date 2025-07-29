@@ -61,8 +61,8 @@
 <mat-menu #Conversaciones="matMenu">
   <button mat-menu-item (click)="services.ValidarModulo('/listAso','Call center')">🗂️ Solicitudes</button>
   <button mat-menu-item (click)="services.ValidarModulo('/Informes','Call center')">📊 Informes</button>
-  <button mat-menu-item (click)="services.ValidarModulo('Radicados','Call center')" *ngIf="showSuperAdminBoard || showAdminBoard">✅ Activar radicados</button>
-  <button mat-menu-item (click)="services.ValidarModulo('ayudas','Call center')" *ngIf="showSuperAdminBoard || showAdminBoard">📘 Matrícula de ayudas</button>
+  <button mat-menu-item (click)="services.ValidarModulo('Radicados','Call center')">✅ Activar radicados</button>
+  <button mat-menu-item (click)="services.ValidarModulo('ayudas','Call center')">📘 Matrícula de ayudas</button>
   <button mat-menu-item (click)="abrirFlujoConversacional()" *ngIf="showSuperAdminBoard || showAdminBoard">💬 Flujo Conversacional</button>
 </mat-menu>
 
