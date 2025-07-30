@@ -457,6 +457,20 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
               const extension = url.split('.').pop()?.toLowerCase().replaceAll(" ", "");
     
               switch (extension) {
+                 case 'ogg':
+                  message.tipoarchivo = 'audio/ogg';
+                  message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);                
+                  break;
+                case 'docx':
+                 case 'doc':
+                  message.tipoarchivo = 'application/msword';
+                  message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+                  break;
+               case 'xlsx':
+                
+                  message.tipoarchivo = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                  message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+                  break;
                 case 'pdf':
                   message.tipoarchivo = 'application/pdf';
                   message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
