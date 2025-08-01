@@ -13,45 +13,61 @@
   <form class="formulario" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
     <mat-card appearance="outlined">
       <mat-card-content class="form-grid">
-  
+
         <!-- Usuario -->
         <mat-form-field appearance="fill">
           <mat-label>Código</mat-label>
           <input matInput id="Usuario" formControlName="Usuario" placeholder="JDM" />
-          <mat-error *ngIf="form.get('Usuario').hasError('required')">Usuario es <strong>Requerido</strong></mat-error>
+          <mat-error *ngIf="form.get('Usuario')?.hasError('required')">
+            Usuario es <strong>Requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('Usuario')?.hasError('maxlength')">
+            Máximo <strong>3 caracteres</strong> permitidos
+          </mat-error>
         </mat-form-field>
-  
+      
         <!-- Nombre -->
         <mat-form-field appearance="fill">
           <mat-label>Nombre</mat-label>
           <input matInput id="Nombre" formControlName="Nombre" placeholder="Nombre" />
-          <mat-error *ngIf="form.get('Nombre').hasError('required')">Nombre es <strong>Requerido</strong></mat-error>
+          <mat-error *ngIf="form.get('Nombre')?.hasError('required')">
+            Nombre es <strong>Requerido</strong>
+          </mat-error>
         </mat-form-field>
-  
+      
         <!-- Password -->
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
           <input matInput id="Password" type="password" formControlName="Password" placeholder="Contraseña" />
-          <mat-error *ngIf="form.hasError('pattern')">
+          <mat-error *ngIf="form.get('Password')?.hasError('required')">
+            Contraseña es <strong>Requerida</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('Password')?.hasError('pattern')">
             La contraseña debe tener mayúscula, minúscula, número y mínimo 8 caracteres.
           </mat-error>
-          <mat-error *ngIf="form.hasError('required')">Contraseña es <strong>Requerida</strong></mat-error>
         </mat-form-field>
-  
+      
         <!-- Email -->
         <mat-form-field appearance="fill">
           <mat-label>Correo</mat-label>
           <input matInput type="email" id="Email" formControlName="Email" placeholder="Email" />
-          <mat-error *ngIf="form.hasError('required')">Email es <strong>Requerido</strong></mat-error>
+          <mat-error *ngIf="form.get('Email')?.hasError('required')">
+            Email es <strong>Requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('Email')?.hasError('email')">
+            Ingresa un <strong>correo válido</strong>
+          </mat-error>
         </mat-form-field>
-  
+      
         <!-- Celular -->
         <mat-form-field appearance="fill">
           <mat-label>Celular</mat-label>
           <input matInput id="Celular" formControlName="Celular" placeholder="Celular" />
-          <mat-error *ngIf="form.hasError('required')">Celular es <strong>Requerido</strong></mat-error>
+          <mat-error *ngIf="form.get('Celular')?.hasError('required')">
+            Celular es <strong>Requerido</strong>
+          </mat-error>
         </mat-form-field>
-  
+      
         <!-- Perfil -->
         <mat-form-field appearance="fill">
           <mat-label>Perfil</mat-label>
@@ -59,9 +75,11 @@
             <mat-option value="A">Administrador</mat-option>
             <mat-option value="U">Usuario</mat-option>
           </mat-select>
-          <mat-error *ngIf="form.hasError('required')">Perfil es <strong>Requerido</strong></mat-error>
+          <mat-error *ngIf="form.get('Perfil')?.hasError('required')">
+            Perfil es <strong>Requerido</strong>
+          </mat-error>
         </mat-form-field>
-  
+      
         <!-- Estado -->
         <mat-form-field appearance="fill">
           <mat-label>Estado</mat-label>
@@ -69,9 +87,11 @@
             <mat-option value="A">Activo</mat-option>
             <mat-option value="I">Inactivo</mat-option>
           </mat-select>
-          <mat-error *ngIf="form.hasError('required')">Estado es <strong>Requerido</strong></mat-error>
+          <mat-error *ngIf="form.get('Estado')?.hasError('required')">
+            Estado es <strong>Requerido</strong>
+          </mat-error>
         </mat-form-field>
-  
+      
         <!-- Tipo de Atención -->
         <mat-form-field appearance="fill">
           <mat-label>Atención de Clientes</mat-label>
@@ -84,7 +104,7 @@
             <mat-select-trigger>
               {{ form.get('Tipo_atencion')?.value?.join(', ') }}
             </mat-select-trigger>
-        
+      
             <mat-option value="T">Todos</mat-option>
             <mat-option value="A">Ahorro a la vista</mat-option>
             <mat-option value="C">Créditos</mat-option>
@@ -97,31 +117,14 @@
             <mat-option value="CA">Comunicarse con asesor</mat-option>
             <mat-option value="N">Sin asignación</mat-option>
           </mat-select>
-        
+      
           <mat-error *ngIf="form.get('Tipo_atencion')?.hasError('required')">
             Clase Atención es <strong>Requerida</strong>
           </mat-error>
         </mat-form-field>
-        
-        <!-- <mat-form-field appearance="fill">
-          <mat-label>Atención de Clientes</mat-label>
-          <mat-select id="Tipo_atencion" formControlName="Tipo_atencion">
-            <mat-option value="T">Todos</mat-option>
-            <mat-option value="A">Ahorro a la vista</mat-option>
-            <mat-option value="C">Créditos</mat-option>
-            <mat-option value="E">Estados de cuenta</mat-option>
-            <mat-option value="CP">Cotización de pólizas</mat-option>
-            <mat-option value="CE">Certificados</mat-option>
-            <mat-option value="DN">Descuentos de nómina</mat-option>
-            <mat-option value="EC">Envío de consignaciones</mat-option>
-            <mat-option value="CB">Compra Boletería de cine</mat-option>
-            <mat-option value="CA">Comunicarse con asesor</mat-option>
-            <mat-option value="N">Sin asignación</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.hasError('required')">Clase Atención es <strong>Requerida</strong></mat-error>
-        </mat-form-field> -->
-  
+      
       </mat-card-content>
+      
     </mat-card>
   
     <mat-card class="botones-card" appearance="outlined">
