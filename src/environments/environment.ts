@@ -8,7 +8,8 @@ export const environment = {
   recaptcha: {
     siteKey: '6LcoidgqAAAAAE3eMWFmB3sZLNxJDCKm6cCiWGw7',
   },
-  Socket: 'https://localhost:50001'
+  Socket: 'https://localhost:50001',
+  SecretKey:'Botini202560100'
 };
 
 /*

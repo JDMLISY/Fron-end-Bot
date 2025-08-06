@@ -38,13 +38,12 @@ export class AuthService {
     })
   }
 
-  login(username: string, password: string, Nit: string): Observable<any> {
-    return this.http.post(AUTH_API + 'Login', {
-      username,
-      password,
-      Nit
-    }, httpOptions);
+
+  login(encryptedPayload: string): Observable<any> {
+    return this.http.post(AUTH_API + 'Login', { payload: encryptedPayload });
   }
+  
+ 
 
   RequestData(newData: string, NombreMetodo: string, numero: string): Observable<any> {
 

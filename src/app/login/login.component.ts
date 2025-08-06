@@ -6,6 +6,10 @@ import { inject } from '@angular/core/testing';
 import { UserService } from '../_services/user.service';
 import { NgForm } from '@angular/forms';
 import { ChatService } from '../web-socket.service';
+import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
+
+
 
 
 @Component({
@@ -62,51 +66,56 @@ export class LoginComponent implements OnInit {
     // });
    
   }
-
-  onSubmit(): void {
-
-if  (this.captchaResolved == false)
-  {
-    this.userService.showSuccess("por favor validar si no es robot","Validación de captcha","Error")
-    return 
+  encryptData(data: any, secretKey: string): string {
+    return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
   }
-
-    const { username, password,Nit } = this.form;
-
-    this.authService.login(username, password,Nit).subscribe({
+  onSubmit(): void {
+    if (!this.captchaResolved) {
+      this.userService.showSuccess("por favor validar si no es robot", "Validación de captcha", "Error");
+      return;
+    }
+  
+    const payload = {
+      username: this.form.username,
+      password: this.form.password,
+      Nit: this.form.Nit
+    };
+  
+    const encryptedData = this.encryptData(payload, environment.SecretKey);
+  
+    this.authService.login(encryptedData).subscribe({
       next: data => {
-        
         if (data.message == "Autenticación Fallida")
-        {
-
-          this.userService.showSuccess(data.message,"Error Usuario o Password Incorrecto","Error")
-          // this.errorMessage = data.message;
-          this.isLoginFailed = true;
+                  {
           
-        }else 
-        {
-        
-       this.userService.showSuccess(data.message,"Ingreso Correcto","info")
-       
-       
-       this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
-
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-       
-        this.roles = this.tokenStorage.getUser().roles;
-        this.name = this.tokenStorage.getUser().name;
-
-     // this.router.navigate(["/listAso"])
-     setTimeout(() => this.reloadPage(), 20);
-       // this.reloadPage().timeout();
-        }
-      },
-      error: err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      }
+                    this.userService.showSuccess(data.message,"Error Usuario o Password Incorrecto","Error")
+                    // this.errorMessage = data.message;
+                    this.isLoginFailed = true;
+                    
+                  }else 
+                  {
+                  
+                 this.userService.showSuccess(data.message,"Ingreso Correcto","info")
+                 
+                 
+                 this.tokenStorage.saveToken(data.accessToken);
+                  this.tokenStorage.saveUser(data);
+          
+                  this.isLoginFailed = false;
+                  this.isLoggedIn = true;
+                 
+                  this.roles = this.tokenStorage.getUser().roles;
+                  this.name = this.tokenStorage.getUser().name;
+          
+               // this.router.navigate(["/listAso"])
+               setTimeout(() => this.reloadPage(), 20);
+                 // this.reloadPage().timeout();
+                  }
+                },
+                error: err => {
+                  this.errorMessage = err.error.message;
+                  this.isLoginFailed = true;
+                }      
     });
   }
 

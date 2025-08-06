@@ -7,5 +7,6 @@ export const environment = {
 siteKey: '6LcoidgqAAAAAE3eMWFmB3sZLNxJDCKm6cCiWGw7',
 
 },
-Socket: "https://whatsapp.soari.co:50000" 
+Socket: "https://whatsapp.soari.co:50000", 
+SecretKey:'Botini202560100'
 };
