@@ -472,6 +472,7 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
                   message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
                   break;
                 case 'pdf':
+                  case 'html':
                   message.tipoarchivo = 'application/pdf';
                   message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
                   break;
@@ -482,6 +483,7 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
                 case 'jpg':
                 case 'jpeg':
                 case 'png':
+                  
                   message.tipoarchivo = 'image/jpeg';
                   message.Mensaje = this.sanitizer.bypassSecurityTrustResourceUrl(url);
                   break;

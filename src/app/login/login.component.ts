@@ -32,10 +32,11 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   name: string[] = [];
   captchaResolved = false
+  hidePassword: boolean = true;
 
   constructor(private userService: UserService,private chatService: ChatService,  private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router ) {
     this.token = undefined;
-
+    
 
    }
    resolved(captchaResponse: string) {

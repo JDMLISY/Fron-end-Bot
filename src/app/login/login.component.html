@@ -1,59 +1,6 @@
 
 
- <!-- <app-doughnut *ngIf="isLoggedIn"> </app-doughnut> 
-  
-  <mat-card *ngIf="!isLoggedIn">
-    <mat-card-content>
-
-
-
-      <div  class="nombre">
-  
-        <ul class="navbar-nav ml-auto" >
-          <div mat-card-avatar class="example-header-image-logo"></div>
-        </ul>
-        </div>
-
-
-      <form    #loginForm="ngForm" (ngSubmit)="onSubmit()">
-        <h1>Bienvenido a MORE
-<p style=" font-size: small;">
-  Software para la administración de WhatsApp
-</p>
-</h1>
-        <mat-form-field>
-          <input matInput placeholder="Usuario" [(ngModel)]="form.username" name="username" required>
-          <mat-error>
-           Por favor valide su usuario...
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Clave" [(ngModel)]="form.password" name="password" required>
-          <mat-error>
-       Por favor valide su clave... 
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput placeholder="Nit" [(ngModel)]="form.Nit" name="Nit" required>
-          <mat-error>
-            Porfavor verifique su Nit...
-          </mat-error>
-        </mat-form-field>
-    
-                
-        
-          <div style="left: 50%; text-align: -webkit-center;">
-          <re-captcha  class="g-recaptcha" 
-          (resolved)="resolved($event)" name="recaptcha"  
-          siteKey="6Lc4kNgqAAAAAMIXmv8XD_Yze9SvNNlSFCerN15X"
-        ></re-captcha>
-      </div>
-        <button  mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Ingresar</button>
-      
-      </form>
-    </mat-card-content>
-  </mat-card> -->
+ 
   <app-doughnut *ngIf="isLoggedIn"></app-doughnut>
 
   <mat-card *ngIf="!isLoggedIn" class="login-card">
@@ -73,10 +20,33 @@
   
         <mat-form-field appearance="fill" class="login-input">
           <mat-label>Clave</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            [(ngModel)]="form.password"
+            name="password"
+            required
+          >
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Mostrar u ocultar contraseña'"
+            [attr.aria-pressed]="!hidePassword"
+            tabindex="-1"
+            type="button"
+          >
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="!form.password">Por favor valide su clave...</mat-error>
+        </mat-form-field>
+        
+        <!-- <mat-form-field appearance="fill" class="login-input">
+          <mat-label>Clave</mat-label>
           <input matInput type="password" [(ngModel)]="form.password" name="password" required>
           <mat-error *ngIf="!form.password">Por favor valide su clave...</mat-error>
         </mat-form-field>
-  
+   -->
         <mat-form-field appearance="fill" class="login-input">
           <mat-label>NIT</mat-label>
           <input matInput [(ngModel)]="form.Nit" name="Nit" required>

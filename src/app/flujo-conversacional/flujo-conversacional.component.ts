@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import Drawflow from 'drawflow';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-flujo-conversacional',
@@ -11,6 +12,8 @@ export class FlujoConversacionalComponent implements AfterViewInit {
   @Input() modo: 'edit' | 'view' = 'edit';
 
   editor!: any;
+   constructor(private authService: AuthService ) {
+   }
 
   ngAfterViewInit() {
     const container = document.getElementById("drawflow") as HTMLElement;
@@ -127,5 +130,22 @@ export class FlujoConversacionalComponent implements AfterViewInit {
   
     return flujo;
   }
+  guardarFlujo() {
+    const flujo = this.editor.export(); // o el método que uses para exportar
+    const numeroUsuario = '573001112233'; // Este es opcional, puedes usar '' o el número real
+  
+    this.authService.RequestDataobject(flujo, 'guardarflujo', "")
+      .subscribe({
+        next: (res) => {
+          console.log('✅ Flujo guardado:', res);
+          alert('Flujo guardado correctamente');
+        },
+        error: (err) => {
+          console.error('❌ Error al guardar flujo:', err);
+          alert('Error al guardar el flujo');
+        }
+      });
+  }
+  
   
 }
