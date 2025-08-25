@@ -1,0 +1,46 @@
+<h2 mat-dialog-title class="dialog-title">
+    <mat-icon color="primary">vpn_key</mat-icon>
+    Recuperar Clave
+  </h2>
+  
+  <form [formGroup]="recuperarForm" (ngSubmit)="enviarCorreo()">
+    <mat-dialog-content class="dialog-content">
+  
+      <!-- NIT -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>NIT</mat-label>
+        <input matInput formControlName="nit" type="text" placeholder="Ingrese su NIT" />
+        <mat-error *ngIf="nit.hasError('required')">El NIT es obligatorio</mat-error>
+        <mat-error *ngIf="nit.hasError('pattern')">Debe contener solo números</mat-error>
+      </mat-form-field>
+  
+      <!-- Cédula -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Celular</mat-label>
+        <input matInput formControlName="numero" type="text" placeholder="Ingrese su Celular" />
+        <mat-error *ngIf="numero.hasError('required')">Celular es obligatoria</mat-error>
+        <mat-error *ngIf="numero.hasError('pattern')">Debe contener solo números</mat-error>
+      </mat-form-field>
+  
+      <!-- Correo -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput formControlName="correo" type="email" placeholder="ejemplo@correo.com" />
+        <mat-error *ngIf="correo.hasError('required')">El correo es obligatorio</mat-error>
+        <mat-error *ngIf="correo.hasError('email')">Correo no válido</mat-error>
+      </mat-form-field>
+  
+      <!-- Mensajes -->
+      <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+      <div *ngIf="exitoMsg" class="success-msg">{{ exitoMsg }}</div>
+  
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end" class="dialog-actions">
+      <button mat-stroked-button type="button" (click)="cancelar()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="cargando || recuperarForm.invalid">
+        Enviar
+      </button>
+    </mat-dialog-actions>
+  </form>
+  

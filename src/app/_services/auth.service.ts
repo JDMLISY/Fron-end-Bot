@@ -46,7 +46,7 @@ export class AuthService {
  
 
   RequestData(newData: string, NombreMetodo: string, numero: string): Observable<any> {
-
+    
     return this.http.post(AUTH_API + NombreMetodo, {
       newData,
       Nit: this.tokenStorage.getUser().Nit,

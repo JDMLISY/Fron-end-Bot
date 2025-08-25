@@ -62,11 +62,18 @@
         </div>
   
         <div class="btn-container">
-          <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">
             Ingresar
           </button>
+       
         </div>
+        
       </form>
+      <div class="btn-container">
+      <button mat-raised-button class="btn-recuperar"  (click)="onRecuperarClave()">
+        Recuperar Clave
+      </button>
+      </div>
     </mat-card-content>
   </mat-card>
 

@@ -70,3 +70,22 @@ mat-form-field {
   justify-content: center;
   margin-top: 1rem;
 }
+.btn-container {
+  display: flex;
+  justify-content: space-between; /* los separa horizontalmente */
+  gap: 1rem; /* espacio entre botones */
+  margin-top: 1rem;
+}
+
+.btn-container button {
+  flex: 1; /* ambos botones ocupan el mismo ancho */
+}
+
+.btn-recuperar {
+  background-color: #ef6c0037; /* naranja */
+  color: white;              /* texto en blanco */
+}
+
+.btn-recuperar:hover {
+  background-color: #f57c00; /* tono más fuerte al pasar el mouse */
+}

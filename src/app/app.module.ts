@@ -87,6 +87,8 @@ import { MatriculaAyudasComponent } from './matricula-ayudas/matricula-ayudas.co
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatriculaEntidadesComponent } from './matricula-entidades/matricula-entidades.component';
 import { DialogEntidadComponent } from './dialog-entidad/dialog-entidad.component';
+import { RecuperarClaveDialogComponent } from './recuperar-clave-dialog/recuperar-clave-dialog.component';
+
 
 
 
@@ -121,6 +123,7 @@ import { DialogEntidadComponent } from './dialog-entidad/dialog-entidad.componen
     MatriculaAyudasComponent,
     MatriculaEntidadesComponent,
     DialogEntidadComponent,
+    RecuperarClaveDialogComponent,
     
   ],
   imports: [

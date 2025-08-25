@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 import { ChatService } from '../web-socket.service';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
+import { RecuperarClaveDialogComponent } from '../recuperar-clave-dialog/recuperar-clave-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
   captchaResolved = false
   hidePassword: boolean = true;
 
-  constructor(private userService: UserService,private chatService: ChatService,  private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router ) {
+  constructor(private dialog: MatDialog,private userService: UserService,private chatService: ChatService,  private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router ) {
     this.token = undefined;
     
 
@@ -66,6 +68,11 @@ export class LoginComponent implements OnInit {
      
     // });
    
+  }
+  onRecuperarClave() {
+    this.dialog.open(RecuperarClaveDialogComponent, {
+      width: '400px'
+    });
   }
   encryptData(data: any, secretKey: string): string {
     return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
