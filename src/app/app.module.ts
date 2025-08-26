@@ -88,6 +88,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatriculaEntidadesComponent } from './matricula-entidades/matricula-entidades.component';
 import { DialogEntidadComponent } from './dialog-entidad/dialog-entidad.component';
 import { RecuperarClaveDialogComponent } from './recuperar-clave-dialog/recuperar-clave-dialog.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 
 
@@ -124,6 +125,7 @@ import { RecuperarClaveDialogComponent } from './recuperar-clave-dialog/recupera
     MatriculaEntidadesComponent,
     DialogEntidadComponent,
     RecuperarClaveDialogComponent,
+    ResetPasswordComponent,
     
   ],
   imports: [
