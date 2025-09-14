@@ -159,12 +159,12 @@ isImage(url: any): boolean {
   }
 
   
-  
+  ngOnInit(): void {
+    this.chatService.message$.subscribe((message: any) => {
+      if (!message) return;
 
-  ngOnInit() {
-    this.chatService.getNewMessage().subscribe((message: any) => {
-      // Si no trae fecha, se usa la fecha actual
-      const fechaMensaje = new Date(message.fecha) //: new Date();
+      // Si no trae fecha, usa la actual
+      const fechaMensaje = message.fecha ? new Date(message.fecha) : new Date();
       const fechaFormateada = this.obtenerFechaFormateada(fechaMensaje);
   
       // Insertar separador si cambia la fecha
@@ -179,10 +179,34 @@ isImage(url: any): boolean {
       this.cdRef.detectChanges();
       this.scrollToBottom();
     });
-
+  
     this.cargarFrasesPredefinidas();
-    this.cargarnitsPredefinidas()
+    this.cargarnitsPredefinidas();
   }
+  
+
+  // ngOnInit() {
+  //   // this.chatService.getNewMessage().subscribe((message: any) => {
+  //   //   // Si no trae fecha, se usa la fecha actual
+  //   //   const fechaMensaje = new Date(message.fecha) //: new Date();
+  //   //   const fechaFormateada = this.obtenerFechaFormateada(fechaMensaje);
+  
+  //   //   // Insertar separador si cambia la fecha
+  //   //   if (fechaFormateada !== this.ultimaFechaInsertada) {
+  //   //     this.Conversa.push({ tipo: 'separador', fecha: fechaFormateada });
+  //   //     this.ultimaFechaInsertada = fechaFormateada;
+  //   //   }
+  
+  //   //   // Agregar el mensaje normalmente
+  //   //   this.Conversa.push(message);
+  
+  //   //   this.cdRef.detectChanges();
+  //   //   this.scrollToBottom();
+  //   // });
+
+  //   this.cargarFrasesPredefinidas();
+  //   this.cargarnitsPredefinidas()
+  // }
   
 
 

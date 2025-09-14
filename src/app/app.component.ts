@@ -10,6 +10,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { estadoradicadosComponent } from './estado-radicados/estado-radicados.component';
 import { IdleTimeoutService } from './_services/idle-timeout.service';
 import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conversacional.component';
+import { ChatService } from './web-socket.service';
 
 
 
@@ -40,6 +41,19 @@ export class AppComponent implements OnInit {
   mostrarSelector: boolean = false;
   ngOnInit(): void {
 
+    this.chatService.getNewMessage().subscribe((message: any) => {
+      if (!message) return; // ignora el null inicial del BehaviorSubject
+
+      console.log("📡 [APP] Mensaje global capturado:", message);
+
+      // Aquí puedes poner lógica global para toda la app
+      // Ejemplo: mostrar un aviso simple en consola
+      if (message.Mensaje?.includes("radicado")) {
+        console.log("📢 Nuevo mensaje con radicado recibido:", message);
+      }
+    });
+    
+
     this.isLoggedIn = !!this.tokenStorageService.getToken();
    
     if (this.isLoggedIn) {
@@ -56,7 +70,7 @@ export class AppComponent implements OnInit {
     }
    
   }
-  constructor(private idleService: IdleTimeoutService,private tokenStorageService: TokenStorageService,public services :AuthService, private userService: UserService,public dialog: MatDialog ) { }
+  constructor(private chatService: ChatService,private idleService: IdleTimeoutService,private tokenStorageService: TokenStorageService,public services :AuthService, private userService: UserService,public dialog: MatDialog ) { }
 
  
 abrirFlujoConversacional() {
