@@ -16,7 +16,7 @@ import { ArchivosComercioComponent } from './archivos-comercio/archivos-comercio
 import { InfoComercioComponent } from './info-comercio/info-comercio.component';
 import { LectorQRComponent } from './lector-qr/lector-qr.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-
+import { SessionEndedComponent } from './session-ended/session-ended.component';
 
 
 
@@ -39,6 +39,7 @@ const routes: Routes = [
   { path: 'Infocomercio', component: InfoComercioComponent },
   { path: 'lectorqr', component: LectorQRComponent },
   { path: 'reset/:token', component: ResetPasswordComponent },
+  { path: 'session-ended', component: SessionEndedComponent },
   
   
   

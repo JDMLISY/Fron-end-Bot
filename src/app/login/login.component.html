@@ -1,6 +1,5 @@
 
 
- 
   <app-doughnut *ngIf="isLoggedIn"></app-doughnut>
 
   <mat-card *ngIf="!isLoggedIn" class="login-card">
@@ -53,13 +52,13 @@
           <mat-error *ngIf="!form.Nit">Por favor verifique su NIT...</mat-error>
         </mat-form-field>
   
-        <div class="captcha-container">
+        <!-- <div class="captcha-container">
           <re-captcha class="g-recaptcha"
                       (resolved)="resolved($event)"
                       name="recaptcha"
                       siteKey="6Lc4kNgqAAAAAMIXmv8XD_Yze9SvNNlSFCerN15X">
           </re-captcha>
-        </div>
+        </div> -->
   
         <div class="btn-container">
           <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">

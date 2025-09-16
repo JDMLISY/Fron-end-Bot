@@ -10,6 +10,9 @@ import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
 import { RecuperarClaveDialogComponent } from '../recuperar-clave-dialog/recuperar-clave-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SessionOverlayService } from '../session-overlay.service';
+import { ActivatedRoute } from '@angular/router';
+import { SessionEndedComponent } from '../session-ended/session-ended.component';
 
 
 
@@ -36,7 +39,7 @@ export class LoginComponent implements OnInit {
   captchaResolved = false
   hidePassword: boolean = true;
 
-  constructor(private dialog: MatDialog,private userService: UserService,private chatService: ChatService,  private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router ) {
+  constructor(    private route: ActivatedRoute,public sessionOverlay: SessionOverlayService, private dialog: MatDialog,private userService: UserService,private chatService: ChatService,  private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router ) {
     this.token = undefined;
     
 
@@ -59,13 +62,32 @@ export class LoginComponent implements OnInit {
     console.debug(`Token [${this.token}] generated`);
   }
   ngOnInit() {
-
+    this.isLoggedIn = false;
 
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
       this.name = this.tokenStorage.getUser().name;
     }
+
+if (this.isLoggedIn == false )
+  {
+    this.route.queryParams.subscribe(params => {
+      if (params['session'] === 'ended') {
+        const dialogRef = this.dialog.open(SessionEndedComponent, {
+          width: '400px',
+          disableClose: true,
+          panelClass: 'session-ended-dialog'
+        });
+
+        // Cerrar el modal automáticamente después de 3 seg
+        setTimeout(() => dialogRef.close(), 3000);
+      }
+    });
+  }
+
+
+
     // this.chatService.getNewMessage().subscribe((message: any) => {
      
     // });
@@ -80,10 +102,10 @@ export class LoginComponent implements OnInit {
     return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
   }
   onSubmit(): void {
-    if (!this.captchaResolved) {
-      this.userService.showSuccess("por favor validar si no es robot", "Validación de captcha", "Error");
-      return;
-    }
+    // if (!this.captchaResolved) {
+    //   this.userService.showSuccess("por favor validar si no es robot", "Validación de captcha", "Error");
+    //   return;
+    // }
   
     const payload = {
       username: this.form.username,

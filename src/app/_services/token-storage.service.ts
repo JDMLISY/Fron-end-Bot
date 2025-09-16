@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { SessionOverlayService } from '../session-overlay.service';
+
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class TokenStorageService {
-  constructor(private router: Router ) { }
+  constructor(private sessionOverlay: SessionOverlayService,private router: Router ) { }
 
   // signOut(): void {
   //   window.sessionStorage.clear();
@@ -16,10 +19,22 @@ export class TokenStorageService {
   //   this.router.navigate(['/login'])
   //   // window.location.reload();
   // }
+
   signOut(): void {
     window.sessionStorage.clear();
-    window.location.href = '/login';
+  
+    // 🔹 Recargamos el login con un query param que avisa que se cerró la sesión
+    window.location.href = '/login?session=ended';
   }
+  
+  
+  
+  
+  // signOut(): void {
+  //   window.sessionStorage.clear();
+  //   window.location.href = '/login';
+  //   //window.location.href = '/session-ended';
+  // }
 
   public saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);

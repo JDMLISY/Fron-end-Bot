@@ -11,6 +11,7 @@ import { estadoradicadosComponent } from './estado-radicados/estado-radicados.co
 import { IdleTimeoutService } from './_services/idle-timeout.service';
 import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conversacional.component';
 import { ChatService } from './web-socket.service';
+import { SessionOverlayService } from './session-overlay.service';
 
 
 
@@ -70,7 +71,7 @@ export class AppComponent implements OnInit {
     }
    
   }
-  constructor(private chatService: ChatService,private idleService: IdleTimeoutService,private tokenStorageService: TokenStorageService,public services :AuthService, private userService: UserService,public dialog: MatDialog ) { }
+  constructor(public sessionOverlay: SessionOverlayService,private chatService: ChatService,private idleService: IdleTimeoutService,private tokenStorageService: TokenStorageService,public services :AuthService, private userService: UserService,public dialog: MatDialog ) { }
 
  
 abrirFlujoConversacional() {
@@ -83,6 +84,7 @@ abrirFlujoConversacional() {
 
   logout(): void {
     this.tokenStorageService.signOut();
+    this.isLoggedIn = false; // 🔑 
    // window.location.reload();
     
   }

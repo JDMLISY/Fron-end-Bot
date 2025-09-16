@@ -1,0 +1,80 @@
+:host {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;   /* arriba */
+    justify-content: flex-end; /* a la derecha */
+    padding: 20px;             /* margen de separación */
+    z-index: 10000;
+    pointer-events: none;       /* deja hacer clic en lo de atrás */
+  }
+  
+  .session-overlay-card {
+    pointer-events: auto;
+    width: 320px;
+    max-width: 92%;
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+    text-align: left;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  /* icono */
+  .icon-box {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: #19b95b;
+    color: #fff;
+    border: 2px solid rgba(0,0,0,0.08);
+    font-size: 22px;
+    border-radius: 6px;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  /* título */
+  h3 {
+    display: inline-block;
+    margin: 0;
+    font-weight: 600;
+    color: #222;
+    vertical-align: middle;
+  }
+  
+  /* barra de progreso */
+  .progress {
+    height: 4px;
+    background: #f1f1f3;
+    border-radius: 6px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #19b95b;
+    animation: fill 3s linear forwards;
+  }
+  
+  /* animación entrada lateral */
+  @keyframes slideIn {
+    from {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fill {
+    to { width: 100%; }
+  }
+  
+

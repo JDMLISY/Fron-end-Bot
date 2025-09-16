@@ -89,6 +89,7 @@ import { MatriculaEntidadesComponent } from './matricula-entidades/matricula-ent
 import { DialogEntidadComponent } from './dialog-entidad/dialog-entidad.component';
 import { RecuperarClaveDialogComponent } from './recuperar-clave-dialog/recuperar-clave-dialog.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { SessionEndedComponent } from './session-ended/session-ended.component';
 
 
 
@@ -126,6 +127,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     DialogEntidadComponent,
     RecuperarClaveDialogComponent,
     ResetPasswordComponent,
+    SessionEndedComponent,
     
   ],
   imports: [
