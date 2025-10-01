@@ -1,0 +1,9 @@
+.tabla-container {
+    margin: 20px;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  

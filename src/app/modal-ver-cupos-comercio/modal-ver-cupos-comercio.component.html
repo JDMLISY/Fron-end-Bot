@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Cupos de Comercio</h2>
+
+<mat-dialog-content class="content-container">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Empresa</th>
+        <th>Crédito</th>
+        <th>Prima</th>
+        <th>Bonificación</th>
+        <th>Estado</th>
+        <th>Fecha Registro</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cupo of data.cupos">
+        <td>{{ cupo.Nombre }}</td>
+        <td>{{ cupo.Empresa }}</td>
+        <td>{{ cupo.Credito | currency:'COP' }}</td>
+        <td>{{ cupo.Prima | currency:'COP' }}</td>
+        <td>{{ cupo.Bonificacion | currency:'COP' }}</td>
+        <td>
+          <span class="estado" [ngClass]="{'activo': cupo.Estado === 'A', 'inactivo': cupo.Estado !== 'A'}">
+            {{ cupo.Estado === 'A' ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
+        <td>{{ cupo.FechaRegistro | date:'dd/MM/yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="cerrar()">Cerrar</button>
+</mat-dialog-actions>

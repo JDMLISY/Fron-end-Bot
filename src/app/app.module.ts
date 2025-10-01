@@ -90,6 +90,9 @@ import { DialogEntidadComponent } from './dialog-entidad/dialog-entidad.componen
 import { RecuperarClaveDialogComponent } from './recuperar-clave-dialog/recuperar-clave-dialog.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { SessionEndedComponent } from './session-ended/session-ended.component';
+import { AsociadosComponent } from './asociados/asociados.component';
+import { ModalVerComprasComponent } from './modal-ver-compras/modal-ver-compras.component';
+import { ModalVerCuposComercioComponent } from './modal-ver-cupos-comercio/modal-ver-cupos-comercio.component';
 
 
 
@@ -128,6 +131,9 @@ import { SessionEndedComponent } from './session-ended/session-ended.component';
     RecuperarClaveDialogComponent,
     ResetPasswordComponent,
     SessionEndedComponent,
+    AsociadosComponent,
+    ModalVerComprasComponent,
+    ModalVerCuposComercioComponent,
     
   ],
   imports: [

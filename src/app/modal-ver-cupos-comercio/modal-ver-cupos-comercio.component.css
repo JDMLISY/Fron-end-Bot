@@ -1,0 +1,50 @@
+/* Contenedor con ancho fijo */
+.content-container {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden; /* sin scroll horizontal */
+  }
+  
+  /* Tabla más limpia */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .styled-table th, .styled-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    white-space: nowrap; /* evita que se encimen */
+  }
+  
+  .styled-table th {
+    font-weight: bold;
+    background: #f5f5f5;
+  }
+  
+  .styled-table tr:hover {
+    background: #fafafa;
+  }
+  
+  /* Estado como etiqueta */
+  .estado {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #fff;
+  }
+  .estado.activo {
+    background-color: #4caf50;
+  }
+  .estado.inactivo {
+    background-color: #f44336;
+  }
+  
+  /* Reducimos el ancho máximo del modal */
+  ::ng-deep .mat-dialog-container {
+    max-width: 750px !important;
+    border-radius: 12px;
+  }
+  

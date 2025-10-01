@@ -17,6 +17,7 @@ import { InfoComercioComponent } from './info-comercio/info-comercio.component';
 import { LectorQRComponent } from './lector-qr/lector-qr.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { SessionEndedComponent } from './session-ended/session-ended.component';
+import { AsociadosComponent } from './asociados/asociados.component';
 
 
 
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'lectorqr', component: LectorQRComponent },
   { path: 'reset/:token', component: ResetPasswordComponent },
   { path: 'session-ended', component: SessionEndedComponent },
+  { path: 'PanelClientes', component: AsociadosComponent },
   
   
   
