@@ -93,6 +93,8 @@ import { SessionEndedComponent } from './session-ended/session-ended.component';
 import { AsociadosComponent } from './asociados/asociados.component';
 import { ModalVerComprasComponent } from './modal-ver-compras/modal-ver-compras.component';
 import { ModalVerCuposComercioComponent } from './modal-ver-cupos-comercio/modal-ver-cupos-comercio.component';
+import { EmpresaComponent } from './empresa/empresa.component';
+import { ModalActualizarAsociadoComponent } from './modal-actualizar-asociado/modal-actualizar-asociado.component';
 
 
 
@@ -134,6 +136,8 @@ import { ModalVerCuposComercioComponent } from './modal-ver-cupos-comercio/modal
     AsociadosComponent,
     ModalVerComprasComponent,
     ModalVerCuposComercioComponent,
+    EmpresaComponent,
+    ModalActualizarAsociadoComponent,
     
   ],
   imports: [

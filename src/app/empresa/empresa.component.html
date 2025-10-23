@@ -1,0 +1,58 @@
+<div class="empresa-container">
+    <div class="empresa-card shadow-lg p-4">
+      <h1 class="text-center text-primary mb-4">J&J DIGITAL SOFTWARE SAS</h1>
+  
+      <div class="info">
+        <p><strong>NIT:</strong> 9019193442</p>
+        <p><strong>Dirección:</strong> Calle 43 #120-23, Medellín, Colombia</p>
+        <p><strong>Teléfono:</strong> +57 319 527 4902</p>
+        <p><strong>Correo:</strong> contacto@soari.co</p>
+      </div>
+  
+      <hr />
+  
+      <h2 class="section-title">Sobre nosotros</h2>
+      <p>
+        Somos una empresa dedicada al desarrollo de software especializado en soluciones
+        para administración de WhatsApp y automatización de procesos.
+      </p>
+  
+      <h2 class="section-title">Servicios</h2>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item">💬 Integración con WhatsApp Business API</li>
+        <li class="list-group-item">⚙️ Desarrollo de software a la medida</li>
+        <li class="list-group-item">🤖 Chatbots y automatización de procesos</li>
+        <li class="list-group-item">📊 Consultoría en transformación digital</li>
+      </ul>
+  
+      <h2 class="section-title">Política de Privacidad</h2>
+      <p>
+        En J&J DIGITAL SOFTWARE SAS nos comprometemos a proteger la información personal
+        de nuestros usuarios y clientes. La información recolectada será utilizada
+        únicamente con fines comerciales y de soporte técnico, garantizando la
+        confidencialidad y seguridad de los datos.
+      </p>
+  
+      <h2 class="section-title">Términos y Condiciones</h2>
+      <p>
+        El uso de nuestros servicios implica la aceptación de los presentes términos
+        y condiciones. Nos reservamos el derecho de actualizar o modificar estos
+        términos en cualquier momento, notificando a los usuarios a través de
+        nuestros canales oficiales.
+      </p>
+  
+      <div class="form-check my-3">
+        <input type="checkbox" class="form-check-input" id="acepto" (change)="toggleAcepto($event)" />
+        <label for="acepto" class="form-check-label">
+          He leído y acepto la Política de Privacidad y los Términos y Condiciones
+        </label>
+      </div>
+  
+      <div class="text-center">
+        <a [class.disabled]="!aceptado" routerLink="/login" class="btn btn-primary px-4">
+          Ingreso al sistema
+        </a>
+      </div>
+    </div>
+  </div>
+  

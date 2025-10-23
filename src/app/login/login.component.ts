@@ -102,11 +102,11 @@ if (this.isLoggedIn == false )
     return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
   }
   onSubmit(): void {
-    // if (!this.captchaResolved) {
-    //   this.userService.showSuccess("por favor validar si no es robot", "Validación de captcha", "Error");
-    //   return;
-    // }
-  
+  //  if (!this.captchaResolved) {
+  //     this.userService.showSuccess("por favor validar si no es robot", "Validación de captcha", "Error");
+  //     return;
+  //   }
+   
     const payload = {
       username: this.form.username,
       password: this.form.password,

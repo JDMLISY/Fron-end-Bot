@@ -1,5 +1,3 @@
-
-
   <app-doughnut *ngIf="isLoggedIn"></app-doughnut>
 
   <mat-card *ngIf="!isLoggedIn" class="login-card">
@@ -39,27 +37,22 @@
           </button>
           <mat-error *ngIf="!form.password">Por favor valide su clave...</mat-error>
         </mat-form-field>
-        
-        <!-- <mat-form-field appearance="fill" class="login-input">
-          <mat-label>Clave</mat-label>
-          <input matInput type="password" [(ngModel)]="form.password" name="password" required>
-          <mat-error *ngIf="!form.password">Por favor valide su clave...</mat-error>
-        </mat-form-field>
-   -->
+ 
         <mat-form-field appearance="fill" class="login-input">
           <mat-label>NIT</mat-label>
           <input matInput [(ngModel)]="form.Nit" name="Nit" required>
           <mat-error *ngIf="!form.Nit">Por favor verifique su NIT...</mat-error>
         </mat-form-field>
   
-        <!-- <div class="captcha-container">
+
+        <div class="captcha-container">
           <re-captcha class="g-recaptcha"
                       (resolved)="resolved($event)"
                       name="recaptcha"
                       siteKey="6Lc4kNgqAAAAAMIXmv8XD_Yze9SvNNlSFCerN15X">
           </re-captcha>
-        </div> -->
-  
+        </div> 
+
         <div class="btn-container">
           <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">
             Ingresar

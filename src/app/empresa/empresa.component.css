@@ -1,0 +1,32 @@
+.empresa-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    background: #f4f7fb;
+    min-height: 100vh;
+  }
+  
+  .empresa-card {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  .section-title {
+    margin-top: 20px;
+    color: #0d6efd;
+  }
+  
+  .list-group-item {
+    border: none;
+    background: transparent;
+    padding-left: 0;
+    font-size: 1rem;
+  }
+  
+  a.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  

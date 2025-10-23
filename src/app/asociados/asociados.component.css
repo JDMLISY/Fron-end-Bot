@@ -6,4 +6,25 @@
   table {
     width: 100%;
   }
+ 
+  
+  .busqueda-container {
+    display: flex;
+    justify-content: flex-start; /* 👈 alinea el buscador a la derecha */
+    margin: 20px 30px 10px 30px;
+  }
+  
+  mat-form-field {
+    width: 300px;
+    background: #fff;
+    border-radius: 8px;
+  }
+  
+  .tabla-container {
+    margin: 0 30px;
+    background: #f7f9fc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 10px;
+  }
   

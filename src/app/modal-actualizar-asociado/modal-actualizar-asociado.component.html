@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Actualizar información del asociado</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Celular</mat-label>
+    <input matInput formControlName="Celular" placeholder="Ej: 3001234567" />
+    <mat-error *ngIf="form.get('celular')?.hasError('required')">El celular es obligatorio</mat-error>
+    <mat-error *ngIf="form.get('celular')?.hasError('pattern')">Debe ser un número válido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Correo electrónico</mat-label>
+    <input matInput formControlName="Correo" placeholder="Ej: usuario@correo.com" />
+    <mat-error *ngIf="form.get('Correo')?.hasError('required')">El correo es obligatorio</mat-error>
+    <mat-error *ngIf="form.get('Correo')?.hasError('email')">Formato inválido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Estado</mat-label>
+    <mat-select formControlName="Estado">
+      <mat-option value="Activo">Activo</mat-option>
+      <mat-option value="Inactivo">Inactivo</mat-option>
+      <mat-option value="Suspendido">Suspendido</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cerrar()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="guardarCambios()" [disabled]="!form.valid">
+    Guardar
+  </button>
+</mat-dialog-actions>

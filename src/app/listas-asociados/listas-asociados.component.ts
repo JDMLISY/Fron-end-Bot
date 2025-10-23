@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef,ViewChild,Inject,AfterViewInit,ElementRef,HostListener } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef,ViewChild,Inject,Optional,AfterViewInit,ElementRef,HostListener } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -160,6 +160,10 @@ isImage(url: any): boolean {
 
   
   ngOnInit(): void {
+    if (this.data) {
+      this.ver_conversacion(this.data.nombre, this.data.numero, this.data.dedonde, this.data.radicado);
+    }
+
     this.chatService.message$.subscribe((message: any) => {
       if (!message) return;
 
@@ -311,7 +315,9 @@ downloadFile(url: any) {
     this.hidden = !this.hidden;
   }
  
-  constructor( private snackBar: MatSnackBar ,private http: HttpClient,private sanitizer: DomSanitizer,private chatService: ChatService, private authService: AuthService, private cdRef: ChangeDetectorRef,   private userService: UserService, private tokenStorage: TokenStorageService, public dialog: MatDialog) {
+  constructor(    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+   private snackBar: MatSnackBar ,private http: HttpClient,private sanitizer: DomSanitizer,private chatService: ChatService, private authService: AuthService, private cdRef: ChangeDetectorRef,   private userService: UserService, private tokenStorage: TokenStorageService, public dialog: MatDialog,
+   @Optional() private dialogRef?: MatDialogRef<ListasAsociadosComponent>) {
 
     for(var i=0; i<100; i++){
 
