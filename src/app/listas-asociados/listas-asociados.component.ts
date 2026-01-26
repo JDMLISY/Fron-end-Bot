@@ -41,11 +41,23 @@ interface TipoSolicitud {
     Tipo_atencion:string
   }[];
 }
+
+
+export interface SolicitudTabla {
+  idRegistro: number;
+  Tipo_atencion: string;      // ya viene traducido desde SQL
+  Numero_asociado: string;
+  contacto: string;
+  Radicado: string;
+  fecha_solicitud: string;    // o Date si lo conviertes
+}
 @Component({
   selector: 'app-listas-asociados',
   templateUrl: './listas-asociados.component.html',
   styleUrls: ['./listas-asociados.component.css']
 })
+
+
 export class ListasAsociadosComponent implements OnInit {
   ultimaFechaInsertada: string = '';
   hoveredItem: any = null;
@@ -109,7 +121,8 @@ export class ListasAsociadosComponent implements OnInit {
   NitsPredefinidas: { strNombreIntegrado: string, Celular: string,SoloNombres: string }[] = [];
   
   desactivarBoton: boolean = true;
-
+ 
+  
   // frasesPredefinidas: string[] = [
   //   "¡Hola! ¡Espero que te encuentres muy bien! ☀️",
   //   "¿Cómo podemos ayudarte el día de hoy?",
@@ -423,6 +436,35 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
   this.contacto = Nombre
   this.Cedula = Cedula
   this.Tipoatencion = Tipo_atencion
+
+
+
+if (this.Tipoatencion == "Sin solicitud")
+  {
+    const datos: SolicitudTabla[] = [
+      {
+        idRegistro: 999999,
+        Tipo_atencion: "Sin solicitud",
+        Numero_asociado: numero,
+        contacto: numero,
+        Radicado: numero,
+        fecha_solicitud: new Date().toISOString().slice(0, 10)
+      }
+    ];
+  
+    this.dataSource.data = datos;
+    this.ver_conversacion(
+      numero,
+      numero,
+      'S',
+      '999999'
+    )
+    return
+  }
+
+
+
+
   this.userService.Solicitudes("Solicitudes", user.tipo_atencion,"Todas",numero,Cedula,Tipo_atencion).subscribe({
     next: data => {
       if (data.length > 0) {
