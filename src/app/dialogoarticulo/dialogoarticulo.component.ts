@@ -63,9 +63,10 @@ export class DialogoarticuloComponent implements OnInit  {
       Perfil: new FormControl(this.form.Perfil, [Validators.required]),
       Estado : new FormControl(this.form.estado, [Validators.required]),
       Tipo_atencion: new FormControl(
-        Array.isArray(this.form.tipo_atencion)
-          ? this.form.tipo_atencion
-          : [this.form.tipo_atencion] // 👈 convierte 'T' en ['T']
+        typeof this.form.tipo_atencion === 'string'
+          ? this.form.tipo_atencion.split(',')
+          : this.form.tipo_atencion,
+        [Validators.required]
       ),
       //Tipo_atencion : new FormControl(this.form.tipo_atencion, [Validators.required]),
       idRegistro : new FormControl(this.form.idRegistro,[])
@@ -89,7 +90,7 @@ export class DialogoarticuloComponent implements OnInit  {
             this.userService.showSuccess(data.message,"Datos Ingresados",'success')
             this.isSuccessful = true;
             this.isSignUpFailed = false;
-            this.tokenStorage.saveUser(data);
+           // this.tokenStorage.saveUser(data);
             setTimeout(() => this.Limpiar(), 1000);
             setTimeout(() => this.onNoClick(), 1000);
           

@@ -12,6 +12,7 @@ import { IdleTimeoutService } from './_services/idle-timeout.service';
 import { FlujoConversacionalComponent } from './flujo-conversacional/flujo-conversacional.component';
 import { ChatService } from './web-socket.service';
 import { SessionOverlayService } from './session-overlay.service';
+import { MensajesRespuestaComponent } from './mensajes-respuesta/mensajes-respuesta.component';
 
 
 
@@ -81,6 +82,20 @@ abrirFlujoConversacional() {
     panelClass: 'flujo-modal'
   });
 }
+
+
+abrirmatriculademensajes() {
+  this.dialog.open(MensajesRespuestaComponent, {
+    width: '35%',
+    height: '80%',
+    panelClass: 'flujo-modal'
+  });
+}
+
+
+
+
+
 
   logout(): void {
     this.tokenStorageService.signOut();

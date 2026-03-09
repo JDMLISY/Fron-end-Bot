@@ -69,6 +69,7 @@
   <button mat-menu-item (click)="services.ValidarModulo('Radicados','Call center')">✅ Activar radicados</button>
   <button mat-menu-item (click)="services.ValidarModulo('ayudas','Call center')">📘 Matrícula de ayudas</button>
   <button mat-menu-item (click)="abrirFlujoConversacional()" *ngIf="showSuperAdminBoard || showAdminBoard">💬 Flujo Conversacional</button>
+  <button mat-menu-item (click)="abrirmatriculademensajes()" *ngIf="showSuperAdminBoard || showAdminBoard">💬 Modificar Mensajes </button>
 </mat-menu>
 
 <mat-menu #Comercio="matMenu">

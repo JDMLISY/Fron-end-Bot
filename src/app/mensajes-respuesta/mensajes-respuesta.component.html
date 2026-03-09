@@ -1,0 +1,52 @@
+<div class="modal-container">
+
+  <h2>Registrar Mensaje Respuesta</h2>
+
+  <!-- Select de Tipo de Mensaje -->
+  <div class="form-group">
+    <label>Tipo de Mensaje</label>
+    <select 
+      [(ngModel)]="mensaje.codigomensaje"
+      (change)="consultardatos(mensaje.codigomensaje)">
+      
+      <option value="">Seleccione una opción</option>
+      
+      <option *ngFor="let item of listaCodigos" 
+              [value]="item.codigo">
+        {{ item.nombre }}
+      </option>
+  
+    </select>
+  </div>
+
+  <!-- Nuevo campo: Último usuario que registró -->
+  <div class="form-group">
+    <label>Último usuario que registró</label>
+    <input type="text" class="form-control" [value]="mensaje.usuarioregistra" readonly>
+  </div>
+
+  <!-- Campo de mensaje con emoji picker -->
+  <div class="form-group">
+    <label>Mensaje</label>
+    <textarea rows="4" [(ngModel)]="mensaje.mensaje" class="form-control"></textarea>
+    
+    <div class="emoji-container">
+      <button type="button" class="btn-emoji" (click)="toggleEmojiPicker()">
+        😀
+      </button>
+
+      <emoji-mart
+        *ngIf="mostrarEmojiPicker"
+        (emojiSelect)="agregarEmoji($event)">
+      </emoji-mart>
+    </div>
+  </div>
+
+  <!-- Botones -->
+  <div class="button-container">
+    <button class="btn-guardar" (click)="guardar()">Guardar</button>
+    <button class="btn-limpiar" (click)="limpiar()">Limpiar</button>
+    <button class="btn-salir" (click)="salir()">Salir</button>
+  </div>
+
+</div>
