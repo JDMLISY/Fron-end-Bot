@@ -1,16 +1,41 @@
-<!-- <div #editorRef id="drawflow" style="height: 600px; width: 100%;"></div> -->
-<div #editorRef id="drawflow" style="height: 500px; border: 1px solid #ccc;"></div>
-<input id="inputArchivo" type="file" accept=".json" style="display: none;" (change)="onFileSelected($event)">
-<button (click)="seleccionarArchivo()">Cargar Flujo</button>
-<button (click)="guardarFlujo()">Guardar Flujo</button>
+<!-- <div class="contenedor-modal">
+  <div class="lista-nodos">
+    
+    <div *ngFor="let nodo of nodos" (click)="crearNodo(nodo.tipo)" class="nodo-item">
+      <strong>{{ nodo.nombre }}</strong>
+      <br>
+      <small>{{ nodo.descripcion }}</small>
+    </div>
+ 
+  <button class="btn-guardar" (click)="guardarFlujo()">
+    💾 Guardar Flujo
+  </button>
+  <button  class="btn-guardar" (click)="reiniciarFlujo()">
+    🗑️ Eliminar flujo</button>
 
-
-
-
-<!-- <div style="height: 500px; border: 1px solid #ccc; margin: 10px;">
-  <div id="drawflow" style="height: 100%; background-color: #f0f0f0;"></div>
 </div>
+  <div class="area-trabajo" id="drawflow">
+    
+  </div>
+</div>
+   -->
 
-<button (click)="cargarFlujo()">Cargar Flujo</button>
 
-<input type="file" (change)="onFileSelected($event)"> -->
+   <div class="contenedor-modal">
+    <div class="sidebar">
+      <div class="lista-nodos">
+        <div *ngFor="let nodo of nodos" (click)="crearNodo(nodo.tipo)" class="nodo-item">
+          <strong>{{ nodo.nombre }}</strong>
+          <br>
+          <small>{{ nodo.descripcion }}</small>
+        </div>
+  
+        <button class="btn-guardar" (click)="guardarFlujo()">💾 Guardar Flujo</button>
+        <button class="btn-guardar" (click)="reiniciarFlujo()">🗑️ Eliminar flujo</button>
+      </div>
+    </div>
+  
+    <div class="area-trabajo" id="drawflow">
+      <!-- Aquí va tu canvas o editor Drawflow -->
+    </div>
+  </div>

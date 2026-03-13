@@ -77,10 +77,11 @@ export class AppComponent implements OnInit {
  
 abrirFlujoConversacional() {
   this.dialog.open(FlujoConversacionalComponent, {
-    width: '90%',
-    height: '90%',
+    width: '150%',
+    height: '100%',
     panelClass: 'flujo-modal'
   });
+  
 }
 
 

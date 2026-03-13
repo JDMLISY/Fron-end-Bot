@@ -9,4 +9,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     box-shadow: none !important;
     padding: 0 !important;
   }
+  ::ng-deep .drawflow textarea{
+    width: -webkit-fill-available;
+    box-sizing: border-box;
+  }
   
+  ::ng-deep .drawflow input{
+    width: -webkit-fill-available;
+    box-sizing: border-box;
+  }
