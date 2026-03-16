@@ -37,7 +37,9 @@ export class FlujoConversacionalComponent implements AfterViewInit {
       this.editor.zoom_reset();
     }, 200);
     
-
+    // (window as any).agregarOpcion = (btn:any)=>{
+    //   this.agregarOpcion(btn);
+    //   };
       (window as any).agregarOpcion = this.agregarOpcion.bind(this);
      
       this.editor.curvature = 0.2;
@@ -108,80 +110,158 @@ export class FlujoConversacionalComponent implements AfterViewInit {
       console.error('❌ Error cargando flujo:', err);
     }
   }
+
   reconstruirMenus(flujo: any) {
 
     const nodos = flujo.drawflow.Home.data;
-  
+    
     Object.values(nodos).forEach((nodo: any) => {
-  
-      if (nodo.name !== "menu") return;
-  
-      const container = document.querySelector(
-        `#node-${nodo.id} .menu-opciones`
-      ) as HTMLElement;
-  
-      if (!container) return;
-  
-      // limpiar botones existentes
-      container.innerHTML = "";
-  
-      // obtener todas las propiedades opX
-      const opciones = Object.keys(nodo.data)
-      .filter(key => /^op\d+$/.test(key))
-        .sort((a, b) => {
-          const numA = parseInt(a.replace("op", ""));
-          const numB = parseInt(b.replace("op", ""));
-          return numA - numB;
-        });
-  
-      // crear botones
-      opciones.forEach((key) => {
-  
-        const texto = nodo.data[key];
-  
-        if (!texto) return;
-  
-        const btn = document.createElement("button");
-        btn.className = "btn-opcion";
-        btn.innerText = texto;
-  
-        container.appendChild(btn);
-  
-      });
-  
+    
+    if (nodo.name !== "menu") return;
+    
+    const container = document.querySelector(
+    `#node-${nodo.id} .menu-opciones`
+    ) as HTMLElement;
+    
+    if (!container) return;
+    
+    container.innerHTML = "";
+    
+    /* -------------------------
+    NUEVO FORMATO (opciones[])
+    ------------------------- */
+    
+    if (Array.isArray(nodo.data.opciones)) {
+    
+    nodo.data.opciones.forEach((op:any,i:number)=>{
+    
+    const div = document.createElement("div");
+    
+    div.className = "menu-item";
+    
+    div.innerHTML = `
+    <input type="text" class="opcion-titulo" value="${op.titulo || ""}" placeholder="Título opción">
+    
+    <textarea class="opcion-descripcion" placeholder="Descripción (opcional)">${op.descripcion || ""}</textarea>
+    
+    <button onclick="this.parentElement.remove()">❌</button>
+    `;
+    
+    container.appendChild(div);
+    
+    // asegurar outputs
+    if(!nodo.outputs[`output_${i+1}`]){
+    this.editor.addNodeOutput(nodo.id);
+    }
+    
     });
-  
-  }
+    
+    return;
+    
+    }
+    
+    /* -------------------------
+    FORMATO ANTIGUO (op1,op2)
+    ------------------------- */
+    
+    const opciones = Object.keys(nodo.data)
+    .filter(key => /^op\d+$/.test(key))
+    .sort((a, b) => {
+    const numA = parseInt(a.replace("op", ""));
+    const numB = parseInt(b.replace("op", ""));
+    return numA - numB;
+    });
+    
+    opciones.forEach((key) => {
+    
+    const texto = nodo.data[key];
+    
+    if (!texto) return;
+    
+    const btn = document.createElement("button");
+    btn.className = "btn-opcion";
+    btn.innerText = texto;
+    
+    container.appendChild(btn);
+    
+    });
+    
+    /* sincronizar outputs */
+    
+    const totalOpciones = opciones.length;
+    const totalOutputs = Object.keys(nodo.outputs).length;
+    
+    if (totalOutputs > totalOpciones) {
+    
+    for (let i = totalOutputs; i > totalOpciones; i--) {
+    
+    this.editor.removeNodeOutput(nodo.id, `output_${i}`);
+    
+    }
+    
+    }
+    
+    });
+    
+    }
+
   // reconstruirMenus(flujo: any) {
 
   //   const nodos = flujo.drawflow.Home.data;
   
   //   Object.values(nodos).forEach((nodo: any) => {
   
-  //     if (nodo.name === "menu") {
+  //     if (nodo.name !== "menu") return;
   
-  //       const container = document.querySelector(
-  //         `#node-${nodo.id} #menu-opciones`
-  //       );
+  //     const container = document.querySelector(
+  //       `#node-${nodo.id} .menu-opciones`
+  //     ) as HTMLElement;
   
-  //       if (!container) return;
+  //     if (!container) return;
   
-  //       container.innerHTML = "";
-  //       nodo.data.opciones.forEach((op: string) => {
-
-  //         const btn = document.createElement("button");
-  //         btn.className = "btn-opcion";
-  //         btn.innerText = op;
-        
-  //         container.appendChild(btn);
-        
+  //     container.innerHTML = "";
+  
+  //     const opciones = Object.keys(nodo.data)
+  //       .filter(key => /^op\d+$/.test(key))
+  //       .sort((a, b) => {
+  //         const numA = parseInt(a.replace("op", ""));
+  //         const numB = parseInt(b.replace("op", ""));
+  //         return numA - numB;
   //       });
+  
+  //     // crear botones
+  //     opciones.forEach((key) => {
+  
+  //       const texto = nodo.data[key];
+  
+  //       if (!texto) return;
+  
+  //       const btn = document.createElement("button");
+  //       btn.className = "btn-opcion";
+  //       btn.innerText = texto;
+  
+  //       container.appendChild(btn);
+  
+  //     });
+  
+  //     // 🔥 sincronizar outputs con opciones
+  //     const totalOpciones = opciones.length;
+  //     const totalOutputs = Object.keys(nodo.outputs).length;
+  
+  //     if (totalOutputs > totalOpciones) {
+  
+  //       for (let i = totalOutputs; i > totalOpciones; i--) {
+  
+  //         this.editor.removeNodeOutput(nodo.id, `output_${i}`);
+  
+  //       }
   
   //     }
   
   //   });
   
   // }
+
   setModo(modo: 'edit' | 'view') {
     this.editor.editor_mode = modo === 'edit' ? 'edit' : 'fixed';
   }
@@ -309,7 +389,9 @@ export class FlujoConversacionalComponent implements AfterViewInit {
       300,
       200,
       "Aceptacion",
-      {texto:"Seleccione",op1:"Opción 1",op2:"Opción 2"},
+      {texto:"Seleccione",
+      esperarespuesta: "",
+      op1:"Opción 1",op2:"Opción 2"},
       `
       <div class="nodo nodo-aceptacion">
       
@@ -326,67 +408,195 @@ export class FlujoConversacionalComponent implements AfterViewInit {
       <input type="text" df-op2 placeholder="Botón 2">
       
       </div>
-      
+      <label>Esperar respuesta:</label>
+      <select df-esperaRespuesta>
+        <option value="si">Sí</option>
+        <option value="no">No</option>
+      </select>
       </div>
       `
       );
     break;
     
     case "Texto":
-    
-    this.editor.addNode(
-    "mensaje",
-    1,
-    1,
-    200,
-    200,
-    "mensaje",
-    {texto:"Mensaje"},
-    `
-    <div class="nodo nodo-aceptacion">
-    <div class="nodo-header">
-    💬 Mensaje
-    </div>
-    <textarea df-texto></textarea>
-    </div>
-    `
-    );
-    
+      this.editor.addNode(
+        "mensaje",
+        1,
+        1,
+        200,
+        200,
+        "mensaje",
+        {
+          texto: "Ingresa tu identificación",
+          tipodato: "",
+          esperarespuesta: ""
+        },
+        `
+           <div class="nodo nodo-aceptacion">
+      
+          <div class="nodo-header">
+            📥Mensaje
+          </div>
+      
+          <textarea df-texto placeholder="Pregunta al usuario"></textarea>
+      
+          <label>Tipo de dato:</label>
+          <select df-tipoDato>
+            <option value="">Seleccionar</option>
+            <option value="Identificacion">Identificación</option>
+            <option value="Nombre">Nombre</option>
+            <option value="Valor">Valor</option>
+            <option value="TipoAhorro">Tipo ahorro</option>
+            <option value="Correo">Correo</option>
+            <option value="Telefono">Telefono</option>
+            <option value="Imagen">Imagen</option>
+            <option value="Documento">Documento</option>
+            <option value="Radicado">Radicado</option>
+            <option value="Asesor">asesor</option>
+            <option value="Cierre atención">Cierre atención</option>
+          </select>
+          
+          <label>Esperar respuesta:</label>
+          <select df-esperaRespuesta>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+          </select>
+      
+        </div>
+        `
+      );
+      // this.editor.addNode(
+      //   "mensaje",
+      //   1,
+      //   1,
+      //   200,
+      //   200,
+      //   "mensaje",
+      //   {
+      //     texto: "Mensaje",
+      //     esperarespuesta: "no"
+      //   },
+      //   `
+      //   <div class="nodo nodo-aceptacion">
+      
+      //     <div class="nodo-header">
+      //       💬 Mensaje
+      //     </div>
+      
+      //     <textarea df-texto placeholder="Mensaje al usuario"></textarea>
+      
+      //     <label>Esperar respuesta:</label>
+      //     <select df-esperaRespuesta>
+      //       <option value="no">No (continuar flujo)</option>
+      //       <option value="si">Sí (esperar usuario)</option>
+      //     </select>
+      
+      //   </div>
+      //   `
+      // );
     break;
     
     case "menu":
-  
-    this.editor.addNode(
-      "menu",
-      1,
-      1,
-      300,
-      400,
-      "menu",
-      {
-      texto:"Seleccione",
-      opciones:["Opción 1","Opción 2"]
-      },
-      `
-      <div class="nodo nodo-aceptacion">
-      <div class="nodo-header">
-      📋 Menú
-      </div>
+      this.editor.addNode(
+        "menu",
+        1,
+        1,
+        300,
+        400,
+        "menu",
+        {
+        texto:"Seleccione",
+        opciones:[
+          {titulo:"Opción 1", descripcion:""},
+          {titulo:"Opción 2", descripcion:""}
+         ],
+         esperarespuesta: "" ,
+         esconfirmacion:"no",  
+         esmenuprincipal:"no", 
+         tipodato: "",    
+        },
+        `
+        <div class="nodo nodo-aceptacion">
+        
+        <div class="nodo-header">
+        📋 Menú
+        </div>
+        
+        <textarea df-texto></textarea>
+        
+        <div class="nodo menu-opciones" id="menu-opciones">
+        </div>
+        
+        <button class="btn-opcion" onclick="agregarOpcion(this)">
+        + Agregar opción
+        </button>
+        
+        <hr>
+        
+        
+        <label>Esperar respuesta:</label>
+        <select df-esperarespuesta>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+        <label>¿Es Confirmación de datos?</label>
+        <select df-esconfirmacion>
+        <option value="no">No</option>
+        <option value="si">Sí</option>
+        </select>
+        <label>¿Es Menú principal?</label>
+        <select df-esmenuprincipal>
+        <option value="no">No</option>
+        <option value="si">Sí</option>
+        </select>
+        <label>Tipo de dato:</label>
+          <select df-tipoDato>
+            <option value="">Seleccionar</option>
+            <option value="Identificacion">Identificación</option>
+            <option value="Nombre">Nombre</option>
+            <option value="Valor">Valor</option>
+            <option value="TipoAhorro">Tipo ahorro</option>
+            <option value="Correo">Correo</option>
+            <option value="Telefono">Telefono</option>
+            <option value="Radicado">Radicado</option>
+            <option value="Asesor">asesor</option>
+            <option value="Cierre atención">Cierre atención</option>
+          </select>
+                        
+        </div>
+        `
+        );
+    // this.editor.addNode(
+    //   "menu",
+    //   1,
+    //   1,
+    //   300,
+    //   400,
+    //   "menu",
+    //   {
+    //   texto:"Seleccione",
+    //   opciones:["Opción 1","Opción 2"]
+    //   },
+    //   `
+    //   <div class="nodo nodo-aceptacion">
+    //   <div class="nodo-header">
+    //   📋 Menú
+    //   </div>
       
       
       
-      <textarea df-texto></textarea>
+    //   <textarea df-texto></textarea>
       
-      <div class=" nodo menu-opciones" id="menu-opciones">
-      </div>
+    //   <div class=" nodo menu-opciones" id="menu-opciones">
+    //   </div>
       
-      <button class="btn-opcion" onclick="agregarOpcion(this)">
-      + Agregar opción
-      </button>
+    //   <button class="btn-opcion" onclick="agregarOpcion(this)">
+    //   + Agregar opción
+    //   </button>
       
-      </div>
-      `
-      );
+    //   </div>
+    //   `
+    //   );
     break;
     
     case "archivo":
@@ -400,7 +610,9 @@ export class FlujoConversacionalComponent implements AfterViewInit {
       { 
         texto: "Aquí está tu archivo",
         documento: "https://mi-servidor.com/archivo.pdf",
-        filename: "archivo.pdf"
+        filename: "archivo.pdf",
+        esperarespuesta: "",
+       
       },
       `
       <div class="nodo nodo-aceptacion">
@@ -411,7 +623,18 @@ export class FlujoConversacionalComponent implements AfterViewInit {
         <input type="text" df-texto placeholder="Mensaje al usuario" value="Aquí está tu archivo">
         <input type="text" df-documento placeholder="URL del archivo" value="https://mi-servidor.com/archivo.pdf">
         <input type="text" df-filename placeholder="Nombre del archivo" value="archivo.pdf">
+
+        
+        <label>Esperar respuesta:</label>
+        <select df-esperaRespuesta>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+
+    
       </div>
+
+    
       `
     );
     
@@ -426,7 +649,11 @@ export class FlujoConversacionalComponent implements AfterViewInit {
     600,
     300,
     "imagen",
-    {url:""},
+    {url:"",
+    esconfirmacion:"no",  
+    esperarespuesta: "",
+    
+    },
     `
     <div class="nodo nodo-aceptacion">
     <div class="nodo-header">
@@ -434,7 +661,14 @@ export class FlujoConversacionalComponent implements AfterViewInit {
     </div>
     <strong>Imagen</strong>
     <input type="text" df-url placeholder="URL Imagen">
+    <label>¿Espera respuesta?</label>    
+        <select df-esperaRespuesta>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
     </div>
+
+</div>
     `
     );
     
@@ -444,36 +678,107 @@ export class FlujoConversacionalComponent implements AfterViewInit {
     }
     
     }
-
+    
     agregarOpcion(btn: HTMLElement){
 
-      const nodo = btn.closest(".drawflow-node") as HTMLElement;
+      const nodoHTML = btn.closest(".drawflow-node") as HTMLElement;
+      const contenedor = nodoHTML.querySelector(".menu-opciones") as HTMLElement;
       
-      const contenedor = nodo.querySelector(".menu-opciones") as HTMLElement;
+      const nodeId = nodoHTML.id.replace("node-","");
       
-      const index = contenedor.children.length + 1;
+      // crear nuevo output en drawflow
+      this.editor.addNodeOutput(nodeId);
       
-      const input = document.createElement("input");
+      // crear opción visual
+      const div = document.createElement("div");
       
-      input.placeholder = "Opción " + index;
+      div.classList.add("menu-item");
       
-      input.setAttribute("df-op"+index,"");
+      div.innerHTML = `
+      <input type="text" placeholder="Título opción" class="opcion-titulo">
       
-      contenedor.appendChild(input);
+      <textarea placeholder="Descripción (opcional)" class="opcion-descripcion"></textarea>
       
-      /* crear output */
+      <button onclick="this.parentElement.remove()">❌</button>
+      `;
       
-      const id = nodo.id.replace("node-","");
-      
-      this.editor.addNodeOutput(id);
+      contenedor.appendChild(div);
       
       }
+
+
+
+      obtenerOpcionesMenu(nodoHTML: HTMLElement){
+
+        const items = nodoHTML.querySelectorAll(".menu-item");
+        
+        const opciones:any = [];
+        
+        items.forEach((item:any)=>{
+        
+        const titulo = item.querySelector(".opcion-titulo")?.value || "";
+        const descripcion = item.querySelector(".opcion-descripcion")?.value || "";
+        
+        opciones.push({
+        titulo: titulo,
+        descripcion: descripcion
+        });
+        
+        });
+        
+        return opciones;
+        
+        }
+    // agregarOpcion(btn: HTMLElement){
+
+    //   const nodo = btn.closest(".drawflow-node") as HTMLElement;
+      
+    //   const contenedor = nodo.querySelector(".menu-opciones") as HTMLElement;
+      
+    //   const index = contenedor.children.length + 1;
+      
+    //   const input = document.createElement("input");
+      
+    //   input.placeholder = "Opción " + index;
+      
+    //   input.setAttribute("df-op"+index,"");
+      
+    //   contenedor.appendChild(input);
+      
+    //   /* crear output */
+      
+    //   const id = nodo.id.replace("node-","");
+      
+    //   this.editor.addNodeOutput(id);
+      
+    //   }
     guardarFlujo() {
       if (!this.editor) {
         alert('Editor no inicializado');
         return;
       }
     
+
+
+      const nodos = document.querySelectorAll(".drawflow-node");
+
+      nodos.forEach((nodo:any)=>{
+      
+      if(nodo.querySelector(".menu-opciones")){
+      
+      const nodeId = nodo.id.replace("node-","");
+      const node = this.editor.getNodeFromId(nodeId);
+      
+      node.data.opciones = this.obtenerOpcionesMenu(nodo);
+      
+      this.editor.updateNodeDataFromId(nodeId,node.data);
+      
+      }
+      
+      });
+
+
+
       // Exporta el flujo actual desde Drawflow
       const flujo = this.editor.export();
     
@@ -499,7 +804,44 @@ export class FlujoConversacionalComponent implements AfterViewInit {
           }
         });
     }
+    // reiniciarFlujo() {
+    //   if (!this.editor) return;
+    
+    //   // 1️⃣ Limpiar todos los nodos y conexiones
+    //   this.editor.clear();
+    
+    //   // 2️⃣ Limpiar workspace "Home"
+    //   if (!this.editor.drawflow) this.editor.drawflow = {};
+    //   if (!this.editor.drawflow.Home) this.editor.drawflow.Home = { data: {} };
+    //   else this.editor.drawflow.Home.data = {};
+    
+    //   // 3️⃣ Reiniciar el contador de nodos
+    //   this.editor.precanvas = null;      // limpia la referencia del canvas temporal
+    //   this.editor.nodenum = 0;           // el contador de ids vuelve a 0
+
+    //   this.authService.RequestDataobject({}, 'Eliminarflujo', "Call center")
+    //   .subscribe({
+    //     next: (res) => {
+    //       this.ngAfterViewInit()
+    //       console.log('✅ Flujo Eliminado:', res);
+    //       alert('Flujo eliminado correctamente');
+    //     },
+    //     error: (err) => {
+    //       console.error('❌ Error al eliminar flujo:', err);
+    //       alert('Error al eliminar el flujo');
+    //     }
+    //   });
+     
+    //   console.log('✅ Flujo reiniciado y ids reseteados');
+    // }
     reiniciarFlujo() {
+
+      const confirmar = confirm("⚠️ ¿Estás seguro de que deseas eliminar el flujo? Esta acción no se puede deshacer.");
+    
+      if (!confirmar) {
+        return; // si el usuario cancela, no hace nada
+      }
+    
       if (!this.editor) return;
     
       // 1️⃣ Limpiar todos los nodos y conexiones
@@ -511,9 +853,9 @@ export class FlujoConversacionalComponent implements AfterViewInit {
       else this.editor.drawflow.Home.data = {};
     
       // 3️⃣ Reiniciar el contador de nodos
-      this.editor.precanvas = null;      // limpia la referencia del canvas temporal
-      this.editor.nodenum = 0;           // el contador de ids vuelve a 0
-
+      this.editor.precanvas = null;
+      this.editor.nodenum = 0;
+    
       this.authService.RequestDataobject({}, 'Eliminarflujo', "Call center")
       .subscribe({
         next: (res) => {
@@ -526,7 +868,7 @@ export class FlujoConversacionalComponent implements AfterViewInit {
           alert('Error al eliminar el flujo');
         }
       });
-     
+    
       console.log('✅ Flujo reiniciado y ids reseteados');
     }
 }
