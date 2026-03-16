@@ -23,7 +23,7 @@ export class FlujoConversacionalComponent implements AfterViewInit {
   ];
   
    constructor(private authService: AuthService ) {
-
+ 
  
 
    }
@@ -34,6 +34,7 @@ export class FlujoConversacionalComponent implements AfterViewInit {
     
     this.editor.start();
     setTimeout(() => {
+      
       this.editor.zoom_reset();
     }, 200);
     
@@ -42,9 +43,12 @@ export class FlujoConversacionalComponent implements AfterViewInit {
     //   };
       (window as any).agregarOpcion = this.agregarOpcion.bind(this);
      
-      this.editor.curvature = 0.2;
-      this.editor.reroute = true;
-      this.editor.reroute_fix_curvature = true;
+  
+   this.editor.reroute = true;
+this.editor.reroute_fix_curvature = true;
+this.editor.reroute_width = 6;
+this.editor.curvature = 0;
+
     // this.editor.on('nodeMoved', (id: any) => {
 
     //   const grid = 25;
@@ -59,6 +63,7 @@ export class FlujoConversacionalComponent implements AfterViewInit {
     // });
     this.setModo(this.modo);
     this.cargarFlujoGuardado();
+  
   }
 
 
@@ -103,7 +108,7 @@ export class FlujoConversacionalComponent implements AfterViewInit {
       setTimeout(() => {
         this.reconstruirMenus(flujoObj);
       }, 100);
-  
+      this.ordenarFlujo()
       console.log('✅ Flujo cargado');
   
     } catch (err) {
@@ -452,7 +457,7 @@ export class FlujoConversacionalComponent implements AfterViewInit {
             <option value="Imagen">Imagen</option>
             <option value="Documento">Documento</option>
             <option value="Radicado">Radicado</option>
-            <option value="Asesor">asesor</option>
+            <option value="Radicado y Asesor">asesor</option>
             <option value="Cierre atención">Cierre atención</option>
           </select>
           
@@ -559,7 +564,7 @@ export class FlujoConversacionalComponent implements AfterViewInit {
             <option value="Correo">Correo</option>
             <option value="Telefono">Telefono</option>
             <option value="Radicado">Radicado</option>
-            <option value="Asesor">asesor</option>
+            <option value="Radicado y Asesor">asesor</option>
             <option value="Cierre atención">Cierre atención</option>
           </select>
                         
@@ -678,7 +683,91 @@ export class FlujoConversacionalComponent implements AfterViewInit {
     }
     
     }
+ 
+    // ordenarFlujo() {
+
+    //   const nodos = this.editor.drawflow.drawflow.Home.data;
     
+    //   let x = 50;
+    //   let y = 50;
+    
+    //   const espacioVertical = 180;
+    //   const espacioHorizontal = 450;
+    
+    //   let contador = 0;
+    
+    //   Object.keys(nodos).forEach((id: any) => {
+    
+    //     nodos[id].pos_x = x;
+    //     nodos[id].pos_y = y;
+    
+    //     // mover nodo visualmente
+    //     const nodoHtml = document.querySelector(`#node-${id}`) as HTMLElement;
+    
+    //     if (nodoHtml) {
+    //       nodoHtml.style.left = x + "px";
+    //       nodoHtml.style.top = y + "px";
+    //     }
+    
+    //     y += espacioVertical;
+    //     contador++;
+    
+    //     if (contador % 8 === 0) {
+    //       y = 50;
+    //       x += espacioHorizontal;
+    //     }
+    
+    //   });
+    
+    //   this.editor.updateConnectionNodes('node-1'); // refrescar conexiones
+    // }
+
+    ordenarFlujo() {
+
+      const nodos = this.editor.drawflow.drawflow.Home.data;
+    
+      let x = 50;
+      let y = 50;
+    
+      const espacioVertical = 180;
+      const espacioHorizontal = 450;
+    
+      let contador = 0;
+    
+      Object.keys(nodos).forEach((id: any) => {
+    
+        nodos[id].pos_x = x;
+        nodos[id].pos_y = y;
+    
+        const nodoHtml = document.querySelector(`#node-${id}`) as HTMLElement;
+    
+        if (nodoHtml) {
+          nodoHtml.style.left = x + "px";
+          nodoHtml.style.top = y + "px";
+        }
+    
+        this.editor.updateConnectionNodes(`node-${id}`);
+    
+        y += espacioVertical;
+        contador++;
+    
+        if (contador % 8 === 0) {
+          y = 50;
+          x += espacioHorizontal;
+        }
+    
+      });
+    
+      // 🔹 reducir zoom
+      this.editor.zoom = 0.3;
+      this.editor.zoom_refresh();
+    
+      // 🔹 centrar flujo
+      this.editor.fit_view();
+    
+    }
+
+
     agregarOpcion(btn: HTMLElement){
 
       const nodoHTML = btn.closest(".drawflow-node") as HTMLElement;
@@ -871,6 +960,7 @@ export class FlujoConversacionalComponent implements AfterViewInit {
     
       console.log('✅ Flujo reiniciado y ids reseteados');
     }
+    
 }
 
 

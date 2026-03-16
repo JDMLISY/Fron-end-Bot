@@ -6,7 +6,7 @@
     linear-gradient(to bottom, #e4e4e4 1px, transparent 1px);
 }
 
-html, body, #modal-principal, .contenedor-modal {
+ .contenedor-modal {
   height: 100%;
   width: 100%;
   margin: 0;
