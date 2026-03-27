@@ -515,8 +515,16 @@ if (this.Tipoatencion == "Sin solicitud")
     this.Radicado = Radicado 
   const user = this.tokenStorage.getUser();
   
+  if (sessionStorage.getItem('numeroContacto')) {
+    sessionStorage.removeItem('numeroContacto');
+  }
+   // Luego lo guardas
+  
+ sessionStorage.setItem('numeroContacto',numero);
+
 
     this.userService.conversaciones("Conversaciones", numero).subscribe({
+
       next: data => {
         if (data.length > 0) {
           const resultado: any[] = [];
@@ -684,8 +692,6 @@ if (this.Tipoatencion == "Sin solicitud")
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-
-
 
 
   }

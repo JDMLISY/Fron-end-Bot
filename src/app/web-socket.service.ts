@@ -42,7 +42,7 @@ export class ChatService {
       }
 
       const numero = sessionStorage.getItem('numeroContacto');
-      if (numero == message.numero) {
+      if (numero  == message.numero) {
         this.message$.next(message); // 🔹 Aquí lo emitimos global
       }
 
