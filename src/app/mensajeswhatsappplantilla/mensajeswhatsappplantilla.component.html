@@ -1,0 +1,111 @@
+<h2 mat-dialog-title>Importar contactos desde Excel</h2>
+
+<mat-dialog-content>
+
+  <!-- 🔹 Inputs -->
+  <mat-form-field class="full-width compacto">
+    <mat-label>Título</mat-label>
+    <input matInput [(ngModel)]="titulo">
+  </mat-form-field>
+  
+  <mat-form-field class="full-width compacto">
+    <mat-label>Mensaje</mat-label>
+    <textarea matInput rows="2" [(ngModel)]="mensaje"></textarea>
+  </mat-form-field>
+
+  <!-- 🔹 Drag & Drop -->
+  <div class="drop-zone compacto-drop"
+       (dragover)="onDragOver($event)"
+       (drop)="onDrop($event)"
+       (click)="fileInput.click()">
+
+    <mat-icon>upload_file</mat-icon>
+    <p>Arrastra tu archivo Excel aquí</p>
+    <span>o haz clic para seleccionar</span>
+
+    <input type="file" (change)="onFileSelected($event)" hidden #fileInput>
+  </div>
+
+  <!-- 🔹 TABLA (solo si hay datos) -->
+  <div *ngIf="dataSource?.data?.length" class="tabla-container">
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+
+      <!-- Checkbox -->
+      <ng-container matColumnDef="selected">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="toggleAll($event)"></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [(ngModel)]="row.selected"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Columnas dinámicas -->
+      <ng-container *ngFor="let col of columnas" [matColumnDef]="col">
+        <th mat-header-cell *matHeaderCellDef>{{ col }}</th>
+        <td mat-cell *matCellDef="let row">{{ row[col] }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+  </div>
+  <div *ngIf="resultadosEnvio.length > 0" class="tabla-resultados">
+
+    <h3>Resultado del envío</h3>
+  
+    <table mat-table [dataSource]="resultadosEnvio" class="mat-elevation-z2">
+  
+      <!-- Número -->
+      <ng-container matColumnDef="numero">
+        <th mat-header-cell *matHeaderCellDef> Número </th>
+        <td mat-cell *matCellDef="let r"> {{r.numero}} </td>
+      </ng-container>
+  
+      <!-- Estado -->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let r">
+          <span [ngClass]="r.ok ? 'ok' : 'error'">
+            {{ r.ok ? 'Enviado' : 'Error' }}
+          </span>
+        </td>
+      </ng-container>
+  
+      <!-- Error -->
+      <ng-container matColumnDef="error">
+        <th mat-header-cell *matHeaderCellDef> Detalle </th>
+        <td mat-cell *matCellDef="let r">
+          {{ r.error || '-' }}
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="columnasResultado"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnasResultado;"></tr>
+  
+    </table>
+  
+  </div>
+  <!-- 🔹 BOTONES -->
+  <div class="acciones">
+
+    <button mat-raised-button color="primary" (click)="fileInput.click()">
+      Seleccionar archivo
+    </button>
+
+    <button mat-raised-button color="accent"
+            (click)="usarSeleccionados()"
+            [disabled]="!dataSource?.data?.length">
+      Enviar mensaje
+    </button>
+
+    <button mat-stroked-button (click)="cerrar()">
+      Cancelar
+    </button>
+
+  </div>
+
+</mat-dialog-content>

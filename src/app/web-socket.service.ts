@@ -53,7 +53,7 @@ export class ChatService {
 
         if (this.notificacionesActivas) {
           Notification.requestPermission().then((result) => {
-            if (mensaje.indexOf("El número de radicado para tu solicitud es") > 0) {
+            if (mensaje.indexOf("El número de radicado para tu solicitud es") > 0 || mensaje.indexOf("Danos un momento más por favor, tenemos solicitudes en fila, pronto te atenderemos 🤗🤝") > 0 ) {
               const notification = new Notification("Existen nuevos mensajes", {
                 body: "Existe un mensaje, El cliente con número: " + message.numero + ", escribió: " + message.Mensaje,
                 icon: "assets/icons/LogoMore.jpg" // 🔹 corregí la ruta

@@ -8,6 +8,7 @@ import { UserService } from '../_services/user.service';
 import { estadoradicadosComponent } from '../estado-radicados/estado-radicados.component';
 import { MatriculaAyudasComponent } from '../matricula-ayudas/matricula-ayudas.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MensajeswhatsappplantillaComponent } from '../mensajeswhatsappplantilla/mensajeswhatsappplantilla.component';
 
 
 const AUTH_API = environment.AUTH_API;
@@ -96,7 +97,7 @@ export class AuthService {
         this.data1 = data
 
         if (this.data1.length > 0) {
-          if(opcion=="Radicados" || opcion=="ayudas")
+          if(opcion=="Radicados" || opcion=="ayudas" || opcion=="envioplantilla" )
             {
               
               this.openDialog(opcion)
@@ -150,6 +151,15 @@ export class AuthService {
         });
 
       }
+      if(opcion=="envioplantilla")
+        {
+          const dialogRef = this.dialog.open(MensajeswhatsappplantillaComponent, {
+            height: '800px',
+            width: '950px',
+            data:  "",
+          });
+  
+        }
     }
   downloadFile(parametro: string, numero: string): Observable<Blob> {
 

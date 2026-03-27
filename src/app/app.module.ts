@@ -96,6 +96,7 @@ import { ModalVerCuposComercioComponent } from './modal-ver-cupos-comercio/modal
 import { EmpresaComponent } from './empresa/empresa.component';
 import { ModalActualizarAsociadoComponent } from './modal-actualizar-asociado/modal-actualizar-asociado.component';
 import { MensajesRespuestaComponent } from './mensajes-respuesta/mensajes-respuesta.component';
+import { MensajeswhatsappplantillaComponent } from './mensajeswhatsappplantilla/mensajeswhatsappplantilla.component';
 
 
 
@@ -140,6 +141,7 @@ import { MensajesRespuestaComponent } from './mensajes-respuesta/mensajes-respue
     EmpresaComponent,
     ModalActualizarAsociadoComponent,
     MensajesRespuestaComponent,
+    MensajeswhatsappplantillaComponent,
     
   ],
   imports: [

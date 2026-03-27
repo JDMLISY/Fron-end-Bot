@@ -42,6 +42,10 @@
   <button mat-menu-item [matMenuTriggerFor]="Conversaciones">
     <mat-icon style="color: black;">business</mat-icon>Call center
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="Campanas">
+    <mat-icon style="color: black;">business</mat-icon>Campañas
+  </button>
+
   <button mat-menu-item [matMenuTriggerFor]="Comercio">
     <mat-icon style="color: black;">store_mall_directory</mat-icon>Comercio
   </button>
@@ -71,6 +75,17 @@
   <button mat-menu-item (click)="abrirFlujoConversacional()" *ngIf="showSuperAdminBoard || showAdminBoard">💬 Flujo Conversacional</button>
   <button mat-menu-item (click)="abrirmatriculademensajes()" *ngIf="showSuperAdminBoard || showAdminBoard">💬 Modificar Mensajes </button>
 </mat-menu>
+
+<mat-menu #Campanas="matMenu">
+   <button mat-menu-item (click)="services.ValidarModulo('envioplantilla','Campañas')">💬 Mensajes por plantilla</button>
+  <!--<button mat-menu-item (click)="services.ValidarModulo('/Informes','Call center')">📊 Informes</button>
+  <button mat-menu-item (click)="services.ValidarModulo('Radicados','Call center')">✅ Activar radicados</button>
+  <button mat-menu-item (click)="services.ValidarModulo('ayudas','Call center')">📘 Matrícula de ayudas</button>
+  <button mat-menu-item (click)="abrirFlujoConversacional()" *ngIf="showSuperAdminBoard || showAdminBoard">💬 Flujo Conversacional</button>
+  <button mat-menu-item (click)="abrirmatriculademensajes()" *ngIf="showSuperAdminBoard || showAdminBoard">💬 Modificar Mensajes </button> -->
+</mat-menu>
+
+
 
 <mat-menu #Comercio="matMenu">
   <button mat-menu-item (click)="services.ValidarModulo('/Archivos','Comercio')">
