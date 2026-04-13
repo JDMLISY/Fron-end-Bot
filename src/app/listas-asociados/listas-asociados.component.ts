@@ -29,7 +29,12 @@ export interface DialogData {
 /**
  * @title List with selection
  */
-
+interface Nit {
+  strNombreIntegrado: string;
+  Celular: string;
+  SoloNombres: string;
+  TipoAsociado?: string; // 👈 opcional
+}
 interface TipoSolicitud {
   tipo_atencion: string;
   cantidad: number;
@@ -106,8 +111,7 @@ export class ListasAsociadosComponent implements OnInit {
   
   typesOfShoes: TipoSolicitud[] = [];
 
-
-
+  TipoAsociado: string = '';
   listaasociados = true
   verconversacion = false
   Solicitudes =false 
@@ -434,6 +438,8 @@ filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:st
   this.verconversacion = false
   this.Solicitudes = true
   this.contacto = Nombre
+  this.numero = numero
+  this.TipoAsociado = ''
   this.Cedula = Cedula
   this.Tipoatencion = Tipo_atencion
 
@@ -503,6 +509,13 @@ if (this.Tipoatencion == "Sin solicitud")
       this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
     }
   })
+  const limpio = (numero || '').replace(/\D/g, '').replace(/^57/, '');
+
+  const encontrado = this.NitsFiltrados().find(x =>
+    (x.Celular || '').replace(/\D/g, '').replace(/^57/, '') === limpio
+  );
+  this.TipoAsociado = encontrado?.TipoAsociado ?? 'No es asociado';
+  this.contacto = encontrado ? encontrado.strNombreIntegrado : Nombre;
 }
 
 
@@ -511,7 +524,8 @@ if (this.Tipoatencion == "Sin solicitud")
     this.listaasociados = false
     this.Solicitudes = false
     this.contacto = Nombre
-    this.numero = numero   
+    this.numero = numero
+    this.TipoAsociado = ''  
     this.Radicado = Radicado 
   const user = this.tokenStorage.getUser();
   
@@ -609,7 +623,13 @@ if (this.Tipoatencion == "Sin solicitud")
       }
     });
 
+    const limpio = (numero || '').replace(/\D/g, '').replace(/^57/, '');
 
+    const encontrado = this.NitsFiltrados().find(x =>
+      (x.Celular || '').replace(/\D/g, '').replace(/^57/, '') === limpio
+    );
+    this.TipoAsociado = encontrado?.TipoAsociado ?? 'No es asociado';
+    this.contacto = encontrado ? encontrado.strNombreIntegrado : Nombre;
 
 
 
@@ -889,17 +909,29 @@ while (empieza >= 0 && empieza < cantidadArchivos )
     });
   }
   
-  NitsFiltrados(): { strNombreIntegrado: string, Celular: string, SoloNombres:string }[] {
+  NitsFiltrados(): Nit[] {
+
     if (!this.busquedaNit) return this.NitsPredefinidas;
   
     const filtro = this.busquedaNit.toLowerCase();
-    return this.NitsPredefinidas.filter(nit =>
-      nit.strNombreIntegrado?.toLowerCase().includes(filtro) ||
-      nit.Celular?.toLowerCase().includes(filtro)
-      
-
+  
+    return (this.NitsPredefinidas as any[]).filter(nit =>
+      (nit.strNombreIntegrado || '').toLowerCase().includes(filtro) ||
+      (nit.Celular || '').toLowerCase().includes(filtro) ||
+      (nit.TipoAsociado || '').toLowerCase().includes(filtro)
     );
   }
+  // NitsFiltrados(): { strNombreIntegrado: string, Celular: string, SoloNombres:string }[] {
+  //   if (!this.busquedaNit) return this.NitsPredefinidas;
+  
+  //   const filtro = this.busquedaNit.toLowerCase();
+  //   return this.NitsPredefinidas.filter(nit =>
+  //     nit.strNombreIntegrado?.toLowerCase().includes(filtro) ||
+  //     nit.Celular?.toLowerCase().includes(filtro)
+      
+
+  //   );
+  // }
   
   buscarContacto(): void{
     
