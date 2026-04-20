@@ -84,7 +84,8 @@ export class UserService {
       Nit: this.tokenStorage.getUser().Nit,
       numero: numero,
       nombreAsesor: this.tokenStorage.getUser().name,
-      nombreCliente: contacto,            
+      nombreCliente: contacto,
+      tipo_atencion : this.tokenStorage.getUser().tipo_atencion            
        
       
     }, httpOptions);

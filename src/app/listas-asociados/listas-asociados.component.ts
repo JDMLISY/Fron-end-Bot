@@ -772,7 +772,19 @@ while (empieza >= 0 && empieza < cantidadArchivos )
          
           },
           error: err => {
-            this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
+            const mensajeBackend = err?.error?.message;
+            const mensajeError =
+              mensajeBackend ||
+              err?.message ||
+              "Error al consultar los datos, Comuníquese con el Administrador del sistema.";
+          
+            const tipoMensaje = mensajeBackend ? "warning" : "Error";
+          
+            this.userService.showSuccess(
+              mensajeError,
+              "Registro de datos",
+              tipoMensaje
+            );
           }
         })
       }
