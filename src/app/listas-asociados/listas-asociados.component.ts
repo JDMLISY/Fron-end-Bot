@@ -888,7 +888,7 @@ while (empieza >= 0 && empieza < cantidadArchivos )
                 this.mostrarParpadeo = false
 
             this.userService.showSuccess(data.Mensaje, "Error de comunicaciòn", 'Error')
-            setTimeout(() => this.tokenStorage.signOut(), 20);
+            setTimeout(() => this.tokenStorage.signOut(), 2000);
             return
           }
 

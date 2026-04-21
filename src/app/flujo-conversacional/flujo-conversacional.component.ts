@@ -763,7 +763,7 @@ this.editor.curvature = 0;
       this.editor.zoom_refresh();
     
       // 🔹 centrar flujo
-      this.editor.fit_view();
+    //  this.editor.fit_view();
     
     }
 
