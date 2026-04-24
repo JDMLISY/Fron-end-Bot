@@ -992,6 +992,21 @@ getSafeUrl(url: any): SafeResourceUrl {
 
   return this.sanitizer.bypassSecurityTrustResourceUrl(validUrl);
 }
+
+abrirPdf(url: any) {
+  const validUrl =
+    typeof url === 'string'
+      ? url
+      : url?.changingThisBreaksApplicationSecurity || url?.toString() || '';
+
+  window.open(validUrl, '_blank');
+}
+
+getPlainUrl(url: any): string {
+  return typeof url === 'string'
+    ? url
+    : url?.changingThisBreaksApplicationSecurity || '';
+}
 }
 
 

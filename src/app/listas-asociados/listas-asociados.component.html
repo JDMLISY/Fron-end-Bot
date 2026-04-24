@@ -375,8 +375,28 @@
                           <div class="message-bubble">
                             <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" [src]="getSafeUrl(Conver.Mensaje)"
                               height="150" width="80%" (click)="downloadFile(Conver.Mensaje)" />
-                            <iframe *ngIf="Conver.tipoarchivo === 'application/pdf'" [src]="getSafeUrl(Conver.Mensaje)"
+
+                              <div
+                              *ngIf="Conver.tipoarchivo?.toLowerCase().includes('pdf')"
+                              class="message-bubble pdf-bubble"
+                            >
+                          
+                            <button (click)="abrirPdf(getPlainUrl(Conver.Mensaje))" class="btn-pdf">
+                              <img 
+                                src="assets/pdf-logo.png" 
+                                alt="PDF" 
+                                class="icono-pdf"
+                              />
+                              Abrir PDF
+                            </button>
+                                                  
+                            </div>
+                            <!-- <iframe *ngIf="Conver.tipoarchivo === 'application/pdf'"
+                             [src]="getSafeUrl(Conver.Mensaje)"
                               height="200" width="100%" (click)="downloadFile(Conver.Mensaje)"></iframe>
+ -->
+
+                              
                               <video
                               *ngIf="Conver.tipoarchivo?.startsWith('video/')"
                               width="100%"
@@ -424,16 +444,36 @@
                               {{ getFileName(Conver.Mensaje) }}
                             </a>
 
-                            <div *ngIf="Conver.tipoarchivo === 'application/pdf'" class="iframe-container">
+                            <div
+                            *ngIf="Conver.tipoarchivo?.toLowerCase().includes('pdf')"
+                            class="message-bubble pdf-bubble"
+                          >
+                      
+
+                          <button (click)="abrirPdf(getPlainUrl(Conver.Mensaje))" class="btn-pdf">
+                            <img 
+                              src="assets/pdf-logo.png" 
+                              alt="PDF" 
+                              class="icono-pdf"
+                            />
+                            Abrir PDF
+                          </button>
+                          
+                            <div class="message-footer">
+                              <span class="hora-msg">{{ Conver.hora }}</span>
+                            </div>
+                          
+                          </div>
+                            <!-- <div *ngIf="Conver.tipoarchivo === 'application/pdf'" >
                               <iframe *ngIf="Conver.tipoarchivo === 'application/pdf'"
                                 [src]="getSafeUrl(Conver.Mensaje)" height="150px" width="100%"></iframe>
                               <button class="download-btn" (click)="downloadFile(Conver.Mensaje)">
                                 ⬇ Descargar
                               </button>
-                            </div>
-                            <div class="message-footer">
+                            </div> -->
+                            <!-- <div class="message-footer">
                               <span class="hora-msg">{{ Conver.hora }}</span>
-                            </div>
+                            </div> -->
                           </div>
 
                           <div *ngIf="Conver.tipoarchivo?.startsWith('image/')" class="message-bubble image-bubble">
