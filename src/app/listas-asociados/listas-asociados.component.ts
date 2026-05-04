@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
+
 export interface DialogData {
   idRegistro: string;
   Tipo_atencion: string;
@@ -732,19 +733,60 @@ if (this.Tipoatencion == "Sin solicitud")
       }
     });
 }
+traer_archivo(parametro :string) {
+
+  
+   
+  
+
+  const user = this.tokenStorage.getUser();
+  if (user.Nit == '800052851')
+  {
+if (user.roles == 'A' )
+{
 
 
-traer_archivo(parametro :string ) {
-  this.authService.downloadFile(parametro,this.numero).subscribe((blob) => {
-    const a = document.createElement('a');
-    const objectUrl = URL.createObjectURL(blob);
-    a.href = objectUrl;
-    a.download = 'file.xlsx';
-    a.click();
-    URL.revokeObjectURL(objectUrl);
-    this.userService.showSuccess("Descarga Realizada Correctamente","Descarga de Archivo",'success')
-  });
-  }
+this.authService.downloadFile(parametro,"N").subscribe((blob) => {
+  const a = document.createElement('a');
+  const objectUrl = URL.createObjectURL(blob);
+  a.href = objectUrl;
+  a.download = 'file.xlsx';
+  a.click();
+  URL.revokeObjectURL(objectUrl);
+});
+}else{
+this.userService.showSuccess("No tienes acceso a estos informes consulta con tu Administrador", "Informativo", "warning");
+}
+
+
+} else {
+
+
+this.authService.downloadFile(parametro,"N").subscribe((blob) => {
+  const a = document.createElement('a');
+  const objectUrl = URL.createObjectURL(blob);
+  a.href = objectUrl;
+  a.download = 'file.xlsx';
+  a.click();
+  URL.revokeObjectURL(objectUrl);
+});
+
+
+}
+
+}
+
+// traer_archivo(parametro :string ) {
+//   this.authService.downloadFile(parametro,this.numero).subscribe((blob) => {
+//     const a = document.createElement('a');
+//     const objectUrl = URL.createObjectURL(blob);
+//     a.href = objectUrl;
+//     a.download = 'file.xlsx';
+//     a.click();
+//     URL.revokeObjectURL(objectUrl);
+//     this.userService.showSuccess("Descarga Realizada Correctamente","Descarga de Archivo",'success')
+//   });
+//   }
 
 
 
