@@ -51,7 +51,14 @@ export class MensajesRespuestaComponent implements OnInit {
     { codigo: 'COMPRA_BOLETERIA', nombre: 'Compra de boletería' },
     { codigo: 'INFORMACION', nombre: 'Información' },
     { codigo: 'ASESOR', nombre: 'Comunicarse con un asesor' },
-    { codigo: 'SALIDA', nombre: 'Mensaje de Salida' }
+    { codigo: 'SALIDA', nombre: 'Mensaje de Salida' },
+    { codigo: 'FUERA_HORARIO', nombre: 'Mensaje de fuera de horario' },
+    { codigo: 'FUERA_HORARIO_ALMUERZO', nombre: 'Mensaje de fuera de horario almuerzo' },
+    { codigo: 'VALIDAR_OPCION_MENU', nombre: 'Mensaje de validación en selección de menu' },    
+    { codigo: 'VALIDAR_IDENTIFICACION', nombre: 'Mensaje de validación para ingreso de identificación' },
+    { codigo: 'VALIDAR_NUMEROS', nombre: 'Mensaje de validación numeros o valores' },
+    
+
 
   ];
 

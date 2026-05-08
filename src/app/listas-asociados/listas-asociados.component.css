@@ -1472,3 +1472,6 @@ ul {
   height: 28px;
   object-fit: contain;
 }
+.contenido-ayuda{
+  white-space: pre-wrap;
+}

@@ -302,25 +302,53 @@
               </div>
             </div>
 
+
             <div class="ayudas-card">
+              <h3 class="titulo-ayudas">🗂 Ayudas rápidas</h3>
+            
+              <input
+                type="text"
+                [(ngModel)]="busquedaFrase"
+                placeholder="Buscar ayuda..."
+                class="buscador-frases"
+              />
+            
+              <div class="frases-rapidas">
+            
+                <div
+                  *ngFor="let frase of frasesFiltradas()"
+                  class="frase"
+                  draggable="true"
+                  (dragstart)="onDragStart($event, frase)"
+                  (dblclick)="enviar(numero, frase)"
+                >
+                  <span class="contenido-ayuda">
+                    {{ frase }}
+                  </span>
+                </div>
+            
+              </div>
+            </div>
+
+            <!-- <div class="ayudas-card">
               <h3 class="titulo-ayudas">🗂 Ayudas rápidas</h3>
               <input type="text" [(ngModel)]="busquedaFrase" placeholder="Buscar ayuda..." class="buscador-frases" />
 
-              <!-- <div class="frases-rapidas">
+               <div class="frases-rapidas">
                 <div *ngFor="let frase of frasesFiltradas()" 
                      class="frase"
                      (dragstart)="onDragStart($event, frase)"
                      (click)="inputMensaje = frase">
                   {{ frase }}
                 </div>
-              </div> -->
+              </div> 
               <div class="frases-rapidas">
                 <div *ngFor="let frase of frasesFiltradas()" class="frase" draggable="true"
                   (dragstart)="onDragStart($event, frase)" (dblclick)="enviar(numero, frase)">
                   {{ frase }}
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <div class="chat-area">
@@ -343,7 +371,7 @@
                         </div> -->
                         <div *ngIf="Conver.dedonde === 'BOT'" class="message message-bot">
                           <div class="message-bubble">
-                            <div class="message-content">
+                            <div class="message-content contenido-ayuda">
                               {{ Conver.Mensaje }}
                             </div>
                             <div class="message-footer">
@@ -358,7 +386,7 @@
                             Conver.Ruta_Archivo == 'N'
                           " class="message message-web">
                           <div class="message-bubble">
-                            <div class="message-content">
+                            <div class="message-content contenido-ayuda">
                               {{ Conver.Mensaje }}
                             </div>
                             <div class="message-footer">
@@ -529,7 +557,7 @@
                           ">
                           <!-- Para mensajes de texto simples -->
                           <div class="message-bubble">
-                            <div class="message-content">
+                            <div class="message-content contenido-ayuda">
                               {{ Conver.Mensaje }}
                             </div>
                             <div class="message-footer">
@@ -562,7 +590,7 @@
                   placeholder="Escribe un mensaje..."></textarea> -->
 
                   <input [(ngModel)]="inputMensaje" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
-                    placeholder="Escribe un mensaje..." type="file" #fileInput id="fileInput"
+                    placeholder="Escribe un mensaje..." type="file" #fileInput id="fileInput" multiple
                     (change)="selectFile($event)" accept=".pdf,image/*" style="display: none" />
 
                   <button mat-icon-button (click)="toggleSelector()" aria-label="Mostrar emojis">

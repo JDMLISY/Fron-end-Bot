@@ -60,12 +60,13 @@ Radicado = ""
   usuarioSeleccionado: any;
 
   trasladar() {
+    debugger
     if (!this.usuarioSeleccionado) {
       this.userService.showSuccess("Debes seleccionar un usuario para trasladar", "Validación", "warning");
       return;
     }
   
-    if (!this.usuarioSeleccionado.tipo_atencion) {
+    if (!this.usuarioSeleccionado.tipo_atencion || this.usuarioSeleccionado.tipo_atencion =='A,C,E,CP,CE,DN,EC,CB,CA') {
       this.userService.showSuccess("Debes seleccionar un tipo de atención para el usuario", "Validación", "warning");
       return;
     }
