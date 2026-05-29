@@ -54,6 +54,7 @@ export class MensajesRespuestaComponent implements OnInit {
     { codigo: 'SALIDA', nombre: 'Mensaje de Salida' },
     { codigo: 'FUERA_HORARIO', nombre: 'Mensaje de fuera de horario' },
     { codigo: 'FUERA_HORARIO_ALMUERZO', nombre: 'Mensaje de fuera de horario almuerzo' },
+    { codigo: 'EN_HORARIO', nombre: 'Mensaje de horario laboral' },
     { codigo: 'VALIDAR_OPCION_MENU', nombre: 'Mensaje de validación en selección de menu' },    
     { codigo: 'VALIDAR_IDENTIFICACION', nombre: 'Mensaje de validación para ingreso de identificación' },
     { codigo: 'VALIDAR_NUMEROS', nombre: 'Mensaje de validación numeros o valores' },
