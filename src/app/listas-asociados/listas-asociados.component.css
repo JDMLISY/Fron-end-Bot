@@ -1012,6 +1012,8 @@ ul {
   word-wrap: break-word;
   font-size: 10px;
   color: white;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .message-bot {
@@ -1474,4 +1476,67 @@ ul {
 }
 .contenido-ayuda{
   white-space: pre-wrap;
+}
+.mensaje-nuevo {
+  background: #fff3cd;
+  border-left: 4px solid #ff9800;
+  animation: pulseMensaje 1s infinite;
+}
+
+.badge-mensaje {
+  width: 10px;
+  height: 10px;
+  background: #f44336;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@keyframes pulseMensaje {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.nuevo-indicador{
+  color:red;
+  font-size:18px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  50%{
+      opacity:0;
+  }
+}
+
+.tipo-nuevo {
+
+  animation: titilarTipo 1s infinite;
+
+}
+
+@keyframes titilarTipo {
+
+  0% {
+    background-color: #1976d2;
+  }
+
+  50% {
+    background-color: #ff9800;
+  }
+
+  100% {
+    background-color: #1976d2;
+  }
+
 }

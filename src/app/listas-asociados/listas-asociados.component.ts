@@ -69,7 +69,8 @@ export class ListasAsociadosComponent implements OnInit {
   hoveredItem: any = null;
   // typesOfShoes = Array.from({length: 1000}).map((_, i) => `Item #${i}`);
   displayedColumns: string[] = ['idRegistro','Tipo_atencion','Radicado','fecha_solicitud','Contactar'];
-  
+  contactos = [];
+ contactosConMensajes = new Set<string>();
   dataSource = new MatTableDataSource()
   errorMessage = '';
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -139,7 +140,7 @@ export class ListasAsociadosComponent implements OnInit {
   mostrarParpadeo = false;
   busquedaNit: string = '';
 
-  
+  tiposConMensajes = new Set<string>();
   frasesFiltradas(): string[] {
     if (!this.busquedaFrase) return this.frasesPredefinidas;
     const filtro = this.busquedaFrase.toLowerCase();
@@ -178,6 +179,61 @@ isImage(url: any): boolean {
 
   
   ngOnInit(): void {
+
+    this.chatService.notificacion$.subscribe(async data => {
+
+      if (!data) {
+        return;
+      }
+    
+      const numeroAbierto = sessionStorage.getItem('numeroContacto');
+    
+
+      if (
+        // numeroAbierto !== data.numero &&
+        
+            data.mensaje === 'Solicitud-Asesor' ||
+            data.mensaje === 'Solicitud-ahorros' ||
+            data.mensaje === 'Solicitud-creditos' ||
+            data.mensaje === 'Solicitud-certificados' ||
+            data.mensaje === 'Solicitud-estados-cuenta' ||
+            data.mensaje === 'Solicitud-polizas' ||
+            data.mensaje === 'Solicitud-descuentos-nomina' ||
+            data.mensaje === 'Solicitud-consignaciones' ||
+            data.mensaje === 'Solicitud-boletas-cine' ||
+            data.mensaje === 'Solicitud-afiliaciones' ||
+            data.mensaje === 'Solicitud-auxilios-convenios'
+        
+    ) {
+      
+       await this.cargarSolicitudes(); // o el método que uses
+        
+        this.typesOfShoes.forEach(item => {
+
+          const existe = item.contactos.find(
+            c => c.numero === data.numero
+          );
+        
+          if (existe) {
+        
+            
+            this.contactosConMensajes.add(data.numero);
+            this.tiposConMensajes.add(item.tipo_atencion);
+        
+          }
+        
+        });
+     //   this.contactosConMensajes.add(data.numero);
+    
+        this.cdRef.detectChanges();
+       }else {
+        this.contactosConMensajes.add(data.numero);
+    
+        this.cdRef.detectChanges();
+
+       }
+    
+    });
     if (this.data) {
       this.ver_conversacion(this.data.nombre, this.data.numero, this.data.dedonde, this.data.radicado);
     }
@@ -348,10 +404,10 @@ downloadFile(url: any) {
  }
 
 
- cargarSolicitudes() {
+ async cargarSolicitudes() {
   const user = this.tokenStorage.getUser();
 
-  this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "Count", "", "","").subscribe({
+await this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "Count", "", "","").subscribe({
     next: (response: any) => {
       if (Array.isArray(response)) {
         if (response.length > 0) {
@@ -433,6 +489,7 @@ downloadFile(url: any) {
 filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:string)
 {
 
+  
   const user = this.tokenStorage.getUser();
   // this.limpiartiempo()
   this.listaasociados = false
@@ -638,30 +695,33 @@ if (this.Tipoatencion == "Sin solicitud")
 
   async enviar(numero: string,frase: string){
 
-    
-    //var obj2 = {Mensaje: this.texto};
 
-   // this.Conversa.push(obj2); 
-   //this.Conversa = [...this.Conversa, {"Mensaje": this.texto,"dedonde": "WEB"}];
-    
+  
    this.cdRef.detectChanges();
+
+ 
    this.scrollToBottom(); 
 
      var mensaje = this.texto && this.texto.trim() !== "" ? this.texto : frase;
 
      this.texto = ""
 
-    // this.Conversa.concat(obj2)
-    // this.chatService.getNewMessage().subscribe((message: string) => {
-    //   this.messageList.push(message);
-    // })
+     
 
-    // this.newMessage = mensaje
-    // this.sendMessage()
-
+    
 
      this.userService.Mensajeswhat("Mensajeswhat","Texto",mensaje,this.numero).subscribe({
       next: data => {
+
+
+
+
+        this.contactosConMensajes.delete(this.numero);
+        this.contactosConMensajes = new Set(this.contactosConMensajes);
+        this.quitarNotificacionTipo('prueba');
+
+        this.cdRef.detectChanges();
+
         if (data.length > 0) {
 
         //   this.Conversa = data
@@ -776,17 +836,6 @@ this.authService.downloadFile(parametro,"N").subscribe((blob) => {
 
 }
 
-// traer_archivo(parametro :string ) {
-//   this.authService.downloadFile(parametro,this.numero).subscribe((blob) => {
-//     const a = document.createElement('a');
-//     const objectUrl = URL.createObjectURL(blob);
-//     a.href = objectUrl;
-//     a.download = 'file.xlsx';
-//     a.click();
-//     URL.revokeObjectURL(objectUrl);
-//     this.userService.showSuccess("Descarga Realizada Correctamente","Descarga de Archivo",'success')
-//   });
-//   }
 
 
 
@@ -1048,6 +1097,14 @@ getPlainUrl(url: any): string {
   return typeof url === 'string'
     ? url
     : url?.changingThisBreaksApplicationSecurity || '';
+}
+
+quitarNotificacionTipo(tipo: string) {
+
+  this.tiposConMensajes.delete(tipo);
+
+  this.tiposConMensajes = new Set(this.tiposConMensajes);
+
 }
 }
 

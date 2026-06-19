@@ -13,6 +13,8 @@ export class ChatService {
   // 🔹 Aquí mejor "any" en vez de string
   public message$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
+  public notificacion$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
   public notificacionesActivas = true;
 
   constructor(
@@ -39,6 +41,28 @@ export class ChatService {
 
       if (message.nit !== nitActual) {
         return; // 🚫 Ignora mensajes de otras entidades
+      }
+      this.notificacion$.next({
+        numero: message.numero,
+        mensaje: message.Mensaje
+      });
+      
+      const tiposSolicitud = [
+        'Solicitud-Asesor',
+        'Solicitud-ahorros',
+        'Solicitud-creditos',
+        'Solicitud-certificados',
+        'Solicitud-estados-cuenta',
+        'Solicitud-polizas',
+        'Solicitud-descuentos-nomina',
+        'Solicitud-consignaciones',
+        'Solicitud-boletas-cine',
+        'Solicitud-afiliaciones',
+        'Solicitud-auxilios-convenios'
+      ];
+      
+      if (tiposSolicitud.includes(message.Mensaje)) {
+        return;
       }
 
       const numero = sessionStorage.getItem('numeroContacto');

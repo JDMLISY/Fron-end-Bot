@@ -11,11 +11,23 @@
     <mat-selection-list #shoes>
       <cdk-virtual-scroll-viewport appendOnly itemSize="10" class="example-viewport">
         <mat-accordion multi>
-          <mat-expansion-panel *ngFor="let item of typesOfShoes">
-            <mat-expansion-panel-header>
+          <mat-expansion-panel *ngFor="let item of typesOfShoes" >
+            <mat-expansion-panel-header
+            [class.tipo-nuevo]="tiposConMensajes.has(item.tipo_atencion)"
+            (click)="quitarNotificacionTipo(item.tipo_atencion)">
+
+  <mat-panel-title>
+    <div style="display:flex;align-items:center;gap:8px">
+      <mat-icon>folder</mat-icon>
+      {{ item.tipo_atencion }}
+    </div>
+  </mat-panel-title>
+
+</mat-expansion-panel-header>
+            <!-- <mat-expansion-panel-header>
               <mat-panel-title>
                 <div style="display: flex; align-items: center; gap: 8px">
-                  <mat-icon>folder</mat-icon> {{ item.tipo_atencion }}
+                  <mat-icon >folder</mat-icon> {{ item.tipo_atencion }}
                 </div>
               </mat-panel-title>
               <mat-panel-description>
@@ -23,24 +35,46 @@
                   <mat-icon matTooltip="{{ item.cantidad }} solicitudes" matTooltipPosition="above">chat</mat-icon>
                 </div>
               </mat-panel-description>
-            </mat-expansion-panel-header>
+            </mat-expansion-panel-header> -->
 
             <mat-list>
-              <mat-list-item *ngFor="let contacto of item.contactos" (click)="
+              <mat-list-item
+  *ngFor="let contacto of item.contactos"
+  [class.mensaje-nuevo]="contactosConMensajes.has(contacto.numero)"
+  (click)="filtrar_solicitudes(
+    contacto.contacto,
+    contacto.numero,
+    contacto.identificacion,
+    contacto.Tipo_atencion
+  )"
+>
+              <!-- <mat-list-item *ngFor="let contacto of item.contactos"   [class.mensaje-nuevo]="contactosConMensajes.has(contacto.numero)" (click)="
                   filtrar_solicitudes(
                     contacto.contacto,
                     contacto.numero,
                     contacto.identificacion,
                     contacto.Tipo_atencion
-                  )
-                ">
-                <div matListAvatar class="avatar-inicial">
+                  ) 
+                "> -->
+                
+                <div matListAvatar class="avatar-inicial ">
                   {{ contacto.contacto.charAt(0).toUpperCase() }}
                 </div>
                 <div matLine class="contacto-info">
-                  <span class="contacto-nombre texto-responsive">{{
+                  <!-- <span class="contacto-nombre texto-responsive nuevo-indicador">{{
                     contacto.contacto
-                    }}</span>
+                    }}</span> -->
+                    <span class="contacto-nombre texto-responsive">
+                      {{ contacto.contacto }}
+                    </span>
+                  
+                    <span
+                        *ngIf="contactosConMensajes.has(contacto.numero)"
+                        class="nuevo-indicador">
+                        ●
+                    </span>
+
+
                   <span class="badge" *ngIf="contacto.cantidad" matTooltip="{{ item.cantidad }} solicitudes"
                     matTooltipPosition="above">{{ contacto.cantidad }}</span>
                 </div>
