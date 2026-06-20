@@ -489,7 +489,7 @@ await this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "Count", "
 filtrar_solicitudes (Nombre: string,numero:string,Cedula:string,Tipo_atencion:string)
 {
 
-  
+  this.quitarnotificacion()
   const user = this.tokenStorage.getUser();
   // this.limpiartiempo()
   this.listaasociados = false
@@ -718,7 +718,7 @@ if (this.Tipoatencion == "Sin solicitud")
 
         this.contactosConMensajes.delete(this.numero);
         this.contactosConMensajes = new Set(this.contactosConMensajes);
-        this.quitarNotificacionTipo('prueba');
+        // this.quitarNotificacionTipo('prueba');
 
         this.cdRef.detectChanges();
 
@@ -1105,6 +1105,15 @@ quitarNotificacionTipo(tipo: string) {
 
   this.tiposConMensajes = new Set(this.tiposConMensajes);
 
+}
+quitarnotificacion(){
+
+  
+  this.contactosConMensajes.delete(this.numero);
+  this.contactosConMensajes = new Set(this.contactosConMensajes);
+  // this.quitarNotificacionTipo('prueba');
+
+  this.cdRef.detectChanges();
 }
 }
 

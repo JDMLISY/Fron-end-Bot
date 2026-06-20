@@ -42,10 +42,7 @@ export class ChatService {
       if (message.nit !== nitActual) {
         return; // 🚫 Ignora mensajes de otras entidades
       }
-      this.notificacion$.next({
-        numero: message.numero,
-        mensaje: message.Mensaje
-      });
+   
       
       const tiposSolicitud = [
         'Solicitud-Asesor',
@@ -62,6 +59,10 @@ export class ChatService {
       ];
       
       if (tiposSolicitud.includes(message.Mensaje)) {
+        this.notificacion$.next({
+          numero: message.numero,
+          mensaje: message.Mensaje
+        });
         return;
       }
 

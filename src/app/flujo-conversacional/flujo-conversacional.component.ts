@@ -434,7 +434,8 @@ this.editor.curvature = 0;
         {
           texto: "Ingresa tu identificación",
           tipodato: "",
-          esperarespuesta: ""
+          esperarespuesta: "",
+          esconfirmacion: "no"
         },
         `
            <div class="nodo nodo-aceptacion">
@@ -454,7 +455,12 @@ this.editor.curvature = 0;
             <option value="TipoAhorro">Tipo ahorro</option>
             <option value="Correo">Correo</option>
             <option value="Telefono">Telefono</option>
+            <option value="Convenio">Convenio</option>
+            <option value="Entradas">Entradas</option>
+            <option value="Combo1">Combo1</option>
+            <option value="Combo2">Combo2</option>
             <option value="Imagen">Imagen</option>
+            <option value="Año">Año</option>
             <option value="Documento">Documento</option>
             <option value="Radicado">Radicado</option>
             <option value="Radicado y Asesor">asesor</option>
@@ -465,6 +471,12 @@ this.editor.curvature = 0;
           <select df-esperaRespuesta>
             <option value="si">Sí</option>
             <option value="no">No</option>
+          </select>
+          
+          <label>¿Es Confirmación de datos?</label>
+          <select df-esconfirmacion>
+            <option value="no">No</option>
+            <option value="si">Sí</option>
           </select>
       
         </div>
@@ -555,18 +567,25 @@ this.editor.curvature = 0;
         <option value="si">Sí</option>
         </select>
         <label>Tipo de dato:</label>
-          <select df-tipoDato>
-            <option value="">Seleccionar</option>
-            <option value="Identificacion">Identificación</option>
-            <option value="Nombre">Nombre</option>
-            <option value="Valor">Valor</option>
-            <option value="TipoAhorro">Tipo ahorro</option>
-            <option value="Correo">Correo</option>
-            <option value="Telefono">Telefono</option>
-            <option value="Radicado">Radicado</option>
-            <option value="Radicado y Asesor">asesor</option>
-            <option value="Cierre atención">Cierre atención</option>
-          </select>
+        <select df-tipoDato>
+          <option value="">Seleccionar</option>
+          <option value="Identificacion">Identificación</option>
+          <option value="Nombre">Nombre</option>
+          <option value="Valor">Valor</option>
+          <option value="TipoAhorro">Tipo ahorro</option>
+          <option value="Correo">Correo</option>
+          <option value="Telefono">Telefono</option>
+          <option value="Convenio">Convenio</option>
+          <option value="Entradas">Entradas</option>
+          <option value="Combo1">Combo1</option>
+          <option value="Combo2">Combo2</option>
+          <option value="Imagen">Imagen</option>
+          <option value="Año">Año</option>
+          <option value="Documento">Documento</option>
+          <option value="Radicado">Radicado</option>
+          <option value="Radicado y Asesor">asesor</option>
+          <option value="Cierre atención">Cierre atención</option>
+        </select>
                         
         </div>
         `
