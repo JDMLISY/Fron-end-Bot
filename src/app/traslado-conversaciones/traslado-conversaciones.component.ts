@@ -125,15 +125,19 @@ tiposAtencion = [
   { codigo: 'DN', nombre: 'Descuentos de nómina' },
   { codigo: 'EC', nombre: 'Envío de consignaciones' },
   { codigo: 'CB', nombre: 'Compra Boletería de cine' },
+  { codigo: 'AF', nombre: 'Afiliación' },
+  { codigo: 'AC', nombre: 'Auxilios y convenios' },
   { codigo: 'CA', nombre: 'Comunicarse con asesor' }
+
 ];
 
 seleccionarUsuario(user: any) {
   this.usuarioSeleccionado = user;
   if (this.usuarioSeleccionado.tipo_atencion_desc == 'Todos')
     {
-      user.tipo_atencion='A,C,E,CP,CE,DN,EC,CB,CA'
+      user.tipo_atencion='A,C,E,CP,CE,DN,EC,CB,CA','AF','AC'
     }
+    
 
   if (user.tipo_atencion_desc) {
     const codigos = user.tipo_atencion.split(',').map((cod: string) => cod.trim());

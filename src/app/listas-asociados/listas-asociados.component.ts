@@ -705,10 +705,7 @@ if (this.Tipoatencion == "Sin solicitud")
      var mensaje = this.texto && this.texto.trim() !== "" ? this.texto : frase;
 
      this.texto = ""
-
-     
-
-    
+ 
 
      this.userService.Mensajeswhat("Mensajeswhat","Texto",mensaje,this.numero).subscribe({
       next: data => {
