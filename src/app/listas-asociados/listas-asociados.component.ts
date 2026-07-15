@@ -161,7 +161,10 @@ export class ListasAsociadosComponent implements OnInit {
     this.inputMensaje += texto;
   }
   
-  
+  esNumero(valor: string): boolean {
+    return /^[0-9]+$/.test(valor.trim());
+  }
+
 
 isImage(url: any): boolean {
   return typeof url === 'string' && /\.(jpg|jpeg|png|gif|pdf)$/i.test(url);
@@ -477,7 +480,10 @@ await this.userService.Solicitudes("Solicitudes", user.tipo_atencion, "Count", "
 
 
 
-
+nuevoCliente() {
+  console.log('Nuevo cliente');
+  // Aquí puedes abrir un modal o navegar a otro componente.
+}
  
 
   sendMessage() {
@@ -525,7 +531,6 @@ if (this.Tipoatencion == "Sin solicitud")
     )
     return
   }
-
 
 
 
@@ -582,7 +587,13 @@ if (this.Tipoatencion == "Sin solicitud")
     this.listaasociados = false
     this.Solicitudes = false
     this.contacto = Nombre
-    this.numero = numero
+    numero = numero.replace(/\D/g, ''); // Elimina cualquier carácter que no sea número
+
+    if (numero.length === 10) {
+      numero = '57' + numero;
+    }
+    
+    this.numero = numero;
     this.TipoAsociado = ''  
     this.Radicado = Radicado 
   const user = this.tokenStorage.getUser();
@@ -963,6 +974,13 @@ while (empieza >= 0 && empieza < cantidadArchivos )
     
     this.desactivarBoton = true;
     this.mostrarParpadeo = false
+    if (!this.numero?.trim()) {
+      this.userService.showSuccess('Debe ingresar un número de celular.', "Error al abrir conversación", 'Error')
+      
+      return;
+    }
+    
+    this.contacto = this.contacto?.trim() || 'Anónimo';
 
     this.userService.Mensajeswhatplantilla(this.numero,this.contacto).subscribe({
       next: data => {        

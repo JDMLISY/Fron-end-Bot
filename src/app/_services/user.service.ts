@@ -83,7 +83,7 @@ export class UserService {
     return this.http.post(AUTH_API + "enviarPlantilla", {
       Nit: this.tokenStorage.getUser().Nit,
       numero: numero,
-      nombreAsesor: this.tokenStorage.getUser().name,
+      Nombreasesor: this.tokenStorage.getUser().name,
       nombreCliente: contacto,
       tipo_atencion : this.tokenStorage.getUser().tipo_atencion            
        

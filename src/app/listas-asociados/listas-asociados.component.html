@@ -94,7 +94,122 @@
       margin-right: 2px;
       height: 550px;
     ">
-    <div class="ayudas-card">
+
+<div class="ayudas-card">
+
+  <h3 class="titulo-ayudas">🧾 Lista de clientes para contactar</h3>
+
+  <input
+    type="text"
+    [(ngModel)]="busquedaNit"
+    placeholder="Buscar asociado o celular..."
+    class="buscador-frases"
+  />
+
+  <!-- Lista -->
+  <div class="frases-rapidas" *ngIf="NitsFiltrados().length > 0">
+
+    <div
+      *ngFor="let nit of NitsFiltrados()"
+      class="frase"
+      draggable="true"
+      (click)="ver_conversacion(nit.SoloNombres,nit.Celular,'S','Sin Radicado')">
+
+      <strong>{{ nit.strNombreIntegrado }}</strong><br>
+      <small>{{ nit.Celular }}</small>
+
+    </div>
+
+  </div>
+
+  <!-- No encontrado -->
+
+  <div class="sin-resultados"
+     *ngIf="busquedaNit && NitsFiltrados().length == 0">
+
+  <h4>😕 No se encontraron resultados.</h4>
+
+  <!-- Si escribió un número -->
+  <ng-container *ngIf="esNumero(busquedaNit); else mensajeNombre">
+
+    <p>
+      El número <strong>{{ busquedaNit }}</strong> no se encuentra registrado.
+      ¿Deseas abrir una nueva conversación?
+    </p>
+
+    <button
+      class="btn-nuevo"
+      (click)="ver_conversacion('', busquedaNit, '', 'Sin Radicado')">
+      + Nueva conversación
+    </button>
+
+  </ng-container>
+
+  <!-- Si escribió un nombre -->
+  <ng-template #mensajeNombre>
+
+    <p>
+      No se encontró ningún asociado con el nombre
+      <strong>{{ busquedaNit }}</strong>.
+    </p>
+
+    <p class="texto-ayuda">
+      Para abrir una conversación con un cliente que no está registrado,
+      debes ingresar el <strong>número de celular</strong> en el buscador.
+    </p>
+
+  </ng-template>
+
+</div>
+  <!-- <div
+      class="sin-resultados"
+      *ngIf="busquedaNit && NitsFiltrados().length==0">
+
+      <h4>😕 No se encontró el asociado.</h4>
+
+      <p>
+        Esta persona no se encuentra registrada en la base de datos.
+        ¿Deseas abrir una conversación nueva?
+      </p>
+
+      <button class="btn-nuevo"   (click)="ver_conversacion(nit.SoloNombres,nit.Celular,'S','Sin Radicado')">
+          + Nueva conversación
+      </button>
+
+  </div> -->
+
+</div>
+    <!-- <div class="encabezado-ayudas ayudas-card">
+      <h3 class="titulo-ayudas">🧾 Lista de clientes para contactar</h3>
+    
+      <button class="btn-nuevo" (click)="nuevoCliente()">
+        + Nuevo
+      </button>
+    </div>
+    
+    <input
+      type="text"
+      [(ngModel)]="busquedaNit"
+      placeholder="Buscar asociado..."
+      class="buscador-frases"
+    />
+    
+    <div class="frases-rapidas">
+      <div
+        *ngFor="let nit of NitsFiltrados()"
+        class="frase"
+        draggable="true"
+        (click)="ver_conversacion(nit.SoloNombres, nit.Celular, 'S', 'Sin Radicado')"
+      >
+        <strong>{{ nit.strNombreIntegrado }}</strong><br />
+        <small>{{ nit.Celular }}</small>
+      </div>
+    </div>
+ -->
+
+
+
+    <!-- <div class="ayudas-card">
       <h3 class="titulo-ayudas">🧾 Lista de clientes para contactar</h3>
 
       <input type="text" [(ngModel)]="busquedaNit" placeholder="Buscar asociado..." class="buscador-frases" />
@@ -107,7 +222,7 @@
           <small>{{ nit.Celular }}</small>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div *ngIf="Solicitudes" style="
