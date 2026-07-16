@@ -11,15 +11,7 @@ margin-left: 10%;
 margin-top: 5%;
 
 }
-/* .informes-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    background-color: var(--color-secondary);
-    min-height: 100vh;
-  }
-   */
+
    .informes-botones {
     display: flex;
     flex-direction: column;
@@ -105,3 +97,147 @@ margin-top: 5%;
                 0 0 20px rgba(25, 118, 210, 0.35) inset;
   }
   
+
+
+  .informes-container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px;
+}
+
+.cards-informes{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    margin-top:35px;
+}
+
+.card-informe{
+
+    text-align:center;
+    border-radius:18px;
+    padding:30px 20px;
+
+    transition:.25s;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.card-informe:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.25);
+
+}
+
+.icono{
+
+    font-size:70px;
+    width:70px;
+    height:70px;
+    margin-bottom:20px;
+
+}
+
+.card-informe h2{
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+}
+
+.card-informe p{
+
+    min-height:55px;
+
+    color:#666;
+
+    margin-bottom:25px;
+
+}
+
+.card-informe button{
+
+    width:100%;
+
+    border-radius:30px;
+
+}
+
+.solicitudes{
+
+    border-top:6px solid #3f51b5;
+
+}
+
+.conversaciones{
+
+    border-top:6px solid #e91e63;
+
+}
+
+.campañas{
+
+    border-top:6px solid #43a047;
+
+}
+
+.sorteo{
+
+    border-top:6px solid #ff9800;
+
+}
+.filtros{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:25px;
+
+  margin:30px 0;
+
+  padding:20px;
+
+  border-radius:15px;
+
+}
+
+.filtros mat-form-field{
+
+  width:220px;
+
+}
+.btn-limpiar{
+
+  height:56px;
+
+  border-radius: 30px !important;
+
+  background: #8AF57A !important;
+
+  color: #1f1f1f !important;
+
+  font-weight: 600;
+
+  font-size: 15px;
+
+  padding:0 30px !important;
+
+  font-weight:600;
+
+  transition:.25s;
+
+}
+
+.btn-limpiar:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:0 8px 20px rgba(244,67,54,.35);
+
+}

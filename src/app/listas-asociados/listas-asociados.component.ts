@@ -830,11 +830,11 @@ this.userService.showSuccess("No tienes acceso a estos informes consulta con tu 
 } else {
 
 
-this.authService.downloadFile(parametro,"N").subscribe((blob) => {
+this.authService.downloadFile(parametro,this.numero).subscribe((blob) => {
   const a = document.createElement('a');
   const objectUrl = URL.createObjectURL(blob);
   a.href = objectUrl;
-  a.download = 'file.xlsx';
+  a.download = parametro +'.xlsx';
   a.click();
   URL.revokeObjectURL(objectUrl);
 });

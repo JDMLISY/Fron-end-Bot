@@ -1,34 +1,5 @@
- 
-<!-- <div style="float: center;  margin: 0 auto;   
-margin-right: auto; width: 60%;">
-    <div style="float: right;    
-    margin-right: auto;">
 
-    </div> -->
- 
-<!-- 
-<div class="FONDO">
-  <app-headers valor="Informes varios de gestión"></app-headers>
-
-        <div style="margin-right: auto; ">
-         <button mat-raised-button  (click)="traer_archivo('Solicitudes')" style="  width: 205px;  margin-top: 10%;
-         margin-left: 10%;">
-         <i class="material-icons">archive</i>
-                 solicitudes  (Excel)
-          </button>
-      
-        </div>
-
-        <div style="margin-right: auto; ">
-          <button mat-raised-button  (click)="traer_archivo('Conversacion')" style="  width: 205px;  margin-top: 2%;
-          margin-left: 10%;">
-          <i class="material-icons">archive</i>
-          Conversaciones (Excel)
-           </button>
-         </div>
-       
-</div> -->
-<div class="informes-container">
+<!-- <div class="informes-container">
   <app-headers valor="Informes varios de gestión"></app-headers>
 
   <div class="informes-botones">
@@ -50,12 +21,129 @@ margin-right: auto; width: 60%;">
       <mat-icon class="extra-icon">file_download</mat-icon>
     </button>
 
-
-    <!-- <button mat-raised-button color="warn" (click)="traer_archivo('Reportes')" class="boton-informe">
-      <mat-icon>assessment</mat-icon>
-      Reportes (PDF)
-      <mat-icon class="extra-icon">file_download</mat-icon>
-    </button> -->
   </div>
-</div>
+</div> -->
 
+<div class="informes-container">
+ 
+  <app-headers valor="Informes de Gestión"></app-headers>
+  <mat-card class="filtros">
+
+    <mat-form-field appearance="outline">
+  
+        <mat-label>Desde</mat-label>
+  
+        <input
+            matInput
+            [(ngModel)]="fechaDesde"
+            [matDatepicker]="desde">
+  
+        <mat-datepicker-toggle
+            matSuffix
+            [for]="desde">
+        </mat-datepicker-toggle>
+  
+        <mat-datepicker #desde></mat-datepicker>
+  
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+  
+        <mat-label>Hasta</mat-label>
+  
+        <input
+            matInput
+            [(ngModel)]="fechaHasta"
+            [matDatepicker]="hasta">
+  
+        <mat-datepicker-toggle
+            matSuffix
+            [for]="hasta">
+        </mat-datepicker-toggle>
+  
+        <mat-datepicker #hasta></mat-datepicker>
+  
+    </mat-form-field>
+  
+    <button
+    mat-raised-button
+    color="warn"
+    class="btn-limpiar"
+    (click)="limpiarFechas()">
+
+    <mat-icon>restart_alt</mat-icon>
+
+    Limpiar filtros
+
+</button>
+  
+  </mat-card>
+  <div class="cards-informes">
+
+    <mat-card class="card-informe solicitudes">
+      <mat-icon class="icono">description</mat-icon>
+
+      <h2>Solicitudes</h2>
+
+      <p>
+        Exporta todas las solicitudes registradas en formato Excel.
+      </p>
+
+      <button mat-raised-button color="primary"
+        (click)="traer_archivo('Solicitudes')">
+        <mat-icon>download</mat-icon>
+        Descargar Excel
+      </button>
+    </mat-card>
+
+    <mat-card class="card-informe conversaciones">
+      <mat-icon class="icono">forum</mat-icon>
+
+      <h2>Conversaciones</h2>
+
+      <p>
+        Descarga el historial de conversaciones del chatbot.
+      </p>
+
+      <button mat-raised-button color="accent"
+        (click)="traer_archivo('Conversacion')">
+        <mat-icon>download</mat-icon>
+        Descargar Excel
+      </button>
+    </mat-card>
+
+    <mat-card class="card-informe campañas">
+      <mat-icon class="icono">campaign</mat-icon>
+
+      <h2>Campañas</h2>
+
+      <p>
+        Exporta el histórico de campañas y sus resultados.
+      </p>
+
+      <button mat-raised-button color="primary"
+        (click)="traer_archivo('Campañas')">
+        <mat-icon>download</mat-icon>
+        Descargar Excel
+      </button>
+    </mat-card>
+
+    <mat-card class="card-informe sorteo">
+      <mat-icon class="icono">emoji_events</mat-icon>
+
+      <h2>Sorteos</h2>
+
+      <p>
+        Descarga el listado de participantes y resultados.
+      </p>
+
+      <button mat-raised-button
+        (click)="traer_archivo('Sorteo')">
+        <mat-icon>download</mat-icon>
+        Descargar Excel
+      </button>
+    </mat-card>
+
+  </div>
+
+</div>

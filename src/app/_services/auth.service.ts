@@ -161,20 +161,41 @@ export class AuthService {
   
         }
     }
-  downloadFile(parametro: string, numero: string): Observable<Blob> {
+    downloadFile(
+      parametro: string,
+      numero: string,
+      fechaDesde: string = '',
+      fechaHasta: string = ''
+    ): Observable<Blob> {
+    
+      let params = new HttpParams();
+    
+      params = params.append('Nit', this.tokenStorage.getUser().Nit);
+      params = params.append('tipoarchivo', parametro);
+      params = params.append('numero', numero);
+      params = params.append('fechaDesde', fechaDesde);
+      params = params.append('fechaHasta', fechaHasta);
+    
+      return this.http.get(AUTH_API + 'download', {
+        params: params,
+        responseType: 'blob'
+      });
+    
+    }
+  // downloadFile(parametro: string, numero: string): Observable<Blob> {
 
-    //Parameter passing failure;
+  //   //Parameter passing failure;
 
-    let params = new HttpParams();
+  //   let params = new HttpParams();
 
-    params = params.append('Nit', this.tokenStorage.getUser().Nit);
-    params = params.append('tipoarchivo', parametro);
-    params = params.append('numero', numero);
+  //   params = params.append('Nit', this.tokenStorage.getUser().Nit);
+  //   params = params.append('tipoarchivo', parametro);
+  //   params = params.append('numero', numero);
 
-    const requestOptions = { params: params };
+  //   const requestOptions = { params: params };
 
-    return this.http.get(AUTH_API + 'download', { params: params, responseType: 'blob' });
-  }
+  //   return this.http.get(AUTH_API + 'download', { params: params, responseType: 'blob' });
+  // }
 
 
 

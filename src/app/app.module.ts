@@ -17,6 +17,10 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
  import { ListasAsociadosComponent } from './listas-asociados/listas-asociados.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
 import { 	IgxButtonModule,	IgxCheckboxModule,	IgxDatePickerModule,	IgxDialogModule,
 	IgxGridModule,	IgxInputGroupModule,	IgxIconModule,	IgxComboModule,	IgxToastModule,
 	IgxRippleModule } from "igniteui-angular";
@@ -145,6 +149,8 @@ import { MensajeswhatsappplantillaComponent } from './mensajeswhatsappplantilla/
     
   ],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
