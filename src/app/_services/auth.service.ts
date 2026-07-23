@@ -9,6 +9,7 @@ import { estadoradicadosComponent } from '../estado-radicados/estado-radicados.c
 import { MatriculaAyudasComponent } from '../matricula-ayudas/matricula-ayudas.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MensajeswhatsappplantillaComponent } from '../mensajeswhatsappplantilla/mensajeswhatsappplantilla.component';
+import { ParametrosplantillasComponent } from '../parametrosplantillas/parametrosplantillas.component';
 
 
 const AUTH_API = environment.AUTH_API;
@@ -68,6 +69,40 @@ export class AuthService {
     }, httpOptions);
   }
 
+
+  RequestDataobjectcampañas(
+    newData: any,
+    NombreMetodo: string,
+    numero: string,
+    campania: any,
+    archivo?: File
+): Observable<any> {
+
+    const formData = new FormData();
+
+    // Datos generales
+    formData.append("Nit", this.tokenStorage.getUser().Nit);
+    formData.append("numero", numero);
+    formData.append("Nombreasesor", this.tokenStorage.getUser().name);
+
+    // Objetos convertidos a texto
+    formData.append("newData", JSON.stringify(newData));
+    formData.append("campania", JSON.stringify(campania));
+
+    // Archivo (solo si existe)
+    if (archivo) {
+        formData.append("archivo", archivo, archivo.name);
+    }
+
+    return this.http.post(
+        AUTH_API + NombreMetodo,
+        formData
+    );
+
+}
+
+
+  
   ConsultarUsers(): Observable<any> {
 
     return this.http.post(AUTH_API + 'ConsultarUsers', {
@@ -97,7 +132,7 @@ export class AuthService {
         this.data1 = data
 
         if (this.data1.length > 0) {
-          if(opcion=="Radicados" || opcion=="ayudas" || opcion=="envioplantilla" )
+          if(opcion=="Radicados" || opcion=="ayudas" || opcion=="envioplantilla" || opcion=="ParametrosPlantillas"  )
             {
               
               this.openDialog(opcion)
@@ -153,13 +188,39 @@ export class AuthService {
       }
       if(opcion=="envioplantilla")
         {
+          // this.dialog.open(CampaniaComponent, {
+          //   width: '1000px',
+          //   height: '90vh',
+          //   maxWidth: '95vw'
+          // });
+
           const dialogRef = this.dialog.open(MensajeswhatsappplantillaComponent, {
-            height: '800px',
-            width: '950px',
+            width: '1000px',
+            height: '90vh',
+            maxWidth: '95vw',
             data:  "",
           });
   
         }
+
+        if(opcion=="ParametrosPlantillas")
+          {
+            // this.dialog.open(CampaniaComponent, {
+            //   width: '1000px',
+            //   height: '90vh',
+            //   maxWidth: '95vw'
+            // });
+  
+            const dialogRef = this.dialog.open(ParametrosplantillasComponent, {
+              width: '600px',
+              height: '70vh',
+              maxWidth: '95vw',
+              data:  "",
+            });
+    
+          }
+
+
     }
     downloadFile(
       parametro: string,

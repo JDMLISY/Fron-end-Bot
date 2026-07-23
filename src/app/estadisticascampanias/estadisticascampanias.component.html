@@ -1,0 +1,275 @@
+<div class="contenedor">
+
+    <app-headers valor="Estadísticas campañas WhatsApp"></app-headers>
+
+    <!-- ====================================== -->
+    <!-- FILTROS -->
+    <!-- ====================================== -->
+
+    <mat-card class="filtros-card">
+
+        <div class="titulo">
+            <mat-icon>filter_alt</mat-icon>
+            <span>Filtros</span>
+        </div>
+
+        <div class="filtros">
+
+            <mat-form-field appearance="outline" class="buscar-tabla">
+    
+                <mat-label>Buscar campaña</mat-label>
+    
+                <input
+                    matInput
+                    (keyup)="filtrarTabla($event)"
+                    placeholder="Ej: campaña julio">
+    
+                <mat-icon matSuffix>search</mat-icon>
+    
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Desde</mat-label>
+
+                <input
+                    matInput
+                    [matDatepicker]="picker1"
+                    [(ngModel)]="fechaInicial">
+
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1">
+                </mat-datepicker-toggle>
+
+                <mat-datepicker #picker1></mat-datepicker>
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Hasta</mat-label>
+
+                <input
+                    matInput
+                    [matDatepicker]="picker2"
+                    [(ngModel)]="fechaFinal">
+
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker2">
+                </mat-datepicker-toggle>
+
+                <mat-datepicker #picker2></mat-datepicker>
+
+            </mat-form-field>
+
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="cargarEstadisticas()">
+
+                <mat-icon>search</mat-icon>
+
+                Buscar
+
+            </button>
+
+        </div>
+
+    </mat-card>
+
+
+
+    <!-- ====================================== -->
+    <!-- RESUMEN -->
+    <!-- ====================================== -->
+
+    <div class="cards-resumen">
+
+        <mat-card class="card-resumen">
+            <mat-icon color="primary">campaign</mat-icon>
+            <h2>{{totalCampanias}}</h2>
+            <span>Campañas</span>
+        </mat-card>
+
+        <mat-card class="card-resumen">
+            <mat-icon color="primary">groups</mat-icon>
+            <h2>{{totalMensajes}}</h2>
+            <span>Contactos</span>
+        </mat-card>
+
+        <mat-card class="card-resumen">
+            <mat-icon color="primary">send</mat-icon>
+            <h2>{{totalEnviados}}</h2>
+            <span>Enviados</span>
+        </mat-card>
+
+        <mat-card class="card-resumen">
+            <mat-icon color="primary">done_all</mat-icon>
+            <h2>{{totalEntregados}}</h2>
+            <span>Entregados</span>
+        </mat-card>
+
+        <mat-card class="card-resumen">
+            <mat-icon color="accent">mark_chat_read</mat-icon>
+            <h2>{{totalLeidos}}</h2>
+            <span>Leídos</span>
+        </mat-card>
+
+        <mat-card class="card-resumen">
+            <mat-icon color="warn">error</mat-icon>
+            <h2>{{totalErrores}}</h2>
+            <span>Errores</span>
+        </mat-card>
+
+    </div>
+
+
+
+    <!-- ====================================== -->
+    <!-- DETALLE CAMPAÑAS -->
+    <!-- ====================================== -->
+    <mat-card class="tabla-card">
+
+        <div class="cabecera-tabla">
+    
+            <div class="titulo">
+                <mat-icon>table_chart</mat-icon>
+                <span>Detalle de campañas</span>
+            </div>
+    
+            <!-- <mat-form-field appearance="outline" class="buscar-tabla">
+    
+                <mat-label>Buscar campaña</mat-label>
+    
+                <input
+                    matInput
+                    (keyup)="filtrarTabla($event)"
+                    placeholder="Ej: campaña julio">
+    
+                <mat-icon matSuffix>search</mat-icon>
+    
+            </mat-form-field> -->
+    
+        </div>
+    
+        <div class="tabla-responsive">
+    
+            <table
+                mat-table
+                [dataSource]="dataSource"
+                matSort
+                class="tabla-estadisticas">
+    
+                <!-- Campaña -->
+                <ng-container matColumnDef="NombreCampania">
+    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Campaña
+                    </th>
+    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.NombreCampania}}
+                    </td>
+    
+                </ng-container>
+    
+                <!-- Fecha -->
+                <ng-container matColumnDef="Fecha">
+    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Fecha
+                    </th>
+    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.Fecha | date:'dd/MM/yyyy'}}
+                    </td>
+    
+                </ng-container>
+    
+                <!-- Contactos -->
+                <ng-container matColumnDef="Contactos">
+    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Contactos
+                    </th>
+    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.Contactos}}
+                    </td>
+    
+                </ng-container>
+    
+                <!-- Enviados -->
+                <ng-container matColumnDef="Enviados">
+    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Enviados
+                    </th>
+    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.Enviados}}
+                    </td>
+    
+                </ng-container>
+    
+                <!-- Entregados -->
+                <ng-container matColumnDef="Entregados">
+    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Entregados
+                    </th>
+    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.Entregados}}
+                    </td>
+    
+                </ng-container>
+    
+                <!-- Leidos -->
+                <ng-container matColumnDef="Leidos">
+    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Leídos
+                    </th>
+    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.Leidos}}
+                    </td>
+    
+                </ng-container>
+    
+                <!-- Errores -->
+                <ng-container matColumnDef="Errores">
+    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Errores
+                    </th>
+    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.Errores}}
+                    </td>
+    
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                    class="fila-campania"
+                    (click)="verDetalle(row)">
+                </tr>
+    
+            </table>
+    
+        </div>
+    
+        <mat-paginator
+            [pageSize]="10"
+            [pageSizeOptions]="[5,10,20,50]"
+            showFirstLastButtons>
+        </mat-paginator>
+    
+    </mat-card>
+
+</div>

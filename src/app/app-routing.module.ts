@@ -19,6 +19,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { SessionEndedComponent } from './session-ended/session-ended.component';
 import { AsociadosComponent } from './asociados/asociados.component';
 import { EmpresaComponent } from './empresa/empresa.component';
+import { EstadisticascampaniasComponent } from './estadisticascampanias/estadisticascampanias.component';
 
 
 
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'admin', component: BoardAdminComponent },
   { path: 'root', component: AppComponent },
   { path: 'Informes', component: InformesComponent },
+  { path: 'estadisticascampanias', component: EstadisticascampaniasComponent },
   { path: 'activaModulo', component: ActivarModulosComponent },
   { path: 'Archivos', component: ArchivosComercioComponent },
   { path: 'Infocomercio', component: InfoComercioComponent },

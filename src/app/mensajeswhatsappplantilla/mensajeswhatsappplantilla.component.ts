@@ -19,7 +19,12 @@ export class MensajeswhatsappplantillaComponent {
   dataSource = new MatTableDataSource<any>([]);
   resultadosEnvio: any[] = [];
 columnasResultado: string[] = ['numero', 'estado', 'error'];
+tipoCampania='texto';
 
+archivoMedia:any;
+
+previewMedia:any;
+nombreCampania = '';
   constructor(private userService: UserService,private dialogRef: MatDialogRef<MensajeswhatsappplantillaComponent>,private authService: AuthService) {}
   ngOnInit() {
     this.dataSource.filterPredicate = (data: any, filter: string) => {
@@ -138,73 +143,195 @@ detectarColumnaTelefono(): string {
     return true;
   }
   usarSeleccionados() {
+
     if (!this.validarTituloMensaje()) {
       return;
     }
-    // 1. Detectar columna de teléfono
+  
+    // Detectar columna teléfono
     const columna = this.detectarColumnaTelefono();
   
-    // 2. Si no existe → detener
     if (!columna) {
       return;
     }
   
-    // 3. Obtener seleccionados
+    // Contactos seleccionados
     const seleccionados = this.dataSource.data.filter(r => r.selected);
   
     if (!seleccionados.length) {
-      this.userService.showSuccess('No has seleccionado ningún registro',"Envio mensaje whatsapp",'success')  
-      
+  
+      this.userService.showSuccess(
+        'No has seleccionado ningún registro',
+        'Envio mensaje whatsapp',
+        'success'
+      );
+  
       return;
     }
   
-    // 4. Validar teléfonos
-    const invalidos = seleccionados.filter(r => 
+    // Validar teléfonos
+    const invalidos = seleccionados.filter(r =>
       !this.esNumeroValido(r[columna])
     );
-    
+  
     if (invalidos.length > 0) {
-    
+  
       const lista = invalidos
         .map(r => r[columna])
         .join('\n');
+  
+      this.userService.showSuccess(
+        `Hay ${invalidos.length} números inválidos:\n\n${lista}`,
+        'Envio mensaje whatsapp',
+        'success'
+      );
+  
+      // return;
+    }
+  
+    // Datos que viajarán al backend
+    const limpios = seleccionados.map(r => ({
+  
+      ...r,
+  
+      telefono: r[columna].toString().replace(/\D/g, ''),
+  
+      titulo: this.titulo,
+  
+      mensaje: this.mensaje,
+  
+      tipoCampania: this.tipoCampania
+  
+    }));
+  
+  
+    const campania = {
+      nombreCampania: this.nombreCampania,
+      tipoCampania: this.tipoCampania,
+  
+      titulo: this.titulo,
+  
+      mensaje: this.mensaje
+  
+    };
+  
+  
+    this.authService.RequestDataobjectcampañas(
+  
+      limpios,
+  
+      'enviarPlantillaenbloque',
+  
+      '',
+  
+      campania,
+  
+      this.archivoMedia   // <-- AQUÍ va el archivo
+  
+    ).subscribe({
+  
+      next: (resp) => {
+  
+        this.userService.showSuccess(
+          `Datos enviados correctamente: 🚀 ${resp.enviados}`,
+          'Envio mensaje whatsapp',
+          'success'
+        );
+  
+        this.userService.showSuccess(
+          `Datos Con Errores: ❌ ${resp.errores}`,
+          'Envio mensaje whatsapp',
+          'Error'
+        );
+  
+        this.resultadosEnvio = resp.detalle;
+  
+        this.limpiarPantalla();
+  
+      },
+  
+      error: (err) => {
+  
+        this.userService.showSuccess(
+          '❌ Error: ' + err,
+          'Envio mensaje whatsapp',
+          'Error'
+        );
+  
+      }
+  
+    });
+  
+  }
+  
+//   usarSeleccionados() {
+//     if (!this.validarTituloMensaje()) {
+//       return;
+//     }
+//     // 1. Detectar columna de teléfono
+//     const columna = this.detectarColumnaTelefono();
+  
+//     // 2. Si no existe → detener
+//     if (!columna) {
+//       return;
+//     }
+  
+//     // 3. Obtener seleccionados
+//     const seleccionados = this.dataSource.data.filter(r => r.selected);
+  
+//     if (!seleccionados.length) {
+//       this.userService.showSuccess('No has seleccionado ningún registro',"Envio mensaje whatsapp",'success')  
+      
+//       return;
+//     }
+  
+//     // 4. Validar teléfonos
+//     const invalidos = seleccionados.filter(r => 
+//       !this.esNumeroValido(r[columna])
+//     );
+    
+//     if (invalidos.length > 0) {
+    
+//       const lista = invalidos
+//         .map(r => r[columna])
+//         .join('\n');
        
-        this.userService.showSuccess(`Hay ${invalidos.length} números inválidos:\n\n${lista}`,"Envio mensaje whatsapp",'success')  
+//         this.userService.showSuccess(`Hay ${invalidos.length} números inválidos:\n\n${lista}`,"Envio mensaje whatsapp",'success')  
       
     
-  //    return;
-    }
-    // 5. Normalizar (opcional pero PRO)
-    const limpios = seleccionados.map(r => ({
-      ...r,
-      telefono: r[columna].toString().replace(/\D/g, ''),
-      titulo: this.titulo,
-      mensaje: this.mensaje
-    }));
-    this.authService.RequestDataobject(
-      limpios,               // newData
-      'enviarPlantillaenbloque',     // NombreMetodo (endpoint)
-      ''                 // numero
-    ).subscribe({
-      next: (resp) => {
+//   //    return;
+//     }
+//     // 5. Normalizar (opcional pero PRO)
+//     const limpios = seleccionados.map(r => ({
+//       ...r,
+//       telefono: r[columna].toString().replace(/\D/g, ''),
+//       titulo: this.titulo,
+//       mensaje: this.mensaje
+//     }));
+//     this.authService.RequestDataobject(
+//       limpios,               // newData
+//       'enviarPlantillaenbloque',     // NombreMetodo (endpoint)
+//       ''                 // numero
+//     ).subscribe({
+//       next: (resp) => {
         
-        this.userService.showSuccess(`Datos enviados correctamente: 🚀 ${resp.enviados}` ,"Envio mensaje whatsapp",'success')  
+//         this.userService.showSuccess(`Datos enviados correctamente: 🚀 ${resp.enviados}` ,"Envio mensaje whatsapp",'success')  
 
-        this.userService.showSuccess(`Datos Con Errores: ❌ ${resp.errores}`,"Envio mensaje whatsapp",'Error')  
+//         this.userService.showSuccess(`Datos Con Errores: ❌ ${resp.errores}`,"Envio mensaje whatsapp",'Error')  
 
       
-        this.resultadosEnvio = resp.detalle;
+//         this.resultadosEnvio = resp.detalle;
 
-      },
-      error: (err) => {
+//       },
+//       error: (err) => {
                 
-        this.userService.showSuccess("❌ Error:," + err,"Envio mensaje whatsapp",'Error')          
+//         this.userService.showSuccess("❌ Error:," + err,"Envio mensaje whatsapp",'Error')          
         
-      }
-    });
-    // 6. Cerrar dialogo con datos limpios
-this.limpiarPantalla()
-  }
+//       }
+//     });
+//     // 6. Cerrar dialogo con datos limpios
+// this.limpiarPantalla()
+//   }
 
   cerrar() {
     this.dialogRef.close();
@@ -262,4 +389,10 @@ this.limpiarPantalla()
     this.displayedColumns = [];
     this.dataSource.data = [];
   }
+
+  seleccionarMedia(event:any){
+
+    this.archivoMedia=event.target.files[0];
+
+}
 }

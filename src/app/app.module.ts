@@ -101,7 +101,9 @@ import { EmpresaComponent } from './empresa/empresa.component';
 import { ModalActualizarAsociadoComponent } from './modal-actualizar-asociado/modal-actualizar-asociado.component';
 import { MensajesRespuestaComponent } from './mensajes-respuesta/mensajes-respuesta.component';
 import { MensajeswhatsappplantillaComponent } from './mensajeswhatsappplantilla/mensajeswhatsappplantilla.component';
-
+import { MatRadioModule } from '@angular/material/radio';
+import { ParametrosplantillasComponent } from './parametrosplantillas/parametrosplantillas.component';
+import { EstadisticascampaniasComponent } from './estadisticascampanias/estadisticascampanias.component';
 
 
 
@@ -146,6 +148,8 @@ import { MensajeswhatsappplantillaComponent } from './mensajeswhatsappplantilla/
     ModalActualizarAsociadoComponent,
     MensajesRespuestaComponent,
     MensajeswhatsappplantillaComponent,
+    ParametrosplantillasComponent,
+    EstadisticascampaniasComponent,
     
   ],
   imports: [
@@ -202,7 +206,8 @@ import { MensajeswhatsappplantillaComponent } from './mensajeswhatsappplantilla/
   MatCheckboxModule,
   MatExpansionModule,
   MatTooltipModule,
-  MatSnackBarModule 
+  MatSnackBarModule,
+  MatRadioModule 
 
   
   

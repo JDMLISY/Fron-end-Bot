@@ -1,112 +1,159 @@
-.form-container {
+.campania-dialog{
+  width:100%;
+  max-width:1000px;
+
+}
+
+.tipo-campania,
+.media-card,
+.mensaje-card,
+.excel-card{
+  margin-bottom:18px;
+  border-radius:12px;
+  padding:18px;
+}
+
+.titulo-seccion{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:15px;
+  font-size:18px;
+  font-weight:600;
+  color:#3949ab;
+}
+
+.radio-group{
+  display:flex;
+  gap:30px;
+  flex-wrap:wrap;
+}
+
+.radio-group mat-radio-button{
+  display:flex;
+  align-items:center;
+}
+
+.radio-group mat-icon{
+  margin-right:6px;
+  font-size:20px;
+  vertical-align:middle;
+}
+
+.full-width{
+  width:100%;
+}
+
+.drop-zone{
+
+  border:2px dashed #cfd8dc;
+  border-radius:12px;
+  padding:30px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s;
+  background:#fafafa;
+
+}
+
+.drop-zone:hover{
+
+  border-color:#3f51b5;
+  background:#f3f6ff;
+
+}
+
+.media-icon,
+.excel-icon{
+
+  font-size:55px;
+  width:55px;
+  height:55px;
+  color:#3f51b5;
+  margin-bottom:10px;
+
+}
+
+.drop-zone h4{
+
+  margin:10px 0 5px;
+
+}
+
+.drop-zone p{
+
+  color:#777;
+  margin:0;
+
+}
+
+.tabla-resultados{
+  margin-top: 20px;
+  height: 350px;      /* o 400px */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.ok{
+
+  color:#2e7d32;
+  font-weight:bold;
+
+}
+
+.error{
+
+  color:#d32f2f;
+  font-weight:bold;
+
+}
+
+.acciones{
+
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-top:25px;
+
+}
+
+.contenido-modal {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 16px;
+  height: 80vh;
 }
 
-.full-width {
-  width: 100%;
+.lista-contactos {
+  flex: 1;
+  overflow-y: auto;
 }
 
-.drop-zone {
-  border: 2px dashed #ccc;
-  border-radius: 10px;
-  text-align: center;
-  padding: 25px;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: 0.3s;
+/* .campania-dialog{
+    max-height: 85vh;
+    overflow-y: auto;
+} */
+
+.tabla-container,
+.tabla-resultados{
+    max-height: 350px;
+    overflow-y: auto;
 }
 
-.drop-zone:hover {
-  border-color: #3f51b5;
-  background: #f5f7ff;
+.tabla-container table,
+.tabla-resultados table{
+    width:100%;
 }
 
-.drop-zone mat-icon {
-  font-size: 40px;
-  display: block;
-  margin-bottom: 10px;
-  color: #3f51b5;
+
+.campania-dialog mat-card{
+  margin-bottom: 22px;
 }
 
-.tabla-container {
-  max-height: 300px;
-  overflow: auto;
-  margin-bottom: 15px;
-  border-radius: 8px;
+.campania-dialog mat-card:last-child{
+  margin-bottom: 0;
 }
-
-table {
-  width: 100%;
+.mat-card{
+  border-radius:12px;
+  padding:20px;
 }
-
-.acciones {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-.compacto {
-  margin-bottom: 8px;
-}
-
-.compacto .mat-form-field-wrapper {
-  padding-bottom: 0 !important;
-}
-
-.compacto .mat-form-field-infix {
-  padding: 6px 0 !important;
-}
-
-.compacto textarea {
-  min-height: 40px !important;
-}
-
-.compacto-drop {
-  height: 80px;
-  padding: 10px;
-  font-size: 13px;
-}
-
-.tabla-resultados {
-  margin-top: 20px;
-}
-
-.ok {
-  color: #2e7d32;
-  font-weight: bold;
-}
-
-.error {
-  color: #c62828;
-  font-weight: bold;
-}
-/* .drop-zone {
-    border: 2px dashed #ccc;
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-bottom: 20px;
-  }
-
-  .drop-zone mat-icon {
-    font-size: 40px;
-    color: #666;
-  }
-  
-  .drop-zone.active {
-    border-color: #3f51b5;
-    background: #f0f3ff;
-  }
-  
-  .table-container {
-    max-height: 300px;
-    overflow: auto;
-  }
-  
-  table {
-    width: 100%;
-  } */

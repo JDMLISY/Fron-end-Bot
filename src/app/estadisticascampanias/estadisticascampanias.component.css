@@ -1,0 +1,117 @@
+.cards-resumen{
+
+    display:flex;
+    gap:20px;
+    margin-top:20px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+
+}
+
+.card-resumen{
+
+    flex:1;
+    min-width:180px;
+
+    padding:25px;
+
+    text-align:center;
+
+    border-radius:14px;
+
+}
+
+.card-resumen mat-icon{
+
+    font-size:42px;
+    width:42px;
+    height:42px;
+    margin-bottom:10px;
+
+}
+
+.card-resumen h2{
+
+    margin:8px 0;
+    font-size:34px;
+    font-weight:700;
+
+}
+
+.card-resumen span{
+
+    color:#666;
+    font-size:15px;
+
+}
+
+.tabla-card{
+
+    margin-top:20px;
+    border-radius:12px;
+    overflow:hidden;
+
+}
+
+.cabecera-tabla{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+
+}
+
+.buscar-tabla{
+
+    width:320px;
+
+}
+
+.tabla-responsive{
+
+    overflow:auto;
+
+}
+
+.tabla-estadisticas{
+
+    width:100%;
+    min-width:900px;
+
+}
+
+.mat-header-cell{
+
+    background:#32408f;
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+
+}
+
+.mat-cell{
+
+    font-size:14px;
+    padding:12px;
+
+}
+
+.fila-campania{
+
+    cursor:pointer;
+    transition:.2s;
+
+}
+
+.fila-campania:hover{
+
+    background:#f3f7ff;
+
+}
+
+.mat-paginator{
+
+    border-top:1px solid #e5e5e5;
+
+}

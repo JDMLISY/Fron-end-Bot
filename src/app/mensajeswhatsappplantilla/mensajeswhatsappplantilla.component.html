@@ -1,110 +1,403 @@
-<h2 mat-dialog-title>Importar contactos desde Excel</h2>
 
-<mat-dialog-content>
+<mat-dialog-content class="campania-dialog">
+<!-- ===================== -->
+<!-- INFORMACIÓN CAMPAÑA -->
+<!-- ===================== -->
 
-  <!-- 🔹 Inputs -->
-  <mat-form-field class="full-width compacto">
-    <mat-label>Título</mat-label>
-    <input matInput [(ngModel)]="titulo">
-  </mat-form-field>
-  
-  <mat-form-field class="full-width compacto">
-    <mat-label>Mensaje</mat-label>
-    <textarea matInput rows="2" [(ngModel)]="mensaje"></textarea>
-  </mat-form-field>
+<mat-card class="campania-info-card">
 
-  <!-- 🔹 Drag & Drop -->
-  <div class="drop-zone compacto-drop"
-       (dragover)="onDragOver($event)"
-       (drop)="onDrop($event)"
-       (click)="fileInput.click()">
+    <div class="titulo-seccion">
 
-    <mat-icon>upload_file</mat-icon>
-    <p>Arrastra tu archivo Excel aquí</p>
-    <span>o haz clic para seleccionar</span>
+        <mat-icon>campaign</mat-icon>
 
-    <input type="file" (change)="onFileSelected($event)" hidden #fileInput>
-  </div>
+        <span>Información de la campaña</span>
 
-  <!-- 🔹 TABLA (solo si hay datos) -->
-  <div *ngIf="dataSource?.data?.length" class="tabla-container">
+    </div>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+    <mat-form-field appearance="outline" class="full-width">
 
-      <!-- Checkbox -->
-      <ng-container matColumnDef="selected">
-        <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="toggleAll($event)"></mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <mat-checkbox [(ngModel)]="row.selected"></mat-checkbox>
-        </td>
-      </ng-container>
+        <mat-label>Nombre de la campaña</mat-label>
 
-      <!-- Columnas dinámicas -->
-      <ng-container *ngFor="let col of columnas" [matColumnDef]="col">
-        <th mat-header-cell *matHeaderCellDef>{{ col }}</th>
-        <td mat-cell *matCellDef="let row">{{ row[col] }}</td>
-      </ng-container>
+        <input
+            matInput
+            maxlength="100"
+            placeholder="Ej: Estado de Cuenta Julio 2026"
+            [(ngModel)]="nombreCampania">
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <mat-icon matSuffix>edit</mat-icon>
 
-    </table>
+        <mat-hint align="end">
+            {{nombreCampania?.length || 0}} / 100
+        </mat-hint>
 
-  </div>
-  <div *ngIf="resultadosEnvio.length > 0" class="tabla-resultados">
+    </mat-form-field>
 
-    <h3>Resultado del envío</h3>
-  
-    <table mat-table [dataSource]="resultadosEnvio" class="mat-elevation-z2">
-  
-      <!-- Número -->
-      <ng-container matColumnDef="numero">
-        <th mat-header-cell *matHeaderCellDef> Número </th>
-        <td mat-cell *matCellDef="let r"> {{r.numero}} </td>
-      </ng-container>
-  
-      <!-- Estado -->
-      <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let r">
-          <span [ngClass]="r.ok ? 'ok' : 'error'">
-            {{ r.ok ? 'Enviado' : 'Error' }}
+</mat-card>
+  <!-- ===================== -->
+  <!-- TIPO DE CAMPAÑA -->
+  <!-- ===================== -->
+
+  <mat-card class="tipo-campania">
+
+    <div class="titulo-seccion">
+      <mat-icon>campaign</mat-icon>
+      <span>Tipo de campaña</span>
+    </div>
+
+    <mat-radio-group
+      [(ngModel)]="tipoCampania"
+      class="radio-group">
+
+      <mat-radio-button value="texto">
+        <mat-icon>chat</mat-icon>
+        Texto
+      </mat-radio-button>
+
+      <mat-radio-button value="imagen">
+        <mat-icon>image</mat-icon>
+        Imagen
+      </mat-radio-button>
+
+      <mat-radio-button value="documento">
+        <mat-icon>picture_as_pdf</mat-icon>
+        PDF
+      </mat-radio-button>
+
+      <mat-radio-button value="video">
+        <mat-icon>movie</mat-icon>
+        Video
+      </mat-radio-button>
+
+    </mat-radio-group>
+
+  </mat-card>
+
+
+
+  <!-- ===================== -->
+  <!-- MEDIA -->
+  <!-- ===================== -->
+
+  <mat-card
+      *ngIf="tipoCampania!='texto'"
+      class="media-card">
+
+      <div class="titulo-seccion">
+
+          <mat-icon>
+
+              {{
+              tipoCampania=='imagen'
+              ? 'image'
+              : tipoCampania=='pdf'
+              ? 'picture_as_pdf'
+              : 'movie'
+              }}
+
+          </mat-icon>
+
+          <span>
+
+              Archivo {{tipoCampania}}
+
           </span>
-        </td>
-      </ng-container>
-  
-      <!-- Error -->
-      <ng-container matColumnDef="error">
-        <th mat-header-cell *matHeaderCellDef> Detalle </th>
-        <td mat-cell *matCellDef="let r">
-          {{ r.error || '-' }}
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="columnasResultado"></tr>
-      <tr mat-row *matRowDef="let row; columns: columnasResultado;"></tr>
-  
-    </table>
-  
+
+      </div>
+
+      <div
+          class="drop-zone media-drop"
+          (click)="mediaInput.click()">
+
+          <mat-icon class="media-icon">
+
+              {{
+              tipoCampania=='imagen'
+              ? 'image'
+              : tipoCampania=='pdf'
+              ? 'picture_as_pdf'
+              : 'movie'
+              }}
+
+          </mat-icon>
+
+          <h4>Seleccione un {{tipoCampania}}</h4>
+
+          <p>
+              Haga clic para cargar el archivo
+          </p>
+
+          <input
+              hidden
+              #mediaInput
+              type="file"
+              (change)="seleccionarMedia($event)">
+
+      </div>
+
+  </mat-card>
+
+
+
+  <!-- ===================== -->
+  <!-- MENSAJE -->
+  <!-- ===================== -->
+
+  <mat-card class="mensaje-card">
+
+      <div class="titulo-seccion">
+          <mat-icon>edit_note</mat-icon>
+          <span>Mensaje</span>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+
+          <mat-label>Título</mat-label>
+
+          <input
+              matInput
+              [(ngModel)]="titulo">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+
+          <mat-label>Mensaje</mat-label>
+
+          <textarea
+              rows="4"
+              matInput
+              [(ngModel)]="mensaje">
+          </textarea>
+
+      </mat-form-field>
+
+  </mat-card>
+
+
+
+  <!-- ===================== -->
+  <!-- EXCEL -->
+  <!-- ===================== -->
+
+  <mat-card class="excel-card">
+
+      <div class="titulo-seccion">
+
+          <mat-icon>table_view</mat-icon>
+
+          <span>Contactos</span>
+
+      </div>
+
+      <div
+          class="drop-zone excel-drop"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)"
+          (click)="fileInput.click()">
+
+          <mat-icon class="excel-icon">
+              upload_file
+          </mat-icon>
+
+          <h4>
+              Arrastre el Excel aquí
+          </h4>
+
+          <p>
+              o haga clic para seleccionarlo
+          </p>
+
+          <input
+              hidden
+              #fileInput
+              type="file"
+              (change)="onFileSelected($event)">
+
+      </div>
+
+  </mat-card>
+
+
+
+  <!-- ===================== -->
+  <!-- TABLA -->
+  <!-- ===================== -->
+
+  <div
+      *ngIf="dataSource?.data?.length"
+      class="tabla-container">
+
+      <table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z2">
+
+          <ng-container matColumnDef="selected">
+
+              <th mat-header-cell *matHeaderCellDef>
+
+                  <mat-checkbox
+                      (change)="toggleAll($event)">
+                  </mat-checkbox>
+
+              </th>
+
+              <td mat-cell *matCellDef="let row">
+
+                  <mat-checkbox
+                      [(ngModel)]="row.selected">
+                  </mat-checkbox>
+
+              </td>
+
+          </ng-container>
+
+          <ng-container
+              *ngFor="let col of columnas"
+              [matColumnDef]="col">
+
+              <th mat-header-cell *matHeaderCellDef>
+
+                  {{col}}
+
+              </th>
+
+              <td mat-cell *matCellDef="let row">
+
+                  {{row[col]}}
+
+              </td>
+
+          </ng-container>
+
+          <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns">
+          </tr>
+
+          <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+
+      </table>
+
   </div>
-  <!-- 🔹 BOTONES -->
+
+
+
+  <!-- RESULTADO -->
+
+  <div
+      *ngIf="resultadosEnvio.length"
+      class="tabla-resultados">
+
+      <h3>Resultado del envío</h3>
+
+      <table
+          mat-table
+          [dataSource]="resultadosEnvio"
+          class="mat-elevation-z2">
+
+          <ng-container matColumnDef="numero">
+
+              <th mat-header-cell *matHeaderCellDef>
+
+                  Número
+
+              </th>
+
+              <td mat-cell *matCellDef="let r">
+
+                  {{r.numero}}
+
+              </td>
+
+          </ng-container>
+
+          <ng-container matColumnDef="estado">
+
+              <th mat-header-cell *matHeaderCellDef>
+
+                  Estado
+
+              </th>
+
+              <td mat-cell *matCellDef="let r">
+
+                  <span
+                      [ngClass]="r.ok?'ok':'error'">
+
+                      {{r.ok?'Enviado':'Error'}}
+
+                  </span>
+
+              </td>
+
+          </ng-container>
+
+          <ng-container matColumnDef="error">
+
+              <th mat-header-cell *matHeaderCellDef>
+
+                  Detalle
+
+              </th>
+
+              <td mat-cell *matCellDef="let r">
+
+                  {{r.error||'-'}}
+
+              </td>
+
+          </ng-container>
+
+          <tr
+              mat-header-row
+              *matHeaderRowDef="columnasResultado">
+          </tr>
+
+          <tr
+              mat-row
+              *matRowDef="let row; columns: columnasResultado;">
+          </tr>
+
+      </table>
+
+  </div>
+
+
+
+  <!-- BOTONES -->
+
   <div class="acciones">
 
-    <button mat-raised-button color="primary" (click)="fileInput.click()">
-      Seleccionar archivo
-    </button>
+      <button
+          mat-raised-button
+          color="primary"
+          (click)="fileInput.click()">
 
-    <button mat-raised-button color="accent"
-            (click)="usarSeleccionados()"
-            [disabled]="!dataSource?.data?.length">
-      Enviar mensaje
-    </button>
+          Seleccionar Excel
 
-    <button mat-stroked-button (click)="cerrar()">
-      Cancelar
-    </button>
+      </button>
+
+      <button
+          mat-raised-button
+          color="accent"
+          (click)="usarSeleccionados()"
+          [disabled]="!dataSource?.data?.length">
+
+          Enviar campaña
+
+      </button>
+
+      <button
+          mat-stroked-button
+          (click)="cerrar()">
+
+          Cancelar
+
+      </button>
 
   </div>
 
