@@ -104,7 +104,7 @@ import { MensajeswhatsappplantillaComponent } from './mensajeswhatsappplantilla/
 import { MatRadioModule } from '@angular/material/radio';
 import { ParametrosplantillasComponent } from './parametrosplantillas/parametrosplantillas.component';
 import { EstadisticascampaniasComponent } from './estadisticascampanias/estadisticascampanias.component';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -207,7 +207,8 @@ import { EstadisticascampaniasComponent } from './estadisticascampanias/estadist
   MatExpansionModule,
   MatTooltipModule,
   MatSnackBarModule,
-  MatRadioModule 
+  MatRadioModule,
+  MatProgressSpinnerModule 
 
   
   

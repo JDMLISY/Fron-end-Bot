@@ -6,6 +6,7 @@ import { AuthService } from '../_services/auth.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { UserService } from '../_services/user.service';
 
+
 @Component({
   selector: 'app-mensajeswhatsappplantilla',
   templateUrl: './mensajeswhatsappplantilla.component.html',
@@ -20,6 +21,7 @@ export class MensajeswhatsappplantillaComponent {
   resultadosEnvio: any[] = [];
 columnasResultado: string[] = ['numero', 'estado', 'error'];
 tipoCampania='texto';
+enviandoCampania = false;
 
 archivoMedia:any;
 
@@ -148,6 +150,8 @@ detectarColumnaTelefono(): string {
       return;
     }
   
+
+
     // Detectar columna teléfono
     const columna = this.detectarColumnaTelefono();
   
@@ -216,6 +220,12 @@ detectarColumnaTelefono(): string {
     };
   
   
+    if (this.enviandoCampania) {
+        return;
+    }
+
+    this.enviandoCampania = true;
+
     this.authService.RequestDataobjectcampañas(
   
       limpios,
@@ -243,7 +253,7 @@ detectarColumnaTelefono(): string {
           'Envio mensaje whatsapp',
           'Error'
         );
-  
+        this.enviandoCampania = false;
         this.resultadosEnvio = resp.detalle;
   
         this.limpiarPantalla();
@@ -342,6 +352,14 @@ detectarColumnaTelefono(): string {
     this.titulo = (this.titulo || '').trim();
     this.mensaje = (this.mensaje || '').trim();
   
+    if (!this.nombreCampania) {
+              
+      this.userService.showSuccess("El Nombre de la campaña es obligatorio","Envio mensaje whatsapp",'warning')  
+      
+      return false;
+    }
+
+
     // 🔹 TÍTULO
     if (!this.titulo) {
               

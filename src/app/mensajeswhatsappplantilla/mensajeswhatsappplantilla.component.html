@@ -3,75 +3,73 @@
 <!-- ===================== -->
 <!-- INFORMACIÓN CAMPAÑA -->
 <!-- ===================== -->
+<div class="fila-superior">
 
-<mat-card class="campania-info-card">
+    <!-- Información campaña -->
+    <mat-card class="campania-info-card">
 
-    <div class="titulo-seccion">
+        <div class="titulo-seccion">
+            <mat-icon>campaign</mat-icon>
+            <span>Información de la campaña</span>
+        </div>
 
-        <mat-icon>campaign</mat-icon>
+        <mat-form-field appearance="outline" class="full-width">
 
-        <span>Información de la campaña</span>
+            <mat-label>Nombre de la campaña</mat-label>
 
-    </div>
+            <input
+                matInput
+                maxlength="100"
+                placeholder="Ej: Estado de Cuenta Julio 2026"
+                [(ngModel)]="nombreCampania">
 
-    <mat-form-field appearance="outline" class="full-width">
+            <mat-icon matSuffix>edit</mat-icon>
 
-        <mat-label>Nombre de la campaña</mat-label>
+            <mat-hint align="end">
+                {{nombreCampania?.length || 0}} / 100
+            </mat-hint>
 
-        <input
-            matInput
-            maxlength="100"
-            placeholder="Ej: Estado de Cuenta Julio 2026"
-            [(ngModel)]="nombreCampania">
+        </mat-form-field>
 
-        <mat-icon matSuffix>edit</mat-icon>
+    </mat-card>
 
-        <mat-hint align="end">
-            {{nombreCampania?.length || 0}} / 100
-        </mat-hint>
+    <!-- Tipo -->
+    <mat-card class="tipo-campania">
 
-    </mat-form-field>
+        <div class="titulo-seccion">
+            <mat-icon>campaign</mat-icon>
+            <span>Tipo de campaña</span>
+        </div>
 
-</mat-card>
-  <!-- ===================== -->
-  <!-- TIPO DE CAMPAÑA -->
-  <!-- ===================== -->
+        <mat-radio-group
+            [(ngModel)]="tipoCampania"
+            class="radio-group">
 
-  <mat-card class="tipo-campania">
+            <mat-radio-button value="texto">
+                <mat-icon>chat</mat-icon>
+                Texto
+            </mat-radio-button>
 
-    <div class="titulo-seccion">
-      <mat-icon>campaign</mat-icon>
-      <span>Tipo de campaña</span>
-    </div>
+            <mat-radio-button value="imagen">
+                <mat-icon>image</mat-icon>
+                Imagen
+            </mat-radio-button>
 
-    <mat-radio-group
-      [(ngModel)]="tipoCampania"
-      class="radio-group">
+            <mat-radio-button value="documento">
+                <mat-icon>picture_as_pdf</mat-icon>
+                PDF
+            </mat-radio-button>
 
-      <mat-radio-button value="texto">
-        <mat-icon>chat</mat-icon>
-        Texto
-      </mat-radio-button>
+            <mat-radio-button value="video">
+                <mat-icon>movie</mat-icon>
+                Video
+            </mat-radio-button>
 
-      <mat-radio-button value="imagen">
-        <mat-icon>image</mat-icon>
-        Imagen
-      </mat-radio-button>
+        </mat-radio-group>
 
-      <mat-radio-button value="documento">
-        <mat-icon>picture_as_pdf</mat-icon>
-        PDF
-      </mat-radio-button>
+    </mat-card>
 
-      <mat-radio-button value="video">
-        <mat-icon>movie</mat-icon>
-        Video
-      </mat-radio-button>
-
-    </mat-radio-group>
-
-  </mat-card>
-
+</div>
 
 
   <!-- ===================== -->
@@ -135,7 +133,7 @@
       </div>
 
   </mat-card>
-
+  
 
 
   <!-- ===================== -->
@@ -382,14 +380,21 @@
       </button>
 
       <button
-          mat-raised-button
-          color="accent"
-          (click)="usarSeleccionados()"
-          [disabled]="!dataSource?.data?.length">
-
-          Enviar campaña
-
-      </button>
+      mat-raised-button
+      color="accent"
+      (click)="usarSeleccionados()"
+      [disabled]="!dataSource?.data?.length || enviandoCampania">
+  
+      <mat-icon *ngIf="!enviandoCampania">send</mat-icon>
+  
+      <mat-spinner
+          *ngIf="enviandoCampania"
+          diameter="20">
+      </mat-spinner>
+  
+      {{ enviandoCampania ? 'Enviando...' : 'Enviar campaña' }}
+  
+  </button>
 
       <button
           mat-stroked-button
