@@ -76,65 +76,76 @@
   <!-- MEDIA -->
   <!-- ===================== -->
 
-  <mat-card
-      *ngIf="tipoCampania!='texto'"
-      class="media-card">
+<!-- ===================== -->
+<!-- MEDIA -->
+<!-- ===================== -->
 
-      <div class="titulo-seccion">
+<mat-card *ngIf="tipoCampania!='texto'" class="media-card">
 
-          <mat-icon>
+    <div class="titulo-seccion">
 
-              {{
-              tipoCampania=='imagen'
-              ? 'image'
-              : tipoCampania=='pdf'
-              ? 'picture_as_pdf'
-              : 'movie'
-              }}
+        <mat-icon>
+            {{
+            tipoCampania=='imagen'
+            ? 'image'
+            : tipoCampania=='documento'
+            ? 'picture_as_pdf'
+            : 'movie'
+            }}
+        </mat-icon>
 
-          </mat-icon>
+        <span>Archivo {{tipoCampania}}</span>
 
-          <span>
+    </div>
 
-              Archivo {{tipoCampania}}
+    <div class="drop-zone media-drop" (click)="mediaInput.click()">
 
-          </span>
+        <!-- SIN ARCHIVO -->
 
-      </div>
+        <div *ngIf="!previewMedia" class="sin-preview">
 
-      <div
-          class="drop-zone media-drop"
-          (click)="mediaInput.click()">
+            <mat-icon class="media-icon">
+                {{
+                tipoCampania=='imagen'
+                ? 'image'
+                : tipoCampania=='documento'
+                ? 'picture_as_pdf'
+                : 'movie'
+                }}
+            </mat-icon>
 
-          <mat-icon class="media-icon">
+            <h4>Seleccione un {{tipoCampania}}</h4>
 
-              {{
-              tipoCampania=='imagen'
-              ? 'image'
-              : tipoCampania=='pdf'
-              ? 'picture_as_pdf'
-              : 'movie'
-              }}
+            <p>Haga clic para cargar el archivo</p>
 
-          </mat-icon>
+        </div>
 
-          <h4>Seleccione un {{tipoCampania}}</h4>
+        <img
+        *ngIf="previewMedia && tipoCampania=='imagen'"
+        [src]="previewMedia"
+        class="preview-img">
+    
+    <video
+        *ngIf="previewMedia && tipoCampania=='video'"
+        [src]="previewMedia"
+        controls
+        class="preview-video">
+    </video>
+    
+    <iframe
+        *ngIf="previewPdf && tipoCampania=='documento'"
+        [src]="previewPdf"
+        class="preview-pdf">
+    </iframe>
+        <input
+            hidden
+            #mediaInput
+            type="file"
+            (change)="seleccionarMedia($event)">
 
-          <p>
-              Haga clic para cargar el archivo
-          </p>
+    </div>
 
-          <input
-              hidden
-              #mediaInput
-              type="file"
-              (change)="seleccionarMedia($event)">
-
-      </div>
-
-  </mat-card>
-  
-
+</mat-card>
 
   <!-- ===================== -->
   <!-- MENSAJE -->

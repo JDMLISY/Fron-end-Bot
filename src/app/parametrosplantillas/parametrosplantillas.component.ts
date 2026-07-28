@@ -15,6 +15,7 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./parametrosplantillas.component.css']
 })
 export class ParametrosplantillasComponent implements OnInit {
+
   plantilla = {
     id: 0,
     tipo: '', 

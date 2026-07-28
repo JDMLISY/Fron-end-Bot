@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from '../_services/auth.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { UserService } from '../_services/user.service';
+import { DomSanitizer, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -23,11 +24,17 @@ columnasResultado: string[] = ['numero', 'estado', 'error'];
 tipoCampania='texto';
 enviandoCampania = false;
 
-archivoMedia:any;
+archivoMedia: File | undefined;
 
-previewMedia:any;
+previewMedia: SafeUrl | null = null;
+previewPdf: SafeResourceUrl | null = null;
 nombreCampania = '';
-  constructor(private userService: UserService,private dialogRef: MatDialogRef<MensajeswhatsappplantillaComponent>,private authService: AuthService) {}
+constructor(
+  private sanitizer: DomSanitizer,
+  private userService: UserService,
+  private dialogRef: MatDialogRef<MensajeswhatsappplantillaComponent>,
+  private authService: AuthService
+) {}
   ngOnInit() {
     this.dataSource.filterPredicate = (data: any, filter: string) => {
       return Object.values(data)
@@ -89,6 +96,7 @@ detectarColumnaTelefono(): string {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) this.leerExcel(file);
+    
   }
   aplicarFiltro(event: any) {
     const valor = event.target.value.trim().toLowerCase();
@@ -274,74 +282,6 @@ detectarColumnaTelefono(): string {
   
   }
   
-//   usarSeleccionados() {
-//     if (!this.validarTituloMensaje()) {
-//       return;
-//     }
-//     // 1. Detectar columna de teléfono
-//     const columna = this.detectarColumnaTelefono();
-  
-//     // 2. Si no existe → detener
-//     if (!columna) {
-//       return;
-//     }
-  
-//     // 3. Obtener seleccionados
-//     const seleccionados = this.dataSource.data.filter(r => r.selected);
-  
-//     if (!seleccionados.length) {
-//       this.userService.showSuccess('No has seleccionado ningún registro',"Envio mensaje whatsapp",'success')  
-      
-//       return;
-//     }
-  
-//     // 4. Validar teléfonos
-//     const invalidos = seleccionados.filter(r => 
-//       !this.esNumeroValido(r[columna])
-//     );
-    
-//     if (invalidos.length > 0) {
-    
-//       const lista = invalidos
-//         .map(r => r[columna])
-//         .join('\n');
-       
-//         this.userService.showSuccess(`Hay ${invalidos.length} números inválidos:\n\n${lista}`,"Envio mensaje whatsapp",'success')  
-      
-    
-//   //    return;
-//     }
-//     // 5. Normalizar (opcional pero PRO)
-//     const limpios = seleccionados.map(r => ({
-//       ...r,
-//       telefono: r[columna].toString().replace(/\D/g, ''),
-//       titulo: this.titulo,
-//       mensaje: this.mensaje
-//     }));
-//     this.authService.RequestDataobject(
-//       limpios,               // newData
-//       'enviarPlantillaenbloque',     // NombreMetodo (endpoint)
-//       ''                 // numero
-//     ).subscribe({
-//       next: (resp) => {
-        
-//         this.userService.showSuccess(`Datos enviados correctamente: 🚀 ${resp.enviados}` ,"Envio mensaje whatsapp",'success')  
-
-//         this.userService.showSuccess(`Datos Con Errores: ❌ ${resp.errores}`,"Envio mensaje whatsapp",'Error')  
-
-      
-//         this.resultadosEnvio = resp.detalle;
-
-//       },
-//       error: (err) => {
-                
-//         this.userService.showSuccess("❌ Error:," + err,"Envio mensaje whatsapp",'Error')          
-        
-//       }
-//     });
-//     // 6. Cerrar dialogo con datos limpios
-// this.limpiarPantalla()
-//   }
 
   cerrar() {
     this.dialogRef.close();
@@ -408,9 +348,31 @@ detectarColumnaTelefono(): string {
     this.dataSource.data = [];
   }
 
-  seleccionarMedia(event:any){
+  seleccionarMedia(event: any) {
 
-    this.archivoMedia=event.target.files[0];
-
-}
+    const archivo = event.target.files[0];
+  
+    if (!archivo) return;
+  
+    this.archivoMedia = archivo;
+  
+    const url = URL.createObjectURL(archivo);
+  
+    this.previewMedia = null;
+    this.previewPdf = null;
+  
+    if (this.tipoCampania === 'documento') {
+  
+      this.previewPdf =
+        this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  
+    } else {
+  
+      this.previewMedia =
+        this.sanitizer.bypassSecurityTrustUrl(url);
+  
+    }
+  
+    event.target.value = '';
+  }
 }
