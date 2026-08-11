@@ -1,0 +1,252 @@
+<div class="contenedor">
+
+    <div class="cabecera">
+
+        <div>
+
+            <h2>Agentes IA</h2>
+
+            <span>Configuración de asistentes inteligentes</span>
+
+        </div>
+
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="nuevo()">
+
+            <mat-icon>add</mat-icon>
+
+            Nuevo Agente
+
+        </button>
+
+    </div>
+
+    <mat-card>
+
+        <div class="formulario">
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>Nombre</mat-label>
+
+                <input
+                    matInput
+                    [(ngModel)]="agente.Nombre">
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>Modelo IA</mat-label>
+
+                <mat-select [(ngModel)]="agente.IdModelo">
+
+                    <mat-option
+                        *ngFor="let item of modelos"
+                        [value]="item.IdModelo">
+
+                        {{item.Nombre}}
+
+                    </mat-option>
+
+                </mat-select>
+
+            </mat-form-field>
+
+        </div>
+
+        <mat-form-field appearance="outline" class="full">
+
+            <mat-label>Descripción</mat-label>
+
+            <textarea
+                matInput
+                rows="2"
+                [(ngModel)]="agente.Descripcion">
+            </textarea>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+
+            <mat-label>Mensaje de Bienvenida</mat-label>
+
+            <textarea
+                matInput
+                rows="5"
+                [(ngModel)]="agente.MensajeBienvenida">
+            </textarea>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+
+            <mat-label>Menú Principal (JSON)</mat-label>
+
+            <textarea
+                matInput
+                rows="8"
+                spellcheck="false"
+                [(ngModel)]="agente.MenuPrincipal">
+            </textarea>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+
+            <mat-label>Prompt Base</mat-label>
+
+            <textarea
+                matInput
+                rows="12"
+                spellcheck="false"
+                [(ngModel)]="agente.PromptBase">
+            </textarea>
+
+        </mat-form-field>
+
+        <div class="formulario">
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>Temperatura</mat-label>
+
+                <input
+                    matInput
+                    type="number"
+                    step="0.1"
+                    [(ngModel)]="agente.Temperatura">
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>Máx Tokens</mat-label>
+
+                <input
+                    matInput
+                    type="number"
+                    [(ngModel)]="agente.MaxTokens">
+
+            </mat-form-field>
+
+            <div class="activo">
+
+                <mat-checkbox
+                    [(ngModel)]="agente.Activo">
+
+                    Agente Activo
+
+                </mat-checkbox>
+
+            </div>
+
+        </div>
+
+        <div class="botones">
+
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="guardar()">
+
+                <mat-icon>save</mat-icon>
+
+                Guardar
+
+            </button>
+
+            <button
+                mat-raised-button
+                color="warn"
+                (click)="eliminar()">
+
+                <mat-icon>delete</mat-icon>
+
+                Eliminar
+
+            </button>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="tabla">
+
+        <table
+            mat-table
+            [dataSource]="dataSource">
+
+            <ng-container matColumnDef="Nombre">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Nombre
+
+                </th>
+
+                <td mat-cell *matCellDef="let row">
+
+                    {{row.Nombre}}
+
+                </td>
+
+            </ng-container>
+
+            <ng-container matColumnDef="Modelo">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Modelo
+
+                </th>
+
+                <td mat-cell *matCellDef="let row">
+
+                    {{row.ModeloNombre}}
+
+                </td>
+
+            </ng-container>
+
+            <ng-container matColumnDef="Activo">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Activo
+
+                </th>
+
+                <td mat-cell *matCellDef="let row">
+
+                    <mat-icon color="primary" *ngIf="row.Activo">
+
+                        check_circle
+
+                    </mat-icon>
+
+                    <mat-icon color="warn" *ngIf="!row.Activo">
+
+                        cancel
+
+                    </mat-icon>
+
+                </td>
+
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+            <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+                (click)="seleccionar(row)">
+            </tr>
+
+        </table>
+
+    </mat-card>
+
+</div>

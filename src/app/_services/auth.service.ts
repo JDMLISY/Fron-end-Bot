@@ -10,6 +10,7 @@ import { MatriculaAyudasComponent } from '../matricula-ayudas/matricula-ayudas.c
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MensajeswhatsappplantillaComponent } from '../mensajeswhatsappplantilla/mensajeswhatsappplantilla.component';
 import { ParametrosplantillasComponent } from '../parametrosplantillas/parametrosplantillas.component';
+import { ModelosiaComponent } from '../modelosia/modelosia.component';
 
 
 const AUTH_API = environment.AUTH_API;
@@ -132,7 +133,7 @@ export class AuthService {
         this.data1 = data
 
         if (this.data1.length > 0) {
-          if(opcion=="Radicados" || opcion=="ayudas" || opcion=="envioplantilla" || opcion=="ParametrosPlantillas"  )
+          if(opcion=="Radicados" || opcion=="ayudas" || opcion=="envioplantilla" || opcion=="ParametrosPlantillas" || opcion=="modelosia"  )
             {
               
               this.openDialog(opcion)
@@ -188,11 +189,7 @@ export class AuthService {
       }
       if(opcion=="envioplantilla")
         {
-          // this.dialog.open(CampaniaComponent, {
-          //   width: '1000px',
-          //   height: '90vh',
-          //   maxWidth: '95vw'
-          // });
+
 
           const dialogRef = this.dialog.open(MensajeswhatsappplantillaComponent, {
             width: '1000px',
@@ -205,11 +202,7 @@ export class AuthService {
 
         if(opcion=="ParametrosPlantillas")
           {
-            // this.dialog.open(CampaniaComponent, {
-            //   width: '1000px',
-            //   height: '90vh',
-            //   maxWidth: '95vw'
-            // });
+        
   
             const dialogRef = this.dialog.open(ParametrosplantillasComponent, {
               width: '600px',
@@ -219,6 +212,19 @@ export class AuthService {
             });
     
           }
+
+          if(opcion=="modelosia")
+            {
+          
+    
+              const dialogRef = this.dialog.open(ModelosiaComponent, {
+                width: '900px',
+                height: '70vh',
+                maxWidth: '95vw',
+                data:  "",
+              });
+      
+            }
 
 
     }

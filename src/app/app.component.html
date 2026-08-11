@@ -52,6 +52,9 @@
   <button mat-menu-item [matMenuTriggerFor]="Eventos">
     <mat-icon style="color: black;">casino</mat-icon>Eventos
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="IA">
+    <mat-icon style="color: black;">🤖</mat-icon>Inteligencia Artificial 
+  </button>
 </mat-menu>
 
 <!-- Submenús -->
@@ -107,6 +110,42 @@
   <button mat-menu-item (click)="services.ValidarModulo('/lectorqr','Eventos')">
     <mat-icon style="color: black;">photo_camera</mat-icon>Validación de QR
   </button>
+</mat-menu>
+
+<mat-menu #IA="matMenu">
+
+  <button mat-menu-item (click)="services.ValidarModulo('/dashboardia','IA')">
+    <mat-icon>dashboard</mat-icon>
+    Dashboard
+  </button>
+
+  <button mat-menu-item (click)="services.ValidarModulo('modelosia','IA')">
+    <mat-icon>memory</mat-icon>
+    Modelos
+  </button>
+
+  <button mat-menu-item (click)="services.ValidarModulo('/Playground','IA')" *ngIf="showSuperAdminBoard || showAdminBoard">
+    <mat-icon>chat</mat-icon>
+    Playground
+  </button>
+  <button mat-menu-item (click)="services.ValidarModulo('/agentesia','IA')" *ngIf="showSuperAdminBoard || showAdminBoard">
+    <mat-icon>smart_toy</mat-icon>
+    Agentes
+  </button>
+
+  <button mat-menu-item (click)="services.ValidarModulo('/herramientasia','IA')">
+    <mat-icon>build</mat-icon>
+    Herramientas
+  </button>
+
+
+
+
+  <button mat-menu-item (click)="services.ValidarModulo('/historialia','IA')">
+    <mat-icon>history</mat-icon>
+    Historial
+  </button>
+
 </mat-menu>
 
 <!-- Contenido -->

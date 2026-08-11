@@ -1,0 +1,194 @@
+
+.cabecera-ia{
+
+    height:70px;
+
+    background:#1f2329;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 25px;
+
+    border-radius:8px 8px 0 0;
+
+}
+
+.cabecera-ia h2{
+
+    margin:0;
+
+    font-size:22px;
+
+    font-weight:600;
+
+}
+
+.cabecera-ia span{
+
+    color:#b7bcc5;
+
+    font-size:13px;
+
+}
+
+.cabecera-ia button{
+
+    color:white;
+
+}
+.contenedor{
+
+    padding:25px;
+
+}
+
+.card-formulario{
+
+    margin-top:20px;
+    border-radius:12px;
+
+}
+
+.card-tabla{
+
+    margin-top:25px;
+    border-radius:12px;
+
+}
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:18px;
+
+    margin-top:20px;
+
+}
+
+mat-form-field{
+
+    width:100%;
+
+}
+
+mat-card-actions{
+
+    margin-top:15px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+}
+
+.tabla{
+
+    width:100%;
+    margin-top:20px;
+
+}
+
+tr.mat-row{
+
+    cursor:pointer;
+
+}
+
+tr.mat-row:hover{
+
+    background:#f5f5f5;
+
+}
+
+mat-card-title{
+
+    font-size:20px;
+    font-weight:600;
+    color:#2f3b52;
+
+}
+
+.tabla-card{
+
+    margin-top:25px;
+
+    border-radius:10px;
+
+    box-shadow:none;
+
+    border:1px solid #ececec;
+
+    padding:0;
+
+}
+
+.titulo-tabla{
+
+    padding:18px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    border-bottom:1px solid #ececec;
+
+    background:#fafafa;
+
+}
+
+table{
+    width:100%;
+    table-layout: fixed;
+}
+
+.mat-header-cell,
+.mat-cell{
+    padding:14px 18px;
+    font-size:14px;
+}
+
+/* Nombre */
+.mat-column-Nombre{
+    width:35%;
+    min-width:250px;
+}
+
+/* Proveedor */
+.mat-column-Proveedor{
+    width:25%;
+    min-width:180px;
+}
+
+/* Modelo */
+.mat-column-Modelo{
+    width:25%;
+    min-width:180px;
+}
+
+/* Estado */
+.mat-column-Activo{
+    width:15%;
+    min-width:120px;
+    text-align:center;
+}
+
+.mat-header-cell{
+    font-weight:600;
+    color:#555;
+}
+
+.mat-row:hover{
+    background:#f5f8ff;
+    cursor:pointer;
+}

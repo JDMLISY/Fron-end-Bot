@@ -20,6 +20,9 @@ import { SessionEndedComponent } from './session-ended/session-ended.component';
 import { AsociadosComponent } from './asociados/asociados.component';
 import { EmpresaComponent } from './empresa/empresa.component';
 import { EstadisticascampaniasComponent } from './estadisticascampanias/estadisticascampanias.component';
+import { ModelosiaComponent } from './modelosia/modelosia.component';
+import { PlaygroundComponent } from './playground/playground.component';
+import { AgentesiaComponent } from './agentesia/agentesia.component';
 
 
 
@@ -47,6 +50,13 @@ const routes: Routes = [
   { path: 'session-ended', component: SessionEndedComponent },
   { path: 'PanelClientes', component: AsociadosComponent },
   { path: 'Empresa', component: EmpresaComponent },  
+  { path: 'modelosia', component: ModelosiaComponent },  
+  { path: 'Playground', component: PlaygroundComponent },  
+  { path: 'agentesia', component: AgentesiaComponent },  
+  
+
+
+
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

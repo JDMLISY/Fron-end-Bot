@@ -1,0 +1,133 @@
+.contenedor{
+
+    padding:20px;
+
+}
+
+.cabecera{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.cabecera h2{
+
+    margin:0;
+
+    color:#1976d2;
+
+}
+
+.cabecera span{
+
+    color:#777;
+
+}
+
+mat-card{
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+}
+
+.formulario{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr 220px;
+
+    gap:15px;
+
+    margin-bottom:15px;
+
+}
+
+.full{
+
+    width:100%;
+
+    margin-bottom:15px;
+
+}
+
+textarea{
+
+    font-family:Consolas, monospace;
+
+    font-size:13px;
+
+}
+
+.botones{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
+
+.activo{
+
+    display:flex;
+
+    align-items:center;
+
+    height:56px;
+
+}
+
+.tabla{
+
+    overflow:auto;
+
+}
+
+table{
+
+    width:100%;
+
+}
+
+tr.mat-mdc-row{
+
+    cursor:pointer;
+
+}
+
+tr.mat-mdc-row:hover{
+
+    background:#f5f5f5;
+
+}
+
+.mat-column-Nombre{
+
+    width:35%;
+
+}
+
+.mat-column-Modelo{
+
+    width:45%;
+
+}
+
+.mat-column-Activo{
+
+    width:20%;
+
+    text-align:center;
+
+}

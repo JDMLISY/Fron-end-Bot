@@ -1,0 +1,201 @@
+<div class="playground-container">
+
+    <!-- Configuración -->
+    <div class="panel-config">
+
+        <div class="titulo">
+            <mat-icon>tune</mat-icon>
+            Configuración
+        </div>
+        <mat-form-field appearance="outline">
+
+            <mat-label>Modo</mat-label>
+        
+            <mat-select [(ngModel)]="modo" (selectionChange)="cambiarModo()">
+        
+                <mat-option value="modelo">
+                    Modelo IA
+                </mat-option>
+        
+                <mat-option value="agente">
+                    Agente IA
+                </mat-option>
+        
+            </mat-select>
+        
+        </mat-form-field>
+<!-- MODELO -->
+
+<mat-form-field
+    appearance="outline"
+    *ngIf="modo=='modelo'">
+
+    <mat-label>Modelo</mat-label>
+
+    <mat-select [(ngModel)]="modeloSeleccionado">
+
+        <mat-option
+            *ngFor="let m of modelos"
+            [value]="m.IdModelo">
+
+            {{m.Nombre}}
+
+        </mat-option>
+
+    </mat-select>
+
+</mat-form-field>
+
+<!-- AGENTE -->
+
+<mat-form-field
+    appearance="outline"
+    *ngIf="modo=='agente'">
+
+    <mat-label>Agente</mat-label>
+
+    <mat-select [(ngModel)]="agenteSeleccionado">
+
+        <mat-option
+            *ngFor="let a of agentes"
+            [value]="a.IdAgente">
+
+            {{a.Nombre}}
+
+        </mat-option>
+
+    </mat-select>
+
+</mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Temperatura</mat-label>
+            <input
+                matInput
+                type="number"
+                [(ngModel)]="temperatura">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Máx Tokens</mat-label>
+            <input
+                matInput
+                type="number"
+                [(ngModel)]="maxTokens">
+        </mat-form-field>
+
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="limpiarConversacion()">
+
+            <mat-icon>delete</mat-icon>
+
+            Limpiar conversación
+
+        </button>
+
+
+    
+
+<div class="info-modelo" *ngIf="modelo">
+
+    <h4>Información</h4>
+
+    <div class="fila">
+        <span>Modelo</span>
+        <strong>{{modelo}}</strong>
+    </div>
+
+    <div class="fila">
+        <span>Proveedor</span>
+        <strong>{{proveedor}}</strong>
+    </div>
+
+    <div class="fila">
+        <span>Tiempo</span>
+        <strong>{{tiempo}} ms</strong>
+    </div>
+
+    <div class="fila">
+        <span>Tokens</span>
+        <strong>{{tokens}}</strong>
+    </div>
+
+</div>
+<mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>System Prompt</mat-label>
+
+    <textarea
+        matInput
+        rows="8"
+        [(ngModel)]="systemPrompt">
+    </textarea>
+
+</mat-form-field>
+</div>
+    <!-- Chat -->
+
+    <div class="panel-chat">
+
+        <div class="titulo">
+
+            <mat-icon>smart_toy</mat-icon>
+
+            Playground IA
+
+        </div>
+
+        <div class="chat">
+
+            <div
+                *ngFor="let item of mensajes"
+                class="mensaje"
+                [ngClass]="item.role">
+
+                <div class="burbuja">
+
+                    {{item.content}}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+
+            <mat-form-field appearance="outline" class="mensaje-input">
+
+                <textarea
+
+                matInput
+            
+                rows="4"
+            
+                [(ngModel)]="mensaje"
+            
+                (keydown)="tecla($event)">
+            
+            </textarea>
+
+            </mat-form-field>
+
+            <button
+
+                mat-fab
+
+                color="primary"
+
+                (click)="enviar()">
+
+                <mat-icon>send</mat-icon>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

@@ -396,7 +396,8 @@ this.editor.curvature = 0;
       "Aceptacion",
       {texto:"Seleccione",
       esperarespuesta: "",
-      op1:"Opción 1",op2:"Opción 2"},
+      op1:"Opción 1",op2:"Opción 2",
+      AccionIA:"Seleccione" },
       `
       <div class="nodo nodo-aceptacion">
       
@@ -418,6 +419,11 @@ this.editor.curvature = 0;
         <option value="si">Sí</option>
         <option value="no">No</option>
       </select>
+      <label>Acción IA:</label>
+      <select df-AccionIA>
+      <option value="Politicas">Politicas</option>
+      <option value="Menù principal">Menù principal</option>
+     </select>
       </div>
       `
       );
@@ -435,10 +441,11 @@ this.editor.curvature = 0;
           texto: "Ingresa tu identificación",
           tipodato: "",
           esperarespuesta: "",
-          esconfirmacion: "no"
+          esconfirmacion: "no",
+          AccionIA:"Seleccione" 
         },
         `
-           <div class="nodo nodo-aceptacion">
+        <div class="nodo nodo-aceptacion">
       
           <div class="nodo-header">
             📥Mensaje
@@ -466,237 +473,461 @@ this.editor.curvature = 0;
             <option value="Radicado y Asesor">asesor</option>
             <option value="Cierre atención">Cierre atención</option>
           </select>
-          
+      
           <label>Esperar respuesta:</label>
           <select df-esperaRespuesta>
             <option value="si">Sí</option>
             <option value="no">No</option>
           </select>
-          
+      
           <label>¿Es Confirmación de datos?</label>
           <select df-esconfirmacion>
             <option value="no">No</option>
             <option value="si">Sí</option>
           </select>
       
+          <label>Acción IA:</label>
+      <select df-AccionIA>
+      <option value="Politicas">Politicas</option>
+      <option value="Menù principal">Menù principal</option>
+     </select>
+   
         </div>
         `
       );
-      // this.editor.addNode(
-      //   "mensaje",
-      //   1,
-      //   1,
-      //   200,
-      //   200,
-      //   "mensaje",
-      //   {
-      //     texto: "Mensaje",
-      //     esperarespuesta: "no"
-      //   },
-      //   `
-      //   <div class="nodo nodo-aceptacion">
+//       this.editor.addNode(
+//         "mensaje",
+//         1,
+//         1,
+//         200,
+//         200,
+//         "mensaje",
+//         {
+//           texto: "Ingresa tu identificación",
+//           tipodato: "",
+//           esperarespuesta: "",
+//           esconfirmacion: "no"
+//         },
+//         `
+//            <div class="nodo nodo-aceptacion">
       
-      //     <div class="nodo-header">
-      //       💬 Mensaje
-      //     </div>
+//           <div class="nodo-header">
+//             📥Mensaje
+//           </div>
       
-      //     <textarea df-texto placeholder="Mensaje al usuario"></textarea>
+//           <textarea df-texto placeholder="Pregunta al usuario"></textarea>
       
-      //     <label>Esperar respuesta:</label>
-      //     <select df-esperaRespuesta>
-      //       <option value="no">No (continuar flujo)</option>
-      //       <option value="si">Sí (esperar usuario)</option>
-      //     </select>
+//           <label>Tipo de dato:</label>
+//           <select df-tipoDato>
+//             <option value="">Seleccionar</option>
+//             <option value="Identificacion">Identificación</option>
+//             <option value="Nombre">Nombre</option>
+//             <option value="Valor">Valor</option>
+//             <option value="TipoAhorro">Tipo ahorro</option>
+//             <option value="Correo">Correo</option>
+//             <option value="Telefono">Telefono</option>
+//             <option value="Convenio">Convenio</option>
+//             <option value="Entradas">Entradas</option>
+//             <option value="Combo1">Combo1</option>
+//             <option value="Combo2">Combo2</option>
+//             <option value="Imagen">Imagen</option>
+//             <option value="Año">Año</option>
+//             <option value="Documento">Documento</option>
+//             <option value="Radicado">Radicado</option>
+//             <option value="Radicado y Asesor">asesor</option>
+//             <option value="Cierre atención">Cierre atención</option>
+//           </select>
+          
+//           <label>Esperar respuesta:</label>
+//           <select df-esperaRespuesta>
+//             <option value="si">Sí</option>
+//             <option value="no">No</option>
+//           </select>
+          
+//           <label>¿Es Confirmación de datos?</label>
+//           <select df-esconfirmacion>
+//             <option value="no">No</option>
+//             <option value="si">Sí</option>
+//           </select>
       
-      //   </div>
-      //   `
-      // );
-    break;
+//         </div>
+//         `
+//       );
+//       // this.editor.addNode(
+//       //   "mensaje",
+//       //   1,
+//       //   1,
+//       //   200,
+//       //   200,
+//       //   "mensaje",
+//       //   {
+//       //     texto: "Mensaje",
+//       //     esperarespuesta: "no"
+//       //   },
+//       //   `
+//       //   <div class="nodo nodo-aceptacion">
+      
+//       //     <div class="nodo-header">
+//       //       💬 Mensaje
+//       //     </div>
+      
+//       //     <textarea df-texto placeholder="Mensaje al usuario"></textarea>
+      
+//       //     <label>Esperar respuesta:</label>
+//       //     <select df-esperaRespuesta>
+//       //       <option value="no">No (continuar flujo)</option>
+//       //       <option value="si">Sí (esperar usuario)</option>
+//       //     </select>
+      
+//       //   </div>
+//       //   `
+//       // );
+     break;
     
-    case "menu":
-      this.editor.addNode(
-        "menu",
-        1,
-        1,
-        300,
-        400,
-        "menu",
-        {
-        texto:"Seleccione",
-        opciones:[
-          {titulo:"Opción 1", descripcion:""},
-          {titulo:"Opción 2", descripcion:""}
-         ],
-         esperarespuesta: "" ,
-         esconfirmacion:"no",  
-         esmenuprincipal:"no", 
-         tipodato: "",    
-        },
-        `
-        <div class="nodo nodo-aceptacion">
+     case "menu":
+this.editor.addNode(
+  "menu",
+  1,
+  1,
+  300,
+  400,
+  "menu",
+  {
+    texto: "Seleccione",
+    opciones: [
+      { titulo: "Opción 1", descripcion: "" },
+      { titulo: "Opción 2", descripcion: "" }
+    ],
+    esperarespuesta: "",
+    esconfirmacion: "no",
+    esmenuprincipal: "no",
+    tipodato: "",
+    AccionIA:"Seleccione" 
+  },
+  `
+<div class="nodo nodo-aceptacion">
+
+<div class="nodo-header">
+📋 Menú
+</div>
+
+<textarea df-texto></textarea>
+
+<div class="nodo menu-opciones" id="menu-opciones">
+</div>
+
+<button class="btn-opcion" onclick="agregarOpcion(this)">
++ Agregar opción
+</button>
+
+<hr>
+
+<label>Esperar respuesta:</label>
+<select df-esperarespuesta>
+<option value="si">Sí</option>
+<option value="no">No</option>
+</select>
+
+<label>¿Es Confirmación de datos?</label>
+<select df-esconfirmacion>
+<option value="no">No</option>
+<option value="si">Sí</option>
+</select>
+
+<label>¿Es Menú principal?</label>
+<select df-esmenuprincipal>
+<option value="no">No</option>
+<option value="si">Sí</option>
+</select>
+
+<label>Tipo de dato:</label>
+<select df-tipoDato>
+<option value="">Seleccionar</option>
+<option value="Identificacion">Identificación</option>
+<option value="Nombre">Nombre</option>
+<option value="Valor">Valor</option>
+<option value="TipoAhorro">Tipo ahorro</option>
+<option value="Correo">Correo</option>
+<option value="Telefono">Telefono</option>
+<option value="Convenio">Convenio</option>
+<option value="Entradas">Entradas</option>
+<option value="Combo1">Combo1</option>
+<option value="Combo2">Combo2</option>
+<option value="Imagen">Imagen</option>
+<option value="Año">Año</option>
+<option value="Documento">Documento</option>
+<option value="Radicado">Radicado</option>
+<option value="Radicado y Asesor">asesor</option>
+<option value="Cierre atención">Cierre atención</option>
+</select>
+
+<label>Acción IA:</label>
+<select df-AccionIA>
+<option value="Politicas">Politicas</option>
+<option value="Menù principal">Menù principal</option>
+</select>
+
+</div>
+`
+);
+//       this.editor.addNode(
+//         "menu",
+//         1,
+//         1,
+//         300,
+//         400,
+//         "menu",
+//         {
+//         texto:"Seleccione",
+//         opciones:[
+//           {titulo:"Opción 1", descripcion:""},
+//           {titulo:"Opción 2", descripcion:""}
+//          ],
+//          esperarespuesta: "" ,
+//          esconfirmacion:"no",  
+//          esmenuprincipal:"no", 
+//          tipodato: "",    
+//         },
+//         `
+//         <div class="nodo nodo-aceptacion">
         
-        <div class="nodo-header">
-        📋 Menú
-        </div>
+//         <div class="nodo-header">
+//         📋 Menú
+//         </div>
         
-        <textarea df-texto></textarea>
+//         <textarea df-texto></textarea>
         
-        <div class="nodo menu-opciones" id="menu-opciones">
-        </div>
+//         <div class="nodo menu-opciones" id="menu-opciones">
+//         </div>
         
-        <button class="btn-opcion" onclick="agregarOpcion(this)">
-        + Agregar opción
-        </button>
+//         <button class="btn-opcion" onclick="agregarOpcion(this)">
+//         + Agregar opción
+//         </button>
         
-        <hr>
+//         <hr>
         
         
-        <label>Esperar respuesta:</label>
-        <select df-esperarespuesta>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
-        <label>¿Es Confirmación de datos?</label>
-        <select df-esconfirmacion>
-        <option value="no">No</option>
-        <option value="si">Sí</option>
-        </select>
-        <label>¿Es Menú principal?</label>
-        <select df-esmenuprincipal>
-        <option value="no">No</option>
-        <option value="si">Sí</option>
-        </select>
-        <label>Tipo de dato:</label>
-        <select df-tipoDato>
-          <option value="">Seleccionar</option>
-          <option value="Identificacion">Identificación</option>
-          <option value="Nombre">Nombre</option>
-          <option value="Valor">Valor</option>
-          <option value="TipoAhorro">Tipo ahorro</option>
-          <option value="Correo">Correo</option>
-          <option value="Telefono">Telefono</option>
-          <option value="Convenio">Convenio</option>
-          <option value="Entradas">Entradas</option>
-          <option value="Combo1">Combo1</option>
-          <option value="Combo2">Combo2</option>
-          <option value="Imagen">Imagen</option>
-          <option value="Año">Año</option>
-          <option value="Documento">Documento</option>
-          <option value="Radicado">Radicado</option>
-          <option value="Radicado y Asesor">asesor</option>
-          <option value="Cierre atención">Cierre atención</option>
-        </select>
+//         <label>Esperar respuesta:</label>
+//         <select df-esperarespuesta>
+//           <option value="si">Sí</option>
+//           <option value="no">No</option>
+//         </select>
+//         <label>¿Es Confirmación de datos?</label>
+//         <select df-esconfirmacion>
+//         <option value="no">No</option>
+//         <option value="si">Sí</option>
+//         </select>
+//         <label>¿Es Menú principal?</label>
+//         <select df-esmenuprincipal>
+//         <option value="no">No</option>
+//         <option value="si">Sí</option>
+//         </select>
+//         <label>Tipo de dato:</label>
+//         <select df-tipoDato>
+//           <option value="">Seleccionar</option>
+//           <option value="Identificacion">Identificación</option>
+//           <option value="Nombre">Nombre</option>
+//           <option value="Valor">Valor</option>
+//           <option value="TipoAhorro">Tipo ahorro</option>
+//           <option value="Correo">Correo</option>
+//           <option value="Telefono">Telefono</option>
+//           <option value="Convenio">Convenio</option>
+//           <option value="Entradas">Entradas</option>
+//           <option value="Combo1">Combo1</option>
+//           <option value="Combo2">Combo2</option>
+//           <option value="Imagen">Imagen</option>
+//           <option value="Año">Año</option>
+//           <option value="Documento">Documento</option>
+//           <option value="Radicado">Radicado</option>
+//           <option value="Radicado y Asesor">asesor</option>
+//           <option value="Cierre atención">Cierre atención</option>
+//         </select>
                         
-        </div>
-        `
-        );
-    // this.editor.addNode(
-    //   "menu",
-    //   1,
-    //   1,
-    //   300,
-    //   400,
-    //   "menu",
-    //   {
-    //   texto:"Seleccione",
-    //   opciones:["Opción 1","Opción 2"]
-    //   },
-    //   `
-    //   <div class="nodo nodo-aceptacion">
-    //   <div class="nodo-header">
-    //   📋 Menú
-    //   </div>
+//         </div>
+//         `
+//         );
+//     // this.editor.addNode(
+//     //   "menu",
+//     //   1,
+//     //   1,
+//     //   300,
+//     //   400,
+//     //   "menu",
+//     //   {
+//     //   texto:"Seleccione",
+//     //   opciones:["Opción 1","Opción 2"]
+//     //   },
+//     //   `
+//     //   <div class="nodo nodo-aceptacion">
+//     //   <div class="nodo-header">
+//     //   📋 Menú
+//     //   </div>
       
       
       
-    //   <textarea df-texto></textarea>
+//     //   <textarea df-texto></textarea>
       
-    //   <div class=" nodo menu-opciones" id="menu-opciones">
-    //   </div>
+//     //   <div class=" nodo menu-opciones" id="menu-opciones">
+//     //   </div>
       
-    //   <button class="btn-opcion" onclick="agregarOpcion(this)">
-    //   + Agregar opción
-    //   </button>
+//     //   <button class="btn-opcion" onclick="agregarOpcion(this)">
+//     //   + Agregar opción
+//     //   </button>
       
-    //   </div>
-    //   `
-    //   );
-    break;
+//     //   </div>
+//     //   `
+//     //   );
+     break;
     
     case "archivo":
-    
-    this.editor.addNode(
-      "Archivo",
-      1, // entrada
-      1, // salida
-      500, 200,
-      "Archivo",
-      { 
-        texto: "Aquí está tu archivo",
-        documento: "https://mi-servidor.com/archivo.pdf",
-        filename: "archivo.pdf",
-        esperarespuesta: "",
-       
-      },
-      `
+      this.editor.addNode(
+        "Archivo",
+        1,
+        1,
+        500,
+        200,
+        "Archivo",
+        {
+          texto: "Aquí está tu archivo",
+          documento: "https://mi-servidor.com/archivo.pdf",
+          filename: "archivo.pdf",
+          esperarespuesta: "",
+          AccionIA: ""
+        },
+        `
       <div class="nodo nodo-aceptacion">
+      
       <div class="nodo-header">
       📄 Archivo
       </div>
-        
-        <input type="text" df-texto placeholder="Mensaje al usuario" value="Aquí está tu archivo">
-        <input type="text" df-documento placeholder="URL del archivo" value="https://mi-servidor.com/archivo.pdf">
-        <input type="text" df-filename placeholder="Nombre del archivo" value="archivo.pdf">
-
-        
-        <label>Esperar respuesta:</label>
-        <select df-esperaRespuesta>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
-
-    
+      
+      <input type="text" df-texto placeholder="Mensaje al usuario">
+      
+      <input type="text" df-documento placeholder="URL del archivo">
+      
+      <input type="text" df-filename placeholder="Nombre del archivo">
+      
+      <label>Esperar respuesta:</label>
+      <select df-esperaRespuesta>
+      <option value="si">Sí</option>
+      <option value="no">No</option>
+      </select>
+      
+      <label>Acción IA:</label>
+      <input type="text" df-accionia placeholder="Ej: CERTIFICADO_LABORAL">
+      
       </div>
-
-    
       `
-    );
-    
-    break;
-    
-    case "imagen":
-    
-    this.editor.addNode(
-    "imagen",
-    1,
-    1,
-    600,
-    300,
-    "imagen",
-    {url:"",
-    esconfirmacion:"no",  
-    esperarespuesta: "",
-    
-    },
-    `
-    <div class="nodo nodo-aceptacion">
-    <div class="nodo-header">
-    🖼  Imagen
-    </div>
-    <strong>Imagen</strong>
-    <input type="text" df-url placeholder="URL Imagen">
-    <label>¿Espera respuesta?</label>    
-        <select df-esperaRespuesta>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
-    </div>
+      );
+//     this.editor.addNode(
+//       "Archivo",
+//       1, // entrada
+//       1, // salida
+//       500, 200,
+//       "Archivo",
+//       { 
+//         texto: "Aquí está tu archivo",
+//         documento: "https://mi-servidor.com/archivo.pdf",
+//         filename: "archivo.pdf",
+//         esperarespuesta: "",
+       
+//       },
+//       `
+//       <div class="nodo nodo-aceptacion">
+//       <div class="nodo-header">
+//       📄 Archivo
+//       </div>
+        
+//         <input type="text" df-texto placeholder="Mensaje al usuario" value="Aquí está tu archivo">
+//         <input type="text" df-documento placeholder="URL del archivo" value="https://mi-servidor.com/archivo.pdf">
+//         <input type="text" df-filename placeholder="Nombre del archivo" value="archivo.pdf">
 
-</div>
+        
+//         <label>Esperar respuesta:</label>
+//         <select df-esperaRespuesta>
+//           <option value="si">Sí</option>
+//           <option value="no">No</option>
+//         </select>
+
+    
+//       </div>
+
+    
+//       `
+//     );
+    
+    break;
+    
+     case "imagen":
+
+     this.editor.addNode(
+      "imagen",
+      1,
+      1,
+      600,
+      300,
+      "imagen",
+      {
+        url: "",
+        esconfirmacion: "no",
+        esperarespuesta: "",
+        accionia: ""
+      },
+      `
+    <div class="nodo nodo-aceptacion">
+    
+    <div class="nodo-header">
+    🖼 Imagen
+    </div>
+    
+    <strong>Imagen</strong>
+    
+    <input type="text" df-url placeholder="URL Imagen">
+    
+    <label>¿Espera respuesta?</label>
+    
+    <select df-esperaRespuesta>
+    <option value="si">Sí</option>
+    <option value="no">No</option>
+    </select>
+    
+    <label>Acción IA:</label>
+    <input type="text" df-accionia placeholder="Ej: ENVIAR_IMAGEN">
+    
+    </div>
     `
     );
     
-    break;
+//     this.editor.addNode(
+//     "imagen",
+//     1,
+//     1,
+//     600,
+//     300,
+//     "imagen",
+//     {url:"",
+//     esconfirmacion:"no",  
+//     esperarespuesta: "",
+    
+//     },
+//     `
+//     <div class="nodo nodo-aceptacion">
+//     <div class="nodo-header">
+//     🖼  Imagen
+//     </div>
+//     <strong>Imagen</strong>
+//     <input type="text" df-url placeholder="URL Imagen">
+//     <label>¿Espera respuesta?</label>    
+//         <select df-esperaRespuesta>
+//           <option value="si">Sí</option>
+//           <option value="no">No</option>
+//         </select>
+//     </div>
+
+// </div>
+//     `
+//     );
+         break;
     
  
     }

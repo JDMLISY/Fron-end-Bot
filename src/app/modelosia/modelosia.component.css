@@ -1,0 +1,45 @@
+table{
+    width:100%;
+    table-layout: fixed;
+}
+
+.mat-header-cell,
+.mat-cell{
+    padding:14px 18px;
+    font-size:14px;
+}
+
+/* Nombre */
+.mat-column-Nombre{
+    width:35%;
+    min-width:250px;
+}
+
+/* Proveedor */
+.mat-column-Proveedor{
+    width:25%;
+    min-width:180px;
+}
+
+/* Modelo */
+.mat-column-Modelo{
+    width:25%;
+    min-width:180px;
+}
+
+/* Estado */
+.mat-column-Activo{
+    width:15%;
+    min-width:120px;
+    text-align:center;
+}
+
+.mat-header-cell{
+    font-weight:600;
+    color:#555;
+}
+
+.mat-row:hover{
+    background:#f5f8ff;
+    cursor:pointer;
+}

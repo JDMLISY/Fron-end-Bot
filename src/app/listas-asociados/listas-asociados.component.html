@@ -102,6 +102,7 @@
   <input
     type="text"
     [(ngModel)]="busquedaNit"
+    (input)="verificarBusqueda()"
     placeholder="Buscar asociado o celular..."
     class="buscador-frases"
   />
@@ -139,7 +140,7 @@
 
     <button
       class="btn-nuevo"
-      (click)="ver_conversacion('', busquedaNit, '', 'Sin Radicado')">
+      (click)="ver_conversacion(nombreAnonimo, busquedaNit, '', 'Sin Radicado')">
       + Nueva conversación
     </button>
 

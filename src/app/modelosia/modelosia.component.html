@@ -1,0 +1,160 @@
+<app-headers  valor="Modelos de Inteligencia Artificial"></app-headers>
+
+<div class="contenedor">
+
+    <mat-card class="card-form">
+
+        <mat-card-title>
+            Configuración del Modelo
+        </mat-card-title>
+
+        <mat-card-content>
+
+            <div class="grid">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput [(ngModel)]="modelo.Nombre">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Proveedor</mat-label>
+                    <mat-select [(ngModel)]="modelo.Proveedor">
+                        <mat-option *ngFor="let p of proveedores" [value]="p">
+                            {{p}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Modelo</mat-label>
+                    <mat-select [(ngModel)]="modelo.Modelo">
+                        <mat-option *ngFor="let m of modelos" [value]="m">
+                            {{m}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>URL Base</mat-label>
+                    <input matInput [(ngModel)]="modelo.UrlBase">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>API Key</mat-label>
+                    <input matInput type="password" [(ngModel)]="modelo.ApiKey">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Organización</mat-label>
+                    <input matInput [(ngModel)]="modelo.Organizacion">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Proyecto</mat-label>
+                    <input matInput [(ngModel)]="modelo.Proyecto">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Temperatura</mat-label>
+                    <input matInput type="number" [(ngModel)]="modelo.Temperatura">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Máx. Tokens</mat-label>
+                    <input matInput type="number" [(ngModel)]="modelo.MaxTokens">
+                </mat-form-field>
+
+            </div>
+
+            <mat-checkbox [(ngModel)]="modelo.Activo">
+                Modelo Activo
+            </mat-checkbox>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+
+            <button mat-raised-button color="primary" (click)="nuevo()">
+                <mat-icon>add</mat-icon>
+                Nuevo
+            </button>
+
+            <button mat-raised-button color="accent" (click)="guardar()">
+                <mat-icon>save</mat-icon>
+                Guardar
+            </button>
+
+            <button mat-raised-button color="warn" (click)="eliminar()">
+                <mat-icon>delete</mat-icon>
+                Eliminar
+            </button>
+
+            <button mat-raised-button class="btn-probar" (click)="probarConexion()">
+                <mat-icon>bolt</mat-icon>
+                Probar conexión
+            </button>
+
+        </mat-card-actions>
+
+    </mat-card>
+
+
+    <mat-card class="card-tabla">
+
+        <mat-card-title>
+            Modelos registrados
+        </mat-card-title>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+
+            <ng-container matColumnDef="Nombre">
+                <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.Nombre}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Proveedor">
+                <th mat-header-cell *matHeaderCellDef>Proveedor</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.Proveedor}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Modelo">
+                <th mat-header-cell *matHeaderCellDef>Modelo</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.Modelo}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Activo">
+                <th mat-header-cell *matHeaderCellDef>Estado</th>
+                <td mat-cell *matCellDef="let row">
+
+                    <span class="activo" *ngIf="row.Activo">
+                        Activo
+                    </span>
+
+                    <span class="inactivo" *ngIf="!row.Activo">
+                        Inactivo
+                    </span>
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+            <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+                (click)="seleccionar(row)"
+                class="fila">
+            </tr>
+
+        </table>
+
+    </mat-card>
+
+</div>

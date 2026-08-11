@@ -105,6 +105,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ParametrosplantillasComponent } from './parametrosplantillas/parametrosplantillas.component';
 import { EstadisticascampaniasComponent } from './estadisticascampanias/estadisticascampanias.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DashboardiaComponent } from './dashboardia/dashboardia.component';
+import { ModelosiaComponent } from './modelosia/modelosia.component';
+import { PlaygroundComponent } from './playground/playground.component';
+import { AgentesiaComponent } from './agentesia/agentesia.component';
 
 
 
@@ -150,6 +154,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MensajeswhatsappplantillaComponent,
     ParametrosplantillasComponent,
     EstadisticascampaniasComponent,
+    DashboardiaComponent,
+    ModelosiaComponent,
+    PlaygroundComponent,
+    AgentesiaComponent,
     
   ],
   imports: [

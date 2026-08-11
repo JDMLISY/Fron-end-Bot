@@ -93,8 +93,9 @@ export class ListasAsociadosComponent implements OnInit {
 
   selectedFile: File | null = null;
   
-  
-
+  ultimaBusquedaBackend: string = '';
+consultandoBackend: boolean = false;
+nombreAnonimo: string = '';
 
   isShow = true;
   topPosToStartShowing = 100;
@@ -980,7 +981,7 @@ while (empieza >= 0 && empieza < cantidadArchivos )
       return;
     }
     
-    this.contacto = this.contacto?.trim() || 'Anónimo';
+    this.contacto = this.contacto?.trim() || '';
 
     this.userService.Mensajeswhatplantilla(this.numero,this.contacto).subscribe({
       next: data => {        
@@ -1129,6 +1130,61 @@ quitarnotificacion(){
   // this.quitarNotificacionTipo('prueba');
 
   this.cdRef.detectChanges();
+}
+consultarBackendSiNoExiste() {
+
+  const valor = (this.busquedaNit || '').trim();
+
+  if (!valor) {
+    return;
+  }
+
+  // Evita consultar nuevamente el mismo valor
+  if (this.ultimaBusquedaBackend === valor) {
+    return;
+  }
+
+  // Evita hacer dos consultas simultáneas
+  if (this.consultandoBackend) {
+    return;
+  }
+
+  this.consultandoBackend = true;
+  this.ultimaBusquedaBackend = valor;
+
+  console.log('🔎 No encontrado localmente. Consultando backend:', valor);
+ var data=  {
+
+    Variable:"NOMBRE_ANONIMOS"
+
+}
+
+  this.authService.RequestDataobject(data,'consultarvariables',this.numero).subscribe({
+    next: respuesta => {
+      
+      this.nombreAnonimo = respuesta[0].Mensaje || '';
+   return
+    },
+    error: err => {
+      this.errorMessage = err.message;        
+      this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...","Error de comunicaciòn",'Error')  
+    }
+  });
+
+}
+
+verificarBusqueda() {
+
+  const resultados = this.NitsFiltrados();
+
+  if (
+    this.busquedaNit &&
+    resultados.length === 0
+  ) {
+
+    this.consultarBackendSiNoExiste();
+
+  }
 }
 }
 
