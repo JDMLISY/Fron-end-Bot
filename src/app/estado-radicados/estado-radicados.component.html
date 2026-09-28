@@ -34,8 +34,133 @@
               </mat-form-field>
             </td>
           </tr>
-
           <tr>
+    
+   
+          
+              <div class="buscador-radicados">
+
+                <mat-form-field appearance="outline">
+              
+                  <mat-label>Buscar radicado</mat-label>
+              
+                  <mat-icon matPrefix>search</mat-icon>
+              
+                  <input
+                    matInput
+                    #buscadorRadicados
+                    (keyup)="aplicarFiltroRadicados(buscadorRadicados.value)"
+                    placeholder="ID, número, contacto o radicado">
+              
+                  <button
+                    *ngIf="filtroRadicados"
+                    matSuffix
+                    mat-icon-button
+                    type="button"
+                    aria-label="Limpiar"
+                    (click)="limpiarFiltroRadicados(buscadorRadicados)">
+                    <mat-icon>close</mat-icon>
+                  </button>
+              
+                </mat-form-field>
+              
+              </div>
+          
+              <div class="tabla-radicados">
+          
+                <mat-table
+                  [dataSource]="dataSource"
+                  class="mat-elevation-z8"
+                  matSort>
+          
+                  <!-- SELECCIÓN -->
+                  <ng-container matColumnDef="seleccion">
+                    <mat-header-cell *matHeaderCellDef>
+                      <mat-checkbox
+                        (change)="toggleAllRows($event)"
+                        [checked]="isAllSelected()"
+                        [indeterminate]="isSomeSelected()">
+                      </mat-checkbox>
+                    </mat-header-cell>
+          
+                    <mat-cell *matCellDef="let row">
+                      <mat-checkbox
+                        (click)="$event.stopPropagation()"
+                        (change)="toggleRow(row)"
+                        [checked]="selection.includes(row)">
+                      </mat-checkbox>
+                    </mat-cell>
+                  </ng-container>
+          
+                  <!-- ID -->
+                  <ng-container matColumnDef="idRegistro">
+                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.idRegistro }}
+                    </mat-cell>
+                  </ng-container>
+          
+                  <!-- ATENCIÓN -->
+                  <ng-container matColumnDef="Tipo_atencion">
+                    <mat-header-cell *matHeaderCellDef>Atención</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.Tipo_atencion }}
+                    </mat-cell>
+                  </ng-container>
+          
+                  <!-- NÚMERO -->
+                  <ng-container matColumnDef="Numero_asociado">
+                    <mat-header-cell *matHeaderCellDef>Número</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.Numero_asociado }}
+                    </mat-cell>
+                  </ng-container>
+          
+                  <!-- CONTACTO -->
+                  <ng-container matColumnDef="contacto">
+                    <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.contacto }}
+                    </mat-cell>
+                  </ng-container>
+          
+                  <!-- RADICADO -->
+                  <ng-container matColumnDef="Radicado">
+                    <mat-header-cell *matHeaderCellDef>Radicado</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.Radicado }}
+                    </mat-cell>
+                  </ng-container>
+          
+                  <!-- FECHA -->
+                  <ng-container matColumnDef="fecha_solicitud">
+                    <mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.fecha_solicitud | date:'short' }}
+                    </mat-cell>
+                  </ng-container>
+          
+                  <mat-header-row
+                    *matHeaderRowDef="displayedColumns">
+                  </mat-header-row>
+          
+                  <mat-row
+                    *matRowDef="let row; columns: displayedColumns;">
+                  </mat-row>
+          
+                </mat-table>
+          
+              </div>
+          
+              <div
+                *ngIf="selection.length === 0 && submitted"
+                style="color: red; margin-top: 10px;">
+                Debes seleccionar al menos un radicado.
+              </div>
+          
+         
+          </tr>
+          <!-- <tr>
             <td colspan="2">
               <p class="titulo-seccion">Radicados:</p>
               <div class="tabla-radicados">
@@ -96,7 +221,7 @@
                 Debes seleccionar al menos un radicado.
               </div>
             </td>
-          </tr>
+          </tr> -->
         </table>
 
         <div class="botonera">

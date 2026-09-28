@@ -766,12 +766,7 @@ if (this.Tipoatencion == "Sin solicitud")
    //     this.userService.showSuccess("Error al consultar los datos, Comuniquese con el Administrador del sistema...", "Error de comunicaciòn", 'Error')
       }
     })
-
-   
-    
-   
-
-  }
+ }
 
 
   applyFilter(event: Event) {

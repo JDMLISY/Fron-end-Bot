@@ -31,7 +31,7 @@ export class estadoradicadosComponent implements OnInit {
   selection: any[] = [];
   form!: FormGroup;
   matcher = new MyErrorStateMatcher();
-
+  filtroRadicados: string = '';
 
       numero = ""
   // dataSource : string[] 
@@ -94,7 +94,33 @@ export class estadoradicadosComponent implements OnInit {
     this.dialogRef.close(false);
    
   }
+  aplicarFiltroRadicados(filtro: string): void {
 
+    this.filtroRadicados = filtro.trim().toLowerCase();
+  
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+  
+      return (
+        String(data.idRegistro || '').toLowerCase().includes(filter) ||
+        String(data.Tipo_atencion || '').toLowerCase().includes(filter) ||
+        String(data.Numero_asociado || '').toLowerCase().includes(filter) ||
+        String(data.contacto || '').toLowerCase().includes(filter) ||
+        String(data.Radicado || '').toLowerCase().includes(filter) ||
+        String(data.fecha_solicitud || '').toLowerCase().includes(filter)
+      );
+  
+    };
+  
+    this.dataSource.filter = this.filtroRadicados;
+  }
+  limpiarFiltroRadicados(input: HTMLInputElement): void {
+
+    input.value = '';
+  
+    this.filtroRadicados = '';
+  
+    this.dataSource.filter = '';
+  }
   // onSubmit(): void {
      
   //   var data = this.form.value
