@@ -57,14 +57,26 @@ export class ChatService {
         'Solicitud-afiliaciones',
         'Solicitud-auxilios-convenios'
       ];
-      
-      if (tiposSolicitud.includes(message.Mensaje)) {
-        this.notificacion$.next({
-          numero: message.numero,
-          mensaje: message.Mensaje
-        });
-        return;
-      }
+      const esSolicitud = tiposSolicitud.includes(message.Mensaje);
+
+if (message.dedonde != 'WEB') {
+
+  this.notificacion$.next({
+    numero: message.numero,
+    mensaje: message.Mensaje,
+    tipo: esSolicitud ? 'solicitud' : 'mensaje'
+  });
+
+}
+    // if (message.dedonde != 'WEB')
+    //   {
+    //   // if (tiposSolicitud.includes(message.Mensaje)) {
+    //     this.notificacion$.next({
+    //       numero: message.numero,
+    //       mensaje: message.Mensaje
+    //     });
+    //  //   return;
+    //   }
 
       const numero = sessionStorage.getItem('numeroContacto');
       if (numero  == message.numero) {

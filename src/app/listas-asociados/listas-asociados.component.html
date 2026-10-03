@@ -7,7 +7,27 @@
       <mat-icon class="icono-saltarin">group</mat-icon>
       <span>Clientes en espera</span>
     </div>
+    <div class="config-notificaciones">
 
+      <div>
+        <mat-checkbox [(ngModel)]="notificarSolicitudes">
+          <mat-icon class="icono-notificacion icono-solicitudes">
+            assignment
+          </mat-icon>
+          <span>Notificación por solicitudes</span>
+        </mat-checkbox>
+      </div>
+    
+      <div>
+        <mat-checkbox [(ngModel)]="notificarMensajes">
+          <mat-icon class="icono-notificacion icono-mensajes">
+            chat
+          </mat-icon>
+          <span>Notificación por mensajes</span>
+        </mat-checkbox>
+      </div>
+    
+    </div>
     <mat-selection-list #shoes>
       <cdk-virtual-scroll-viewport appendOnly itemSize="10" class="example-viewport">
         <mat-accordion multi>
@@ -21,6 +41,16 @@
       <mat-icon>folder</mat-icon>
       {{ item.tipo_atencion }}
     </div>
+       <!-- CONTADOR DE MENSAJES NUEVOS -->
+       <span
+       *ngIf="contarMensajesNoLeidos(item) > 0"
+       class="badge-mensajes"
+       matTooltip="{{ contarMensajesNoLeidos(item) }} mensajes"
+       matTooltipPosition="above">
+       {{ contarMensajesNoLeidos(item) }}
+     </span>
+
+      
   </mat-panel-title>
 
 </mat-expansion-panel-header>
@@ -77,6 +107,7 @@
 
                   <span class="badge" *ngIf="contacto.cantidad" matTooltip="{{ item.cantidad }} solicitudes"
                     matTooltipPosition="above">{{ contacto.cantidad }}</span>
+           
                 </div>
               </mat-list-item>
             </mat-list>
@@ -95,7 +126,7 @@
       height: 550px;
     ">
 
-<div class="ayudas-card">
+<div class="Lista_clientes">
 
   <h3 class="titulo-ayudas">🧾 Lista de clientes para contactar</h3>
 
@@ -104,15 +135,15 @@
     [(ngModel)]="busquedaNit"
     (input)="verificarBusqueda()"
     placeholder="Buscar asociado o celular..."
-    class="buscador-frases"
+    class=".buscador-frases-cliente"
   />
 
   <!-- Lista -->
-  <div class="frases-rapidas" *ngIf="NitsFiltrados().length > 0">
+  <div class="Lista_clientes-rapidas" *ngIf="NitsFiltrados().length > 0">
 
     <div
       *ngFor="let nit of NitsFiltrados()"
-      class="frase"
+      class="Lista_clientes_frase"
       draggable="true"
       (click)="ver_conversacion(nit.SoloNombres,nit.Celular,'S','Sin Radicado')">
 
@@ -234,10 +265,8 @@
       margin-right: 2px;
     ">
     <mat-card appearance="outlined">
-      <!-- <mat-card-header>
-        <mat-card-title>Solicitudes del contacto: {{contacto}}</mat-card-title>
-      </mat-card-header> -->
-      <mat-card-header class="custom-card-header">
+  
+      <!-- <mat-card-header class="custom-card-header">
         <div class="avatar-inicial">
           {{ contacto.charAt(0).toUpperCase() }}
         </div>
@@ -267,7 +296,80 @@
             </button>
           </li>
         </ul>
-      </mat-card-header>
+      </mat-card-header> -->
+<!-- =========================================================
+     FICHA RÁPIDA DEL CLIENTE
+     ========================================================= -->
+
+     <div class="cliente-header">
+
+      <!-- IZQUIERDA: AVATAR + DATOS PRINCIPALES -->
+      <div class="cliente-identidad">
+    
+        <div class="avatar-inicial">
+          {{ contacto.charAt(0).toUpperCase() }}
+        </div>
+    
+        <div class="cliente-datos">
+    
+          <div class="cliente-nombre">
+            {{ contacto }}
+          </div>
+    
+          <div class="cliente-numero">
+            <mat-icon>phone</mat-icon>
+            {{ numero }}
+          </div>
+    
+        </div>
+    
+      </div>
+    
+    
+      <!-- CENTRO: INFORMACIÓN DEL CLIENTE -->
+      <div class="cliente-etiquetas">
+    
+        <span class="cliente-tag tag-asociado">
+          <mat-icon>person</mat-icon>
+          {{ TipoAsociado }}
+        </span>
+    
+        <span class="cliente-tag tag-atencion">
+          <mat-icon>support_agent</mat-icon>
+          {{ Tipoatencion }}
+        </span>
+    
+        <span class="cliente-tag tag-radicado">
+          <mat-icon>description</mat-icon>
+          Radicado: {{ Radicado }}
+        </span>
+    
+        <!-- <span class="cliente-tag tag-estado">
+          <span class="estado-dot"></span>
+          En conversación
+        </span> -->
+    
+      </div>
+    
+    
+      <!-- DERECHA: BUSCAR CONTACTO -->
+      <div class="cliente-acciones">
+    
+        <button
+          mat-raised-button
+          color="primary"
+          class="btn-buscar-contacto"
+          (click)="buscarContacto()">
+    
+          <mat-icon>search</mat-icon>
+    
+          <span>Buscar contacto...</span>
+    
+        </button>
+    
+      </div>
+    
+    </div>
 
       <mat-card-content>
         <mat-form-field appearance="standard">
@@ -345,47 +447,78 @@
     </mat-card>
   </div>
 
-  <div *ngIf="verconversacion" style="
-      width: 74%;
-      float: right;
-      vertical-align: bottom;
-      text-align: bottom;
-      margin-right: 2px;
-      height: 550px;
-    ">
+  <div *ngIf="verconversacion" class="panel-conversacion">
     <div class="conversacion conversacion-layout">
       <mat-card class="conversacion" appearance="outlined">
-        <mat-card-header class="custom-card-header">
-          <div class="avatar-inicial">
-            {{ contacto.charAt(0).toUpperCase() }}
+        <div class="cliente-header">
+
+          <!-- IZQUIERDA: AVATAR + DATOS PRINCIPALES -->
+          <div class="cliente-identidad">
+        
+            <div class="avatar-inicial">
+              {{ contacto.charAt(0).toUpperCase() }}
+            </div>
+        
+            <div class="cliente-datos">
+        
+              <div class="cliente-nombre">
+                {{ contacto }}
+              </div>
+        
+              <div class="cliente-numero">
+                <mat-icon>phone</mat-icon>
+                {{ numero }}
+              </div>
+        
+            </div>
+        
           </div>
-          <div class="header-title">
-            <div>
-              Contacto: <strong>{{ contacto }}</strong>
-            </div>
-            <div>
-              Número: <strong>{{ numero }}</strong>
-            </div>
-            <div>
-              Tipo Asociado: <strong>{{ TipoAsociado }}</strong>
-            </div>          
-            <div>
-              Tipo de atención: <strong>{{ Tipoatencion }}</strong>
-            </div>
-            <div>
-              Radicado: <strong>{{ Radicado }}</strong>
-            </div>
+        
+        
+          <!-- CENTRO: INFORMACIÓN DEL CLIENTE -->
+          <div class="cliente-etiquetas">
+        
+            <span class="cliente-tag tag-asociado">
+              <mat-icon>person</mat-icon>
+              {{ TipoAsociado }}
+            </span>
+        
+            <span class="cliente-tag tag-atencion">
+              <mat-icon>support_agent</mat-icon>
+              {{ Tipoatencion }}
+            </span>
+        
+            <span class="cliente-tag tag-radicado">
+              <mat-icon>description</mat-icon>
+              Radicado: {{ Radicado }}
+            </span>
+        
+            <span class="cliente-tag tag-estado">
+              <span class="estado-dot"></span>
+              En conversación
+            </span>
+        
           </div>
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item salir">
-              <button mat-raised-button style="width: 150px" class="btn btn-primary btn-block" focusable="false"
-                (click)="buscarContacto()">
-                <mat-icon style="margin-left: -11px">search</mat-icon>
-                Buscar contacto...
-              </button>
-            </li>
-          </ul>
-        </mat-card-header>
+        
+        
+          <!-- DERECHA: BUSCAR CONTACTO -->
+          <div class="cliente-acciones">
+        
+            <button
+              mat-raised-button
+              color="primary"
+              class="btn-buscar-contacto"
+              (click)="buscarContacto()">
+        
+              <mat-icon>search</mat-icon>
+        
+              <span>Buscar contacto...</span>
+        
+            </button>
+        
+          </div>
+        
+        </div>
 
         <div class="conversacion-body">
           <div class="botones-columna">
@@ -480,34 +613,106 @@
               </div>
             </div>
 
-            <!-- <div class="ayudas-card">
-              <h3 class="titulo-ayudas">🗂 Ayudas rápidas</h3>
-              <input type="text" [(ngModel)]="busquedaFrase" placeholder="Buscar ayuda..." class="buscador-frases" />
-
-               <div class="frases-rapidas">
-                <div *ngFor="let frase of frasesFiltradas()" 
-                     class="frase"
-                     (dragstart)="onDragStart($event, frase)"
-                     (click)="inputMensaje = frase">
-                  {{ frase }}
-                </div>
-              </div> 
-              <div class="frases-rapidas">
-                <div *ngFor="let frase of frasesFiltradas()" class="frase" draggable="true"
-                  (dragstart)="onDragStart($event, frase)" (dblclick)="enviar(numero, frase)">
-                  {{ frase }}
-                </div>
-              </div>
-            </div> -->
           </div>
 
           <div class="chat-area">
-            <div class="phone-frame">
+            <div
+            class="phone-frame"
+            (dragenter)="onDragEnter($event)"
+            (dragover)="onDragOver($event)"
+            (drop)="onDropFile($event)"
+          >
               <!-- Botón en la parte superior del marco del celular -->
 
               <mat-card-content class="mat-card-content1">
                 <mat-selection-list #Conver [(ngModel)]="Conversa">
-                  <div #container class="container">
+                  <div
+                  #container
+                  class="container"
+                  (scroll)="onChatScroll($event)"
+                  
+                >
+
+
+
+
+<!-- Overlay Drag & Drop -->
+<div
+  *ngIf="mostrarDropzone"
+  class="dropzone-overlay"
+>
+  <div class="dropzone-card">
+
+    <div class="dropzone-icon">
+      📎
+    </div>
+
+    <div class="dropzone-titulo">
+      Suelte el archivo aquí
+    </div>
+
+    <div class="dropzone-subtitulo">
+      PDF · Imagen · Documento
+    </div>
+
+  </div>
+</div>
+<div *ngIf="archivoArrastrado" class="archivo-preview">
+
+  <!-- IMAGEN -->
+  <div
+    *ngIf="archivoArrastrado.type.startsWith('image/')"
+    class="archivo-imagen-preview"
+  >
+    <img
+     [src]="getSafeUrl(vistaPreviaImagen)"      
+      [alt]="archivoArrastrado.name"
+    />
+  </div>
+
+  <!-- PDF -->
+  <div
+    *ngIf="archivoArrastrado.type === 'application/pdf'"
+    class="archivo-pdf-preview"
+  >
+    📄
+  </div>
+
+  <div class="archivo-info">
+
+    <div class="archivo-nombre">
+      {{ archivoArrastrado.name }}
+    </div>
+
+    <div class="archivo-tamano">
+      {{ obtenerTamanoArchivo(archivoArrastrado.size) }}
+    </div>
+
+  </div>
+
+  <div class="archivo-acciones">
+
+    <button
+      mat-button
+      type="button"
+      (click)="cancelarArchivo()">
+      Cancelar
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="enviarArchivoArrastrado()">
+      Enviar
+    </button>
+
+  </div>
+
+</div>
+
+
+
                     <ul>
                       <li *ngFor="let Conver of Conversa" class="divconversa">
                         <!-- Separador de fecha -->
@@ -551,8 +756,12 @@
                             Conver.Ruta_Archivo == 'S'
                           " class="message message-web">
                           <div class="message-bubble">
-                            <img *ngIf="Conver.tipoarchivo?.startsWith('image/')" [src]="getSafeUrl(Conver.Mensaje)"
-                              height="150" width="80%" (click)="downloadFile(Conver.Mensaje)" />
+                            <img
+                            *ngIf="Conver.tipoarchivo?.startsWith('image/')"
+                            [src]="getSafeUrl(Conver.Mensaje)"
+                            (click)="downloadFile(Conver.Mensaje)"
+                            alt="Imagen enviada"
+                          />
 
                               <div
                               *ngIf="Conver.tipoarchivo?.toLowerCase().includes('pdf')"
@@ -722,6 +931,28 @@
                       </li>
                     </ul>
                   </div>
+                  <!-- Botón flotante para volver al último mensaje -->
+                  <button
+                  *ngIf="mostrarIrAlFinal"
+                  class="btn-ir-al-final"
+                  type="button"
+                  (click)="scrollAlFinal()"
+                  [matTooltip]="
+                    mensajesPendientes > 0
+                      ? mensajesPendientes + ' mensajes nuevos'
+                      : 'Ir al último mensaje'
+                  "
+                  aria-label="Ir al último mensaje">
+                
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                
+                  <span
+                    *ngIf="mensajesPendientes > 0"
+                    class="contador-mensajes">
+                    {{ mensajesPendientes }}
+                  </span>
+                
+                </button>
                 </mat-selection-list>
 
                 <!-- Área de entrada -->
@@ -739,10 +970,17 @@
                   (dragover)="onDragOver($event)"
                   placeholder="Escribe un mensaje..."></textarea> -->
 
-                  <input [(ngModel)]="inputMensaje" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
-                    placeholder="Escribe un mensaje..." type="file" #fileInput id="fileInput" multiple
-                    (change)="selectFile($event)" accept=".pdf,image/*" style="display: none" />
-
+                  <input
+                  [(ngModel)]="inputMensaje"
+                  placeholder="Escribe un mensaje..."
+                  type="file"
+                  #fileInput
+                  id="fileInput"
+                  multiple
+                  (change)="selectFile($event)"
+                  accept=".pdf,image/*"
+                  style="display: none"
+                />
                   <button mat-icon-button (click)="toggleSelector()" aria-label="Mostrar emojis">
                     <mat-icon>emoji_emotions</mat-icon>
                   </button>

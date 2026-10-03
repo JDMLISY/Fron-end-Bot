@@ -83,16 +83,21 @@ export class ListasAsociadosComponent implements OnInit {
   toggleSelector() {
     this.mostrarSelector = !this.mostrarSelector;
   }
-  
+  mostrarIrAlFinal: boolean = false;
+mensajesPendientes: number = 0;
+  @ViewChild('container') container!: ElementRef;
 
+  
   @ViewChild('container') private myScrollContainer !: ElementRef;
 
+  mostrarDropzone = false;
+archivoArrastrado: File | null = null;
   files: File[] = [];
   fileUrl: SafeUrl | null = null;
   imageSrc: string | ArrayBuffer | null = null;
 
   selectedFile: File | null = null;
-  
+  vistaPreviaImagen: string = '';
   ultimaBusquedaBackend: string = '';
 consultandoBackend: boolean = false;
 nombreAnonimo: string = '';
@@ -100,8 +105,9 @@ nombreAnonimo: string = '';
   isShow = true;
   topPosToStartShowing = 100;
   
-
-
+  notificarSolicitudes = true;
+  notificarMensajes = true;
+  mensajesNoLeidos = new Map<string, number>();
   itemList : number[]=[];
 
   
@@ -152,9 +158,9 @@ nombreAnonimo: string = '';
     event.dataTransfer?.setData("text/plain", texto);
   }
   
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-  }
+  // onDragOver(event: DragEvent) {
+  //   event.preventDefault();
+  // }
   
   onDrop(event: DragEvent) {
     event.preventDefault();
@@ -184,59 +190,96 @@ isImage(url: any): boolean {
   
   ngOnInit(): void {
 
+    // this.chatService.notificacion$.subscribe(async data => {
+
+    //   if (!data) {
+    //     return;
+    //   }
+    
+    //   const numeroAbierto = sessionStorage.getItem('numeroContacto');
+    
+
+    // //   if (
+    // //     // numeroAbierto !== data.numero &&
+        
+    // //         data.mensaje === 'Solicitud-Asesor' ||
+    // //         data.mensaje === 'Solicitud-ahorros' ||
+    // //         data.mensaje === 'Solicitud-creditos' ||
+    // //         data.mensaje === 'Solicitud-certificados' ||
+    // //         data.mensaje === 'Solicitud-estados-cuenta' ||
+    // //         data.mensaje === 'Solicitud-polizas' ||
+    // //         data.mensaje === 'Solicitud-descuentos-nomina' ||
+    // //         data.mensaje === 'Solicitud-consignaciones' ||
+    // //         data.mensaje === 'Solicitud-boletas-cine' ||
+    // //         data.mensaje === 'Solicitud-afiliaciones' ||
+    // //         data.mensaje === 'Solicitud-auxilios-convenios'
+        
+    // // ) {
+      
+    //    await this.cargarSolicitudes(); // o el método que uses
+        
+    //     this.typesOfShoes.forEach(item => {
+
+    //       const existe = item.contactos.find(
+    //         c => c.numero === data.numero
+    //       );
+        
+    //       if (existe) {
+        
+            
+    //         this.contactosConMensajes.add(data.numero);
+    //         this.tiposConMensajes.add(item.tipo_atencion);
+        
+    //       }
+        
+    //     });
+    //  //   this.contactosConMensajes.add(data.numero);
+    
+    //     this.cdRef.detectChanges();
+    //   //  }else {
+    //   //   this.contactosConMensajes.add(data.numero);
+    
+    //   //   this.cdRef.detectChanges();
+
+    //   //   }
+    
+    // });
     this.chatService.notificacion$.subscribe(async data => {
 
       if (!data) {
         return;
       }
     
-      const numeroAbierto = sessionStorage.getItem('numeroContacto');
+      // Si está desactivada la notificación por solicitudes/mensajes
+      if (!this.notificarSolicitudes && data.tipo === 'solicitud') {
+        return;
+      }
     
+      if (!this.notificarMensajes && data.tipo === 'mensaje') {
+        return;
+      }
+    
+      await this.cargarSolicitudes();
+    
+      this.typesOfShoes.forEach(item => {
+    
+        const existe = item.contactos.find(
+          c => c.numero === data.numero
+        );
+    
+        if (existe) {
+          this.contactosConMensajes.add(data.numero);
+          this.tiposConMensajes.add(item.tipo_atencion);
+          const numero = data.numero;
 
-      if (
-        // numeroAbierto !== data.numero &&
-        
-            data.mensaje === 'Solicitud-Asesor' ||
-            data.mensaje === 'Solicitud-ahorros' ||
-            data.mensaje === 'Solicitud-creditos' ||
-            data.mensaje === 'Solicitud-certificados' ||
-            data.mensaje === 'Solicitud-estados-cuenta' ||
-            data.mensaje === 'Solicitud-polizas' ||
-            data.mensaje === 'Solicitud-descuentos-nomina' ||
-            data.mensaje === 'Solicitud-consignaciones' ||
-            data.mensaje === 'Solicitud-boletas-cine' ||
-            data.mensaje === 'Solicitud-afiliaciones' ||
-            data.mensaje === 'Solicitud-auxilios-convenios'
-        
-    ) {
-      
-       await this.cargarSolicitudes(); // o el método que uses
-        
-        this.typesOfShoes.forEach(item => {
+const actual = this.mensajesNoLeidos.get(numero) || 0;
 
-          const existe = item.contactos.find(
-            c => c.numero === data.numero
-          );
-        
-          if (existe) {
-        
-            
-            this.contactosConMensajes.add(data.numero);
-            this.tiposConMensajes.add(item.tipo_atencion);
-        
-          }
-        
-        });
-     //   this.contactosConMensajes.add(data.numero);
+this.mensajesNoLeidos.set(numero, actual + 1);
+        }
     
-        this.cdRef.detectChanges();
-       }else {
-        this.contactosConMensajes.add(data.numero);
+      });
     
-        this.cdRef.detectChanges();
-
-       }
-    
+      this.cdRef.detectChanges();
     });
     if (this.data) {
       this.ver_conversacion(this.data.nombre, this.data.numero, this.data.dedonde, this.data.radicado);
@@ -244,24 +287,49 @@ isImage(url: any): boolean {
 
     this.chatService.message$.subscribe((message: any) => {
       if (!message) return;
-
+    
+      // Saber cómo estaba el usuario ANTES de agregar el mensaje
+      const estabaAlFinal = this.estaAlFinal();
+    
       // Si no trae fecha, usa la actual
-      const fechaMensaje = message.fecha ? new Date(message.fecha) : new Date();
-      const fechaFormateada = this.obtenerFechaFormateada(fechaMensaje);
-  
+      const fechaMensaje = message.fecha
+        ? new Date(message.fecha)
+        : new Date();
+    
+      const fechaFormateada =
+        this.obtenerFechaFormateada(fechaMensaje);
+    
       // Insertar separador si cambia la fecha
       if (fechaFormateada !== this.ultimaFechaInsertada) {
-        this.Conversa.push({ tipo: 'separador', fecha: fechaFormateada });
+        this.Conversa.push({
+          tipo: 'separador',
+          fecha: fechaFormateada
+        });
+    
         this.ultimaFechaInsertada = fechaFormateada;
       }
-  
-      // Agregar el mensaje normalmente
+    
+      // Agregar el mensaje
       this.Conversa.push(message);
-  
+    
       this.cdRef.detectChanges();
-      this.scrollToBottom();
+    
+      // IMPORTANTE:
+      // Si estaba abajo, seguimos abajo.
+      // Si estaba leyendo arriba, NO MOVEMOS EL SCROLL.
+      if (estabaAlFinal) {
+    
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 100);
+    
+      } else {
+    
+        this.mensajesPendientes++;
+    
+        this.mostrarIrAlFinal = true;
+      }
     });
-  
     this.cargarFrasesPredefinidas();
     this.cargarnitsPredefinidas();
   }
@@ -1086,13 +1154,42 @@ getArchivoLabel(url: any): string {
 
   return '📎 Ver archivo:'; // por defecto si no es reconocida
 }
-getSafeUrl(url: any): SafeResourceUrl {
+getPlainUrl(url: any): string {
+
   const validUrl: string =
     typeof url === 'string'
       ? url
       : url?.changingThisBreaksApplicationSecurity || url?.toString() || '';
 
-  return this.sanitizer.bypassSecurityTrustResourceUrl(validUrl);
+  const match = validUrl.match(/https?:\/\/[^\s\]]+/);
+
+  return match ? match[0] : validUrl.trim();
+}
+
+getSafeUrl(url: any): SafeResourceUrl {
+
+  if (!url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl('');
+  }
+
+  let validUrl = '';
+
+  if (typeof url === 'string') {
+    validUrl = url;
+  } else {
+    validUrl = url.toString();
+  }
+
+  // Buscar la URL real dentro del mensaje
+  const match = validUrl.match(/https?:\/\/[^\s\]]+|blob:[^\s\]]+/);
+
+  const cleanUrl = match
+    ? match[0]
+    : validUrl.trim();
+
+
+
+  return this.sanitizer.bypassSecurityTrustResourceUrl(cleanUrl);
 }
 
 abrirPdf(url: any) {
@@ -1104,22 +1201,20 @@ abrirPdf(url: any) {
   window.open(validUrl, '_blank');
 }
 
-getPlainUrl(url: any): string {
-  return typeof url === 'string'
-    ? url
-    : url?.changingThisBreaksApplicationSecurity || '';
-}
+
 
 quitarNotificacionTipo(tipo: string) {
 
   this.tiposConMensajes.delete(tipo);
 
   this.tiposConMensajes = new Set(this.tiposConMensajes);
-
+  this.mensajesNoLeidos.delete(this.numero);
+  this.contactosConMensajes.delete(this.numero);
 }
 quitarnotificacion(){
 
-  
+  this.mensajesNoLeidos.delete(this.numero);
+  this.contactosConMensajes.delete(this.numero);
   this.contactosConMensajes.delete(this.numero);
   this.contactosConMensajes = new Set(this.contactosConMensajes);
   // this.quitarNotificacionTipo('prueba');
@@ -1180,6 +1275,212 @@ verificarBusqueda() {
     this.consultarBackendSiNoExiste();
 
   }
+}
+onChatScroll(event: Event): void {
+  const elemento = event.target as HTMLElement;
+
+  const distanciaAlFinal =
+    elemento.scrollHeight -
+    elemento.scrollTop -
+    elemento.clientHeight;
+
+  const estaAbajo = distanciaAlFinal <= 50;
+
+  if (estaAbajo) {
+    this.mostrarIrAlFinal = false;
+    this.mensajesPendientes = 0;
+  } else {
+    this.mostrarIrAlFinal = true;
+  }
+}
+scrollAlFinal(): void {
+  if (!this.container) {
+    return;
+  }
+
+  const elemento = this.container.nativeElement;
+
+  elemento.scrollTo({
+    top: elemento.scrollHeight,
+    behavior: 'smooth'
+  });
+
+  this.mensajesPendientes = 0;
+
+  setTimeout(() => {
+    this.mostrarIrAlFinal = false;
+  }, 300);
+}
+
+estaAlFinal(): boolean {
+  if (!this.container) {
+    return true;
+  }
+
+  const elemento = this.container.nativeElement;
+
+  const distanciaAlFinal =
+    elemento.scrollHeight -
+    elemento.scrollTop -
+    elemento.clientHeight;
+
+  return distanciaAlFinal <= 50;
+}
+
+actualizarConversacion(nuevosMensajes: any[]): void {
+
+  const estabaAbajo = this.estaAlFinal();
+
+  this.Conversa = nuevosMensajes;
+
+  if (estabaAbajo) {
+
+    // El asesor estaba viendo el último mensaje.
+    // Sí podemos bajar automáticamente.
+    setTimeout(() => {
+      this.scrollAlFinal();
+    }, 100);
+
+  } else {
+
+    // El asesor estaba leyendo mensajes anteriores.
+    // NO movemos el scroll.
+
+    this.mensajesPendientes++;
+
+    this.mostrarIrAlFinal = true;
+  }
+}
+
+
+onDragEnter(event: DragEvent): void {
+  event.preventDefault();
+  event.stopPropagation();
+
+  this.mostrarDropzone = true;
+}
+
+onDragOver(event: DragEvent): void {
+  event.preventDefault();
+  event.stopPropagation();
+
+  if (event.dataTransfer) {
+    event.dataTransfer.dropEffect = 'copy';
+  }
+
+  this.mostrarDropzone = true;
+}
+
+// onDropFile(event: DragEvent): void {
+//   event.preventDefault();
+//   event.stopPropagation();
+
+//   this.mostrarDropzone = false;
+
+//   if (!event.dataTransfer || event.dataTransfer.files.length === 0) {
+//     return;
+//   }
+
+//   this.archivoArrastrado = event.dataTransfer.files[0];
+  
+
+//   console.log('Archivo recibido:', this.archivoArrastrado);
+// }
+
+onDropFile(event: DragEvent): void {
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  this.mostrarDropzone = false;
+
+  if (!event.dataTransfer || event.dataTransfer.files.length === 0) {
+    return;
+  }
+
+  this.archivoArrastrado = event.dataTransfer.files[0];
+  if (this.archivoArrastrado.type.startsWith('image/')) {
+    this.vistaPreviaImagen = URL.createObjectURL(this.archivoArrastrado);
+  } else {
+    this.vistaPreviaImagen = '';
+  }
+
+}
+
+cancelarArchivo() {
+  this.archivoArrastrado = null;
+}
+obtenerTamanoArchivo(bytes: number): string {
+  if (bytes < 1024) {
+    return bytes + ' B';
+  }
+
+  if (bytes < 1024 * 1024) {
+    return (bytes / 1024).toFixed(1) + ' KB';
+  }
+
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+enviarArchivoArrastrado(): void {
+
+  if (!this.archivoArrastrado) {
+    return;
+  }
+
+  this.currentFile = this.archivoArrastrado;
+
+  this.authService.upload(
+    this.currentFile,
+    "Chat",
+    this.numero
+  ).subscribe({
+    next: data => {
+
+      console.log('RESPUESTA COMPLETA DEL UPLOAD:', data);
+      console.log('URL:', data?.url);
+      console.log('ARCHIVO:', data?.archivo);
+      console.log('RUTA:', data?.ruta);
+      console.log('DATA STRING:', JSON.stringify(data));
+    
+      this.userService.showSuccess(
+        data.message,
+        'Registro de datos',
+        'success'
+      );
+    
+      this.archivoArrastrado = null;
+    },
+
+    error: err => {
+
+      const mensajeBackend = err?.error?.message;
+
+      const mensajeError =
+        mensajeBackend ||
+        err?.message ||
+        "Error al consultar los datos, Comuníquese con el Administrador del sistema.";
+
+      const tipoMensaje = mensajeBackend ? "warning" : "Error";
+
+      this.userService.showSuccess(
+        mensajeError,
+        "Registro de datos",
+        tipoMensaje
+      );
+    }
+  });
+}
+contarMensajesNoLeidos(item: any): number {
+  if (!item || !item.contactos) {
+    return 0;
+  }
+
+  return item.contactos.reduce(
+    (total: number, contacto: any) =>
+      total + (this.mensajesNoLeidos.get(contacto.numero) || 0),
+    0
+  );
 }
 }
 
